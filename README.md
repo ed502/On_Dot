@@ -41,14 +41,15 @@
 ### :large_orange_diamond: 작품시연
 ----------------------------------------------------------
 #### :heavy_check_mark: 하드웨어 모델링
-<img src="/images/hardware_env.jpg" width="100%">
+
+<img src="/images/modeling1.png" width="50%"><img src="/images/modeling2.png" width="50%">
+<img src="/images/modeling3.png" width="100%">
 
 ### :large_orange_diamond: 개발환경
 ----------------------------------------------------------
 #### :heavy_check_mark: 하드웨어 개발환경
 
-<img src="/images/modeling1.png" width="50%"><img src="/images/modeling2.png" width="50%">
-<img src="/images/modeling3.png" width="100%">
+<img src="/images/hardware_env.jpg" width="100%">
 
 #### :heavy_check_mark: 소프트웨어 개발환경
 

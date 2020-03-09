@@ -25,11 +25,19 @@
 
 :point_right: 단계별 학습을 통해 자가 학습상태 진단
 
-데이터를 수집하여 시각장애인들이 어려움을 느끼는 단어 파악
+:point_right: 데이터를 수집하여 시각장애인들이 어려움을 느끼는 단어 파악
 
 ### :large_orange_diamond: 기능
 ----------------------------------------------------------
-:heavy_check_mark:
+#### :heavy_check_mark: 점자교육
+
+#### :heavy_check_mark: 점자퀴즈
+
+#### :heavy_check_mark: 점자번역
+
+#### :heavy_check_mark: 음성게시
+
+
 ### :large_orange_diamond: 작품시연
 ----------------------------------------------------------
 

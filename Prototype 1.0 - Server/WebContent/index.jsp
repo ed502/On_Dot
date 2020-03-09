@@ -30,5 +30,23 @@
 			<input type="submit" value="종성">
 	</form>
 	
+	
+	<form method="post" action="wordtest.jsp">
+
+		<p>
+			<input type="submit" value="단어 넣은것들">
+	</form>
+	
+	<form method="post" action="wordRankTest.jsp">
+
+		<p>
+			<input type="submit" value="오답 랭킹">
+	</form>
+	
+	<form method="post" action="translateRankTest.jsp">
+
+		<p>
+			<input type="submit" value="번역 랭킹">
+	</form>
 </body>
 </html>

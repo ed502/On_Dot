@@ -7,8 +7,9 @@
 <title>DB Connection Test</title>
 </head>
 <body>
+
        <%
-              String DB_URL = "jdbc:mysql://root.ca1bxkya6tgk.ap-northeast-2.rds.amazonaws.com:3306/onDot";
+              String DB_URL = "jdbc:mysql://root.ca1bxkya6tgk.ap-northeast-2.rds.amazonaws.com:3306/onDot?autoReconnection=true";
               String DB_USER = "root";
               String DB_PASSWORD = "qnghkf1324";
               Connection conn;

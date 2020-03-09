@@ -40,13 +40,16 @@
 
 ### :large_orange_diamond: 작품시연
 ----------------------------------------------------------
+#### :heavy_check_mark: 하드웨어 모델링
+<img src="/images/hardware_env.jpg" width="100%">
 
 ### :large_orange_diamond: 개발환경
 ----------------------------------------------------------
 #### :heavy_check_mark: 하드웨어 개발환경
 
-<img src="/images/hardware_env.jpg" width="100%">
-
+<img src="/images/modeling1.jpg" width="50%"><img src="/images/modeling2.jpg" width="50%">
+<img src="/images/modeling3.jpg" width="100%">
+<img src="/images/modeling4.gif" width="30%">
 #### :heavy_check_mark: 소프트웨어 개발환경
 
 <img src="/images/software_env.jpg" width="100%">

@@ -44,9 +44,13 @@
 ### :large_orange_diamond: 개발환경
 ----------------------------------------------------------
 #### :heavy_check_mark: 하드웨어 개발환경
-<img src="/images/hardware_env.jpg" width="50%">
+
+<img src="/images/hardware_env.jpg" width="100%">
+
 #### :heavy_check_mark: 소프트웨어 개발환경
-<img src="/images/software_env.jpg" width="50%">
+
+<img src="/images/software_env.jpg" width="100%">
+
 ### :large_orange_diamond: 역할분담
 ----------------------------------------------------------
 

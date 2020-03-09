@@ -1,5 +1,5 @@
 # On_Dot 시각장애인을 위한 점자 교육 시스템
-##Braille Training System for the Blind
+## Braille Training System for the Blind
 한국산업기술대학교 컴퓨터공학부 졸업작품 On_Dot ( 김학진 문준혁 송민욱 이세민 )
 ### :large_orange_diamond: 작품개요
 ----------------------------------------------------------

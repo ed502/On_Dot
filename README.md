@@ -54,8 +54,45 @@
 ### :large_orange_diamond: 역할분담
 ----------------------------------------------------------
 
+<img src="/images/role.jpg" width="100%">
+
 ### :large_orange_diamond: 진행상황
 ----------------------------------------------------------
 
+<img src="/images/going.jpg" width="100%">
+
 ### :large_orange_diamond: 참고문헌
 ----------------------------------------------------------
+[1] 보건복지부, “2017년 장애인 실태조사”, 정책보고서 2017-90, 발간등록 11-1352000-000568-12
+
+[2] 탭틸로,“탭틸로 사용설명서”, https://www.taptilo.com/kor , (2019/11/10)
+
+[3] 봄 – 시각장애인을 위한 점자학습, https://github.com/ch-Yoon/refectoring_braille , ch-Yoon
+
+[4] 뉴스토마토,“VC 진동점자학습”, http://www.newstomato.com/ReadNews.aspx?no=906184 , (2019/11/18)
+
+[5] 한글 – 점자 번역 파이썬 프로그램 ,https://github.com/hyonzin/hangul-braille-converter , hyonzin
+
+[6] 한국시각장애인 연합회 , “시각장애인의 이해”, http://www.kbuwel.or.kr/Blind/Braille , (2019/11/15)
+
+[7] JEREMY BLUM, 익스플로링 아두이노, 한빛아카데미, 2014/05/26,
+
+[8] 권영은, 『NX 3D모델링 실기 활용서』, 메카피아, 2018 
+
+[9] Siemens Nx Tutorials, "Unigraphics Siemens UG Nx 10 Basic Modeling Tutorial for Beginner – 1", YouTube, 2017.04.19.
+
+[10] 정재곤, 『Do it! 안드로이드 앱 프로그래밍』, 이지스퍼블리싱, 2019
+
+[11] 송미영, 『쉽게 배우는 JSP 웹 프로그래밍』, 한빛 아카데미, 2018
+
+[12] AWS – Amazon RDS 기능 https://aws.amazon.com/ko/rds/features/ , (2020/01/24)
+
+[13] JoShi - JSP 게시판 만들기 - 네이밍, 데이터베이스 설계 http://www.joshi.co.kr/index.php?mid=board_wUIV71&document_srl=
+301683 , (2020/01/28)
+
+[14] 안드로이드 Developers API 멀티터치 동작 처리 , GoogleDeveloper  https://developer.android.com/training/gestures/multi?hl=ko (2020/02/01)
+
+[15] 카카오 음성인식 API SDK 기술문서 , KAKAO https://developers.kakao.com/docs/android/speech#%EC%9D%8C%EC%84%B1-%EC%9D%B8%EC%8B%9D , (2020/02/02)
+
+[16] 카카오 음성합성 API SDK 기술문서 , KAKAO https://developers.kakao.com/docs/android/speech#%EC%9D%8C%EC%84%B1-%ED%95%A9%EC%84%B1 , (2020/02/02)
+

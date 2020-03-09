@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    useLibrary 'org.apache.http.legacy' // 서버 통신 라이브러리
-
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
@@ -28,8 +26,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
-
-    //compile group: 'com.kakao.sdk', name: 'newtone', version: project.KAKAO_SPEECH_VERSION
-    implementation 'com.kakao.sdk:newtone:6.1.4'
 }

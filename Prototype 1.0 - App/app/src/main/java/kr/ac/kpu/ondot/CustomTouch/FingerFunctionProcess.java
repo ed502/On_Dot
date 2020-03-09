@@ -9,7 +9,7 @@ public class FingerFunctionProcess {
 
     }
 
-    public FingerFunctionType getFingerFunctionType(FingerLocation fingerLocation){
+    public FingerFunctionType getOneFingerFunctionType(FingerLocation fingerLocation){
         FingerFunctionType type = FingerFunctionType.NONE;
 
         int fingerCount = fingerLocation.getFingerCount();
@@ -20,11 +20,11 @@ public class FingerFunctionProcess {
 
         }*/
 
-        double fingerGapX[] = new double[fingerCount];
-        double fingerGapY[] = new double[fingerCount];
+        double finger_gapX[] = new double[fingerCount];
+        double finger_gapY[] = new double[fingerCount];
 
-        int dragCountX = 0; // 좌우 판단
-        int dragCountY = 0; // 상하 판단
+        int drag_countX = 0; // 좌우 판단
+        int drag_countY = 0; // 상하 판단
 
         double dragSpace = Screen.displayY * (0.1);
 
@@ -35,27 +35,27 @@ public class FingerFunctionProcess {
 
 
         for(int i=0; i<fingerCount; i++){
-            fingerGapX[i] = downX[i] - upX[i]; // X 좌표 격차
-            fingerGapY[i] = downY[i] - upY[i]; // Y 좌표 격차
+            finger_gapX[i] = downX[i] - upX[i]; // X 좌표 격차
+            finger_gapY[i] = downY[i] - upY[i]; // Y 좌표 격차
 
-            if (fingerGapX[i] > dragSpace)
-                dragCountX++;
-            else if (fingerGapX[i] < dragSpace * (-1))
-                dragCountX--;
+            if (finger_gapX[i] > dragSpace)
+                drag_countX++;
+            else if (finger_gapX[i] < dragSpace * (-1))
+                drag_countX--;
 
-            if (fingerGapY[i] > dragSpace)
-                dragCountY++;
-            else if (fingerGapY[i] < dragSpace)
-                dragCountY--;
+            if (finger_gapY[i] > dragSpace)
+                drag_countY++;
+            else if (finger_gapY[i] < dragSpace)
+                drag_countY--;
         }
 
 
         boolean DragX = false;
         boolean DragY = false;
 
-        if (dragCountX == fingerCount || dragCountX == fingerCount*(-1))
+        if (drag_countX == fingerCount || drag_countX == fingerCount*(-1))
             DragX = true;
-        else if (dragCountY == fingerCount || dragCountY == fingerCount*(-1))
+        else if (drag_countY == fingerCount || drag_countY == fingerCount*(-1))
             DragY = true;
 
         // 손가락 수에 맞춰서
@@ -63,13 +63,13 @@ public class FingerFunctionProcess {
             if(DragX == false && DragY == false)
                 type = FingerFunctionType.NONE;
             else if(DragX == true && DragY == false){
-                if(dragCountX > 0) // 오른쪽
+                if(drag_countX > 0) // 오른쪽
                     type = FingerFunctionType.RIGHT;
                 else
                     type = FingerFunctionType.LEFT;
 
             }else if(DragX == false && DragY == true){
-                if(dragCountY > 0)
+                if(drag_countY > 0)
                     type = FingerFunctionType.UP;
                 else
                     type = FingerFunctionType.DOWN;
@@ -77,19 +77,19 @@ public class FingerFunctionProcess {
                 double gapX = 0;
                 double gapY = 0;
 
-                for(int i=0; i<fingerGapX.length; i++){
-                    gapX = gapX + fingerGapX[i];
-                    gapY = gapY + fingerGapY[i];
+                for(int i=0; i<finger_gapX.length; i++){
+                    gapX = gapX + finger_gapX[i];
+                    gapY = gapY + finger_gapY[i];
                 }
 
 
                 if(gapX > gapY){
-                    if(dragCountX > 0)
+                    if(drag_countX > 0)
                         type = FingerFunctionType.RIGHT;
                     else
                         type = FingerFunctionType.LEFT;
                 }else if(gapY > gapX){
-                    if(dragCountY > 0)
+                    if(drag_countY > 0)
                         type = FingerFunctionType.UP;
                     else
                         type = FingerFunctionType.DOWN;
@@ -98,7 +98,7 @@ public class FingerFunctionProcess {
             }
         }else if(fingerCount == FingerFunctionType.TWO_FINGER.getNumber()){
             if(DragX == false && DragY == true){
-                if(dragCountY > 0)
+                if(drag_countY > 0)
                     type = FingerFunctionType.SPECIAL; // 아래서 위로 드래그
                 else
                     type = FingerFunctionType.BACK;  // 위에서 아래로 드래그
@@ -106,14 +106,14 @@ public class FingerFunctionProcess {
                 double gapX = 0;
                 double gapY = 0;
 
-                for(int i=0; i<fingerGapX.length; i++){
-                    gapX = gapX + fingerGapX[i];
-                    gapY = gapY + fingerGapY[i];
+                for(int i=0; i<finger_gapX.length; i++){
+                    gapX = gapX + finger_gapX[i];
+                    gapY = gapY + finger_gapY[i];
                 }
 
 
                 if(gapY > gapX){ // y 축 이동거리가 큰 경우
-                    if(dragCountY > 0)
+                    if(drag_countY > 0)
                         type = FingerFunctionType.SPECIAL;
                     else
                         type = FingerFunctionType.BACK;

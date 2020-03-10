@@ -45,31 +45,23 @@ public class FingerLocation {
 
     }*/
 
-    public void setDownCoordinate(MotionEvent event, int fingerCount){
+    public void setDownLocation(MotionEvent event, int fingerCount){
         this.fingerCount = fingerCount;
-        Log.d(DEBUG_TYPE,"OneFingerCoordinate - down : " + String.valueOf(fingerCount));
         downInitialize();
 
         for(int i=0; i<fingerCount; i++){
             downX[i] = (int) event.getX(i);
-            Log.d(DEBUG_TYPE,"OneFingerCoordinate - downX : " + String.valueOf(downX[i]));
             downY[i] = (int) event.getY(i);
-            Log.d(DEBUG_TYPE,"OneFingerCoordinate - downY : " + String.valueOf(downY[i]));
         }
-
     }
-    public void setUpCoordinate(MotionEvent event, int fingerCount){
+    public void setUpLocation(MotionEvent event, int fingerCount){
         this.fingerCount = fingerCount;
-
         upInitialize();
 
         for(int i=0; i<fingerCount; i++){
             upX[i] = (int) event.getX(i);
-            Log.d(DEBUG_TYPE,"OneFingerCoordinate - upX : " + String.valueOf(upX[i]));
             upY[i] = (int) event.getY(i);
-            Log.d(DEBUG_TYPE,"OneFingerCoordinate - upY : " + String.valueOf(upY[i]));
         }
-
     }
 
     /**

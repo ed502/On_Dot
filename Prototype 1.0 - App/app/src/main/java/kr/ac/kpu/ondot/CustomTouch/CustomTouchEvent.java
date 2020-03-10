@@ -24,8 +24,8 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
     private boolean maxFingerExceed = false;
 
     private int touchCount = 0;
-    private TimerTask basicTimerTask, longTimerTask;
-    private Timer basicTimer, longTimer;
+    private TimerTask doubleTimerTask, longTimerTask;
+    private Timer doubleTimer, longTimer;
     private boolean longTouchCheck = false;
 
 
@@ -97,7 +97,7 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
 
         touchCount++;
 
-        fingerLocation.setDownCoordinate(event, fingerCount);
+        fingerLocation.setDownLocation(event, fingerCount);
 
         longTouchThreadStart();
 
@@ -112,7 +112,7 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
     private void oneFingerUp(MotionEvent event, int fingerCount){
 
         if(multiFinger == false){
-            fingerLocation.setUpCoordinate(event, fingerCount);
+            fingerLocation.setUpLocation(event, fingerCount);
 
             touchCount++;
 
@@ -180,18 +180,18 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
 
         // doubleTabCheckThreadStop();
 
-        fingerLocation.setDownCoordinate(event,fingerCount);
+        fingerLocation.setDownLocation(event,fingerCount);
     }
 
     // 두 손가락 UP 인식하는경우
     // multiFinger 를 true 일때 처리한다.
     private void twoFingerUp(MotionEvent event, int fingerCount){
         if(multiFinger == true){
-            fingerLocation.setUpCoordinate(event,fingerCount);
+            fingerLocation.setUpLocation(event,fingerCount);
 
             FingerFunctionType type;
 
-            type = fingerFunctionProcess.getOneFingerFunctionType(fingerLocation);
+            type = fingerFunctionProcess.getFingerFunctionType(fingerLocation);
 
             if(type == FingerFunctionType.BACK){
                 Log.d(DEBUG_TYPE,"BACK 위에서 아래로");
@@ -211,8 +211,8 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
     // 추가적인 DOWN -> UP 이 인식되고 touchCount 가 4 이상인 경우 더블탭으로 판정하여 처리
     // 첫번째 DOWN 에서 LONG TOUCH 가 판정이 되는겨우 해당 쓰레드에서 더블탭과 일반적인 드래그를 인식하지 않고 Long 터치로 처리
     private synchronized void doubleTabCheckThreadStart(){
-        if(basicTimerTask == null) {
-            basicTimerTask = new TimerTask() {
+        if(doubleTimerTask == null) {
+            doubleTimerTask = new TimerTask() {
                 @Override
                 public void run() {
                     FingerFunctionType type = FingerFunctionType.NONE;
@@ -230,7 +230,7 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
                             customTouchEventListener.onOneFingerFunction(type);
                         }else{
 
-                            type = fingerFunctionProcess.getOneFingerFunctionType(fingerLocation);
+                            type = fingerFunctionProcess.getFingerFunctionType(fingerLocation);
                             customTouchEventListener.onOneFingerFunction(type);
                         }
                         Log.d(DEBUG_TYPE,"CustomTouchEvent - touchCount : " + String.valueOf(touchCount));
@@ -260,8 +260,8 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
                     touchCount = 0;
                 }
             };
-            basicTimer = new Timer();
-            basicTimer.schedule(basicTimerTask, 200);
+            doubleTimer = new Timer();
+            doubleTimer.schedule(doubleTimerTask, 200);
         }
 
     }
@@ -269,23 +269,21 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
     private void doubleTabCheckThreadStop(){
         // touchCount = 0;
 
-        if(basicTimerTask != null){
-            basicTimerTask.cancel();
-            basicTimerTask = null;
+        if(doubleTimerTask != null){
+            doubleTimerTask.cancel();
+            doubleTimerTask = null;
         }
 
-        if(basicTimer != null){
-            basicTimer.cancel();
-            basicTimer = null;
+        if(doubleTimer != null){
+            doubleTimer.cancel();
+            doubleTimer = null;
         }
-
-
-
     }
 
 
     // down 상태가 0.5초 이상 지속되면 long 터치로 판단
     // 0.5초 이내 UP 이 발생되면 long 터치가 아닌 일반 드래그로 인식
+    // UP 인식시 longTouchCheck 으로 판단이 가능해진다.
     private synchronized void longTouchThreadStart(){
         if(longTimerTask == null){
             longTimerTask = new TimerTask() {

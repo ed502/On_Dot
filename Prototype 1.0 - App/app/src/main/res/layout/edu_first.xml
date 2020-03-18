@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlack"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Educate.EduFirst">
 
-    <LinearLayout
-        android:id="@+id/edu_first_layout"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:gravity="bottom">
-    <ImageView
-        android:layout_margin="20dp"
-        android:layout_gravity="right"
-        android:src="@drawable/kakao_image"
-        android:layout_width="102px"
-        android:layout_height="15px"/>
-    </LinearLayout>
-</FrameLayout>
+        android:text="에듀1" />
+</LinearLayout>

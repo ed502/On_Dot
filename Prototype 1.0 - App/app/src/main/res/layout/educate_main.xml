@@ -1,56 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/colorBlack"
     android:orientation="vertical">
-    <LinearLayout
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/edu_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/edu_viewpager"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:gravity="center"
-            android:orientation="vertical">
-            <kr.ac.kpu.ondot.CircleIndicator
-                android:id="@+id/edu_circleIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/edu_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:gravity="bottom">
-        <ImageView
-            android:layout_margin="20dp"
-            android:layout_gravity="right"
-            android:src="@drawable/kakao_image"
-            android:layout_width="102px"
-            android:layout_height="15px"/>
-    </LinearLayout>
-
-</FrameLayout>
+        android:layout_margin="20dp"/>
+</LinearLayout>

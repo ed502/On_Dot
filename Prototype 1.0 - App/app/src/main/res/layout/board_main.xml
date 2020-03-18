@@ -1,48 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlack"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context=".Board.BoardMain">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:fontFamily="@font/nanumgothic"
-        android:gravity="center_horizontal"
-        android:text="게시판"
-        android:textColor="@color/colorWhite"
-        android:textSize="50dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/edu_icon_foreground" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/board_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:background="@android:color/transparent"
-        android:orientation="vertical" >
-        <ImageView
-            android:layout_margin="20dp"
-            android:layout_gravity="right"
-            android:src="@drawable/kakao_image"
-            android:layout_width="102px"
-            android:layout_height="15px"/>
-    </LinearLayout>
-</FrameLayout>
+        android:text="게시판" />
+</LinearLayout>

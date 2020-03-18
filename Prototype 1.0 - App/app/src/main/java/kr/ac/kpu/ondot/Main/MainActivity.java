@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import kr.ac.kpu.ondot.Board.BoardMain;
-import kr.ac.kpu.ondot.CircleIndicator;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
@@ -28,35 +26,17 @@ import kr.ac.kpu.ondot.Translate.TranslateMain;
 public class MainActivity extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
 
-    private CircleIndicator circleIndicator;
-
     private ViewPager mViewpager;
     private MainPagerAdapter mAdapter;
-    private int maxPage;
     private int currentView;
 
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
 
-    private long first_time, second_time;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        circleIndicator = findViewById(R.id.main_circleIndicator);
-
-        linearLayout = findViewById(R.id.main_layout);
-        linearLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (customTouchConnectListener != null) {
-                    customTouchConnectListener.touchEvent(motionEvent);
-                }
-                return true;
-            }
-        });
 
         initDisplaySize();
         initTouchEvent();
@@ -65,9 +45,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
         mViewpager.setAdapter(mAdapter);
         mViewpager.setClipToPadding(false);
-        maxPage = mAdapter.getCount() - 1;
-        circleIndicator.setItemMargin(5);
-        circleIndicator.createDotPanel(mAdapter.getCount(), R.drawable.indicator_dot_off, R.drawable.indicator_dot_on);
 
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -77,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             @Override
             public void onPageSelected(int position) {
                 currentView = position;
-                circleIndicator.selectDot(position);
             }
 
             @Override
@@ -87,61 +63,66 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         });
     }
 
-    private void initTouchEvent() {
-        customTouchConnectListener = new CustomTouchEvent(this, this);
-    }
-
-    // 해상도 구하기
-    private void initDisplaySize() {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        Screen.displayX = size.x;
-        Screen.displayY = size.y;
-    }
-
     public void activitySwitch(int currentView) {
         Intent intent;
         switch (currentView) {
             case 0:
-                intent = new Intent(MainActivity.this, EducateMain.class);
+                intent =  new Intent(MainActivity.this, EducateMain.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(MainActivity.this, QuizMain.class);
+                intent =  new Intent(MainActivity.this, QuizMain.class);
                 startActivity(intent);
                 break;
             case 2:
-                intent = new Intent(MainActivity.this, TranslateMain.class);
+                intent =  new Intent(MainActivity.this, TranslateMain.class);
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(MainActivity.this, BoardMain.class);
+                intent =  new Intent(MainActivity.this, BoardMain.class);
                 startActivity(intent);
                 break;
         }
     }
 
-    @Override
-    public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
+    private void initTouchEvent() {
+        customTouchConnectListener = new CustomTouchEvent(this, this);
+    }
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
-                    if (currentView < maxPage)
-                        mViewpager.setCurrentItem(currentView + 1);
-                    else
-                        mViewpager.setCurrentItem(currentView);
-                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
-                    if (currentView > 0)
-                        mViewpager.setCurrentItem(currentView - 1);
-                    else
-                        mViewpager.setCurrentItem(currentView);
-                }
-            }
-        });
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(customTouchConnectListener != null){
+            customTouchConnectListener.touchEvent(event);
+        }
+
+        return false;
+
+
+        /*switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                activitySwitch(currentView);
+                break;
+        }
+
+        return false;*/
+    }
+
+    // 해상도 구하기
+    private void initDisplaySize(){
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+
+
+
+        Screen.displayX = size.x;
+        Screen.displayY = size.y;
+    }
+
+    @Override
+    public void onOneFingerFunction(FingerFunctionType fingerFunctionType) {
+
         /*runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -165,38 +146,27 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         });*/
 
 
-        Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        if (fingerFunctionType == FingerFunctionType.ENTER) {
+        Log.d(DEBUG_TYPE,"MainActivity - fingerFunctionType : " + fingerFunctionType);
+        if(fingerFunctionType == FingerFunctionType.ENTER){
             activitySwitch(currentView);
 
-            Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+            Log.d(DEBUG_TYPE,"MainActivity - fingerFunctionType : " + fingerFunctionType);
         }
     }
 
     @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
-        switch (fingerFunctionType) {
+        switch (fingerFunctionType){
             case BACK:
-                onBackPressed();
+                Toast.makeText(this,"BACK",Toast.LENGTH_SHORT).show();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"SPECIAL",Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"NONE",Toast.LENGTH_SHORT).show();
                 break;
 
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        second_time = System.currentTimeMillis();
-        Toast.makeText(MainActivity.this, "종료하시겠습니까?", Toast.LENGTH_SHORT).show();
-        if(second_time - first_time < 2000){
-            super.onBackPressed();
-            finishAffinity();
-        }
-        first_time = System.currentTimeMillis();
     }
 }

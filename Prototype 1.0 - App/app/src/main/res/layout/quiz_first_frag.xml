@@ -1,32 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stroke_layout"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    tools:context=".Quiz.QuizFirstFrag">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:fontFamily="@font/nanumgothic"
-        android:gravity="center_horizontal"
-        android:text="1단계"
-        android:textColor="@color/colorWhite"
-        android:textSize="50dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:text="퀴즈1 프레그" />
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/edu_icon_foreground" />
-    </LinearLayout>
-</LinearLayout>
+</FrameLayout>

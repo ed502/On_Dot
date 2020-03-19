@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Translate.TranslateMain">
+    android:background="@color/colorBlack"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <TextView
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:columnCount="2"
+        android:orientation="vertical"
+        android:rowCount="3">
+
+        <LinearLayout
+            android:id="@+id/circle1"
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle" />
+
+        <LinearLayout
+            android:id="@+id/circle2"
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle" />
+
+        <LinearLayout
+            android:id="@+id/circle3"
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle" />
+
+        <LinearLayout
+            android:id="@+id/circle4"
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle" />
+
+        <LinearLayout
+            android:id="@+id/circle5"
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle" />
+
+        <LinearLayout
+            android:id="@+id/circle6"
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle" />
+
+
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/translate_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="번역" />
-</LinearLayout>
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+        <ImageView
+            android:layout_margin="20dp"
+            android:layout_gravity="right"
+            android:src="@drawable/kakao_image"
+            android:layout_width="102px"
+            android:layout_height="15px"/>
+    </LinearLayout>
+</FrameLayout>

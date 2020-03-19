@@ -38,7 +38,8 @@ public class PermissionModule {
         String checkPref = pref.getString("PERMISSION_CHECK", "FALSE");
         if(checkPref == "TRUE" || checkPref.equals("TRUE") ){
             if(ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    || ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(context,Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED){
                 return PERMISSION_NOT_ALLOWED;
             }else
                 return PERMISSION_ALLOWED;
@@ -46,6 +47,8 @@ public class PermissionModule {
             return PERMISSION_NOT_CHECKED;
         }
     }
+
+
 
     /**
      * 권한설정을 허용하였을 때의 함수

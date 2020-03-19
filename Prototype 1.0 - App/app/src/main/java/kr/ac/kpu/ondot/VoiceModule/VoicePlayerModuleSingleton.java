@@ -8,6 +8,7 @@ import com.kakao.sdk.newtoneapi.TextToSpeechClient;
 import com.kakao.sdk.newtoneapi.TextToSpeechListener;
 import com.kakao.sdk.newtoneapi.TextToSpeechManager;
 
+
 public class VoicePlayerModuleSingleton implements TextToSpeechListener {
     private final String DEBUG_TYPE = "type111";
 

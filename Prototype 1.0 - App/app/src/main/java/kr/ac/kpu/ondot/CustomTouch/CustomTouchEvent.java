@@ -28,7 +28,7 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
     private Timer basicTimer, longTimer;
     private boolean longTouchCheck = false;
 
-
+    protected TouchType touchType = TouchType.NONE_TYPE;
 
     public CustomTouchEvent(CustomTouchEventListener customTouchEventListener, Context context) {
         this.customTouchEventListener = customTouchEventListener;
@@ -36,6 +36,11 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
         fingerLocation = new FingerLocation(TWO_FINGER);
         fingerFunctionProcess = new FingerFunctionProcess();
 
+    }
+    // 현재 터치 타입을 구분하기 위해 존재
+    @Override
+    public void setTouchType(TouchType touchType) {
+        this.touchType = touchType;
     }
 
     @Override
@@ -191,7 +196,7 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
 
             FingerFunctionType type;
 
-            type = fingerFunctionProcess.getOneFingerFunctionType(fingerLocation);
+            type = fingerFunctionProcess.getFingerFunctionType(fingerLocation);
 
             if(type == FingerFunctionType.BACK){
                 Log.d(DEBUG_TYPE,"BACK 위에서 아래로");
@@ -227,11 +232,15 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
                             type = FingerFunctionType.ENTER;
 
                             Log.d(DEBUG_TYPE,"ENTER");
-                            customTouchEventListener.onOneFingerFunction(type);
+                            if(touchType == TouchType.PERMISSION_CHECK_TYPE){
+                                customTouchEventListener.onPermissionUseAgree();
+                            }else {
+                                customTouchEventListener.onOneFingerFunction(type);
+                            }
                         }else{
-
-                            type = fingerFunctionProcess.getOneFingerFunctionType(fingerLocation);
+                            type = fingerFunctionProcess.getFingerFunctionType(fingerLocation);
                             customTouchEventListener.onOneFingerFunction(type);
+
                         }
                         Log.d(DEBUG_TYPE,"CustomTouchEvent - touchCount : " + String.valueOf(touchCount));
 

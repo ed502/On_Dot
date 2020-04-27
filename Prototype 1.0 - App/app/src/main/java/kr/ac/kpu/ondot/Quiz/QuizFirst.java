@@ -82,4 +82,14 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
+    }
 }

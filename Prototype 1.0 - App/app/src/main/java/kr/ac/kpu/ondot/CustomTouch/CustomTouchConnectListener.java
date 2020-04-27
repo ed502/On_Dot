@@ -5,4 +5,6 @@ import android.view.MotionEvent;
 public interface CustomTouchConnectListener {
 
     void touchEvent(MotionEvent event);
+
+    void setTouchType(TouchType touchType);
 }

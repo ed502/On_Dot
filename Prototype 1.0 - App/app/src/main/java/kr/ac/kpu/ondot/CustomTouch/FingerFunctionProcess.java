@@ -9,7 +9,7 @@ public class FingerFunctionProcess {
 
     }
 
-    public FingerFunctionType getOneFingerFunctionType(FingerLocation fingerLocation){
+    public FingerFunctionType getFingerFunctionType(FingerLocation fingerLocation){
         FingerFunctionType type = FingerFunctionType.NONE;
 
         int fingerCount = fingerLocation.getFingerCount();

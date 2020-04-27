@@ -26,4 +26,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation 'com.kakao.sdk:newtone:6.1.4'
+    implementation 'com.google.code.gson:gson:2.8.6' // GSON 라이브러리
+    implementation 'com.android.volley:volley:1.1.0' // Volley 라이브러리
+    implementation 'com.akexorcist:bluetoothspp:1.0.0' // BluetoothSPP 라이브러리
 }

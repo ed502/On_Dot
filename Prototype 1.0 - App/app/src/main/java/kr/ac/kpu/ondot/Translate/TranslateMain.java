@@ -169,7 +169,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                         }
 
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN) {
-                        //Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if(fingerFunctionType==FingerFunctionType.ENTER){
@@ -253,5 +253,15 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener((SensorEventListener) this);
+    }
+
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
     }
 }

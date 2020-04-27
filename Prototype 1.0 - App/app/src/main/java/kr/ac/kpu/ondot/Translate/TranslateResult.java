@@ -1,7 +1,5 @@
 package kr.ac.kpu.ondot.Translate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
@@ -90,5 +90,15 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
     }
 }

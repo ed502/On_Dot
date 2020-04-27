@@ -161,4 +161,14 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
+    }
 }

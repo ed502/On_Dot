@@ -161,4 +161,14 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
+    }
 }

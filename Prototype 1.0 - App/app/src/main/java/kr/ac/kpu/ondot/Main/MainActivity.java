@@ -1,8 +1,12 @@
 package kr.ac.kpu.ondot.Main;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -10,8 +14,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import kr.ac.kpu.ondot.Board.BoardMain;
 import kr.ac.kpu.ondot.CircleIndicator;
@@ -19,11 +27,15 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.CustomTouch.TouchType;
 import kr.ac.kpu.ondot.Educate.EducateMain;
+import kr.ac.kpu.ondot.PermissionModule.PermissionCancelListener;
+import kr.ac.kpu.ondot.PermissionModule.PermissionModule;
 import kr.ac.kpu.ondot.Quiz.QuizMain;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.Translate.TranslateMain;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class MainActivity extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
@@ -39,6 +51,12 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     private LinearLayout linearLayout;
 
     private long first_time, second_time;
+
+    // 음성 TTS 테스트
+    private VoicePlayerModuleManager voicePlayerModuleManager;
+
+    // 퍼미션 허가 테스트
+    private PermissionModule permissionModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +78,15 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
         initDisplaySize();
         initTouchEvent();
+
+        initPermission();
+
+
+        // 음성 TTS 테스트
+        voicePlayerModuleManager = new VoicePlayerModuleManager(this);
+
+        // hashkey 얻기
+        getHashKey();
 
         mViewpager = findViewById(R.id.main_viewpager);
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
@@ -101,6 +128,36 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         Screen.displayY = size.y;
     }
 
+    // 퍼미션 모듈
+    private void initPermission() {
+        permissionModule = new PermissionModule(this,linearLayout,this);
+    }
+
+    // 메뉴에 들어가기 전 퍼미션 체크
+    private void checkPermission() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int checkPermissionResult = permissionModule.checkPermission();
+                if(checkPermissionResult == PermissionModule.PERMISSION_NOT_CHECKED){
+                    customTouchConnectListener.setTouchType(TouchType.PERMISSION_CHECK_TYPE);
+
+                    permissionModule.startPermissionGuide(checkPermissionResult);
+                    permissionModule.setPermissionCancelListener(new PermissionCancelListener() {
+                        @Override
+                        public void permissionCancel() {
+                            customTouchConnectListener.setTouchType(TouchType.NONE_TYPE);
+                            permissionModule.cancelPermissionGuide();
+                        }
+                    });
+                }else{
+                    activitySwitch(currentView);
+                }
+            }
+        });
+
+    }
+
     public void activitySwitch(int currentView) {
         Intent intent;
         switch (currentView) {
@@ -126,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
 
-        runOnUiThread(new Runnable() {
+        /*runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
@@ -141,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                         mViewpager.setCurrentItem(currentView);
                 }
             }
-        });
+        });*/
         /*runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -164,13 +221,28 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             }
         });*/
 
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
+                    if (currentView < maxPage)
+                        mViewpager.setCurrentItem(currentView + 1);
+                    else
+                        mViewpager.setCurrentItem(currentView);
+                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
+                    if (currentView > 0)
+                        mViewpager.setCurrentItem(currentView - 1);
+                    else
+                        mViewpager.setCurrentItem(currentView);
+                }else if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    // activitySwitch(currentView);
+                    checkPermission();
 
-        Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        if (fingerFunctionType == FingerFunctionType.ENTER) {
-            activitySwitch(currentView);
+                    Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+                }
+            }
+        });
 
-            Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        }
     }
 
     @Override
@@ -198,5 +270,53 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             finishAffinity();
         }
         first_time = System.currentTimeMillis();
+    }
+
+    // 권한 설정 동의
+    @Override
+    public void onPermissionUseAgree() {
+        customTouchConnectListener.setTouchType(TouchType.NONE_TYPE);
+        permissionModule.allowedPermission();
+
+        activitySwitch(currentView);
+
+    }
+
+    // 권한 설정 동의 거부
+    @Override
+    public void onPermissionUseDisagree() {
+        permissionModule.cancelPermissionGuide();
+    }
+
+    private void getHashKey(){
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("KeyHash", "KeyHash:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        permissionModule.stopPermissionGuide();
     }
 }

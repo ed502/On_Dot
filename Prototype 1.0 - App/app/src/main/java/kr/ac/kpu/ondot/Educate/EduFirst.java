@@ -1,9 +1,5 @@
 package kr.ac.kpu.ondot.Educate;
-/*
-* 교육할 데이터를 배열로 저장
-* 배열의 인덱스를 이용해서 화면에 데이터를 하나씩 출력
-* 교육할 데이터는 고정이니까 이걸 데이터베이스에 넣을지 자체 데이터베이스에 넣을지 고민해봐야함
-* */
+
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -84,5 +80,14 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
     }
 }

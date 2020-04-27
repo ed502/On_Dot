@@ -1,6 +1,7 @@
 package kr.ac.kpu.ondot.Translate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -168,7 +169,17 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                         }
 
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN) {
-                        Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                if(fingerFunctionType==FingerFunctionType.ENTER){
+                    if(scrollCount%6==0 && scrollCount >1) {
+                        Intent intent = new Intent(getApplicationContext(), TranslateResult.class);
+                        intent.putExtra("data", data);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

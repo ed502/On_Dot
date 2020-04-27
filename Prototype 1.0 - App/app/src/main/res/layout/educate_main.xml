@@ -47,7 +47,6 @@
         android:gravity="bottom">
         <ImageView
             android:layout_margin="20dp"
-            android:layout_gravity="right"
             android:src="@drawable/kakao_image"
             android:layout_width="102px"
             android:layout_height="15px"/>

@@ -7,7 +7,7 @@
 <%@ page import="java.sql.Statement"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException"%>
-
+<%@ page import="database.DBConnection" %>
 <%=request.getRequestURI()%>
 <br>
 회원 리스트
@@ -29,13 +29,9 @@
 		//01단계 :드라이버 로딩 끝
 		try {
 			//02단계 :DB연결(Connection)시작
-			String DB_URL = "jdbc:mysql://root.ca1bxkya6tgk.ap-northeast-2.rds.amazonaws.com:3306/onDot";
-			String DB_USER = "root";
-			String DB_PASSWORD = "qnghkf1324";
-			// DB연결후 리턴값을 받는다.
-			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+			conn = DBConnection.getConnection();
 			//02단계 :DB연결(Connection)끝
-			System.out.println(conn + "<-- conn m_list.jsp");
+			
 			// DB 연결이 성공 되었는지 안되었는지 판단하라
 			if (conn != null) {
 				out.println("01 DB연결 성공");

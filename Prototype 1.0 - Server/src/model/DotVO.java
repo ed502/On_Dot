@@ -1,7 +1,7 @@
 package model;
 
 /*
- * Created by minuk on 2020-04-25
+ * Created by hotjin on 2020-04-25
 */
 public class DotVO {
 	private int id;

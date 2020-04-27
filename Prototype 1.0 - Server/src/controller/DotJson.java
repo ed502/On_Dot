@@ -20,7 +20,7 @@ import model.DotVO;
 import model.ResDot;
 
 /*
- * Created by minuk on 2020-04-25
+ * Created by hotjin on 2020-04-25
 */
 @WebServlet(name = "dotJson", description = "점자 데이터 json으로 응답", urlPatterns = { "/dotJson" })
 public class DotJson extends HttpServlet {
@@ -41,9 +41,9 @@ public class DotJson extends HttpServlet {
 			System.out.println(conn + "<-- conn m_list.jsp");
 			// DB 연결이 성공 되었는지 안되었는지 판단하라
 			if (conn != null) {
-				System.out.println("01 DB연결 성공");
+				System.out.println("01 DB연결 성공_controller");
 			} else {
-				System.out.println("02 DB연결 실패");
+				System.out.println("02 DB연결 실패_controller");
 			}
 			PreparedStatement ps = null;
 			

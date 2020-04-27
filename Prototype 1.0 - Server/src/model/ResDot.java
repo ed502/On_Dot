@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /*
- * Created by minuk on 2020-04-25
+ * Created by hotjin on 2020-04-25
 */
 
 // json 데이터 응답용

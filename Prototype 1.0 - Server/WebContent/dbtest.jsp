@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
        pageEncoding="UTF-8" import="java.sql.*"%>
+       <%@ page import ="database.DBConnection" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,22 +10,20 @@
 <body>
 
        <%
-              String DB_URL = "jdbc:mysql://root.ca1bxkya6tgk.ap-northeast-2.rds.amazonaws.com:3306/onDot?autoReconnection=true";
-              String DB_USER = "root";
-              String DB_PASSWORD = "qnghkf1324";
+             
               Connection conn;
               Statement stmt;
               PreparedStatement ps;
               ResultSet rs;
               try {
                      Class.forName("com.mysql.jdbc.Driver");
-                     conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                     conn = DBConnection.getConnection();
                      stmt = conn.createStatement();
                         
                     /* SQL 처리 코드 추가 부분 */
 
                      conn.close();
-                     out.println("MySQL JDBC Driver Connection Test Success!!!");
+                     out.println("On_dot 김문송이 화이팅 0428");
               } catch (Exception e) {
                      out.println(e.getMessage());
               }

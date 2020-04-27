@@ -7,7 +7,7 @@
 <%@ page import="java.sql.Statement"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException"%>
-<%@page import="com.db.ConnectDB"%>
+
 <%=request.getRequestURI()%>
 <br>
 회원 리스트
@@ -20,9 +20,7 @@
 		<td>count</td>
 	</tr>
 
-
 	<%
-	
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -45,16 +43,8 @@
 			} else {
 				out.println("02 DB연결 실패");
 			}
-			
-			
 			//03단계 :Query실행을 위한 statement 또는 prepareStatement객체생성 시작
 			stmt = conn.createStatement();
-			String tmpID = request.getParameter("id");
-			System.out.println(tmpID);
-			String query2 = "update wronglog set count = count + 1 where id = "+tmpID+"";
-			
-			int rs2 = stmt.executeUpdate(query2);
-			
 			//04단계 :Query실행 시작
 			String query = "select * from wronglog order by count desc";
 			rs = stmt.executeQuery(query);
@@ -77,10 +67,10 @@
 
 	<%
 		/* out.println(rs.getString("m_id") + "<-- m_id 필드=컬럼 값 in tb_member테이블 <br>");
-				out.println(rs.getString("m_pw") + "<-- m_pw 필드=컬럼 값 in tb_member테이블 <br>");
-				out.println(rs.getString("m_level") + "<-- m_level 필드=컬럼 값 in tb_member테이블 <br>");
-				out.println(rs.getString("m_name") + "<-- m_name 필드=컬럼 값 in tb_member테이블 <br>");
-				out.println(rs.getString("m_email") + "<-- m_email 필드=컬럼 값 in tb_member테이블 <br><br>"); */
+				    out.println(rs.getString("m_pw") + "<-- m_pw 필드=컬럼 값 in tb_member테이블 <br>");
+				    out.println(rs.getString("m_level") + "<-- m_level 필드=컬럼 값 in tb_member테이블 <br>");
+				    out.println(rs.getString("m_name") + "<-- m_name 필드=컬럼 값 in tb_member테이블 <br>");
+				    out.println(rs.getString("m_email") + "<-- m_email 필드=컬럼 값 in tb_member테이블 <br><br>"); */
 			}
 			//---   select문장 통해서 모든 회원 목록 가져와서 한줄씩 (레코드(record) or 로우(row))보여준다 끝
 
@@ -107,12 +97,10 @@
 				} catch (SQLException ex) {
 				}
 		}
-		
 	%>
-	<form method="post" action="index.jsp">
+       <form method="post" action="index.jsp">
 
 		<p>
 			<input type="submit" value="Home">
 	</form>
-	
 </table>

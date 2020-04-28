@@ -153,7 +153,7 @@ int i=0;
                                     <span class="item_title_wrap">
                                     <span class="item_title">김문송이</span>
                                         <span class="item_title_sub">
-                                            양팡 집
+                                            
                                         </span>
                                     </span>
                                     </div>
@@ -166,8 +166,7 @@ int i=0;
                                     <span class="item_title_wrap">
                                     <span class="item_title">김학진</span>
                                         <span class="item_title_sub">
-                                            미쓰백 결말, 
-                                            영화 미쓰백
+                                           
                                         </span>
                                     </span>
                                     </div>

@@ -17,6 +17,12 @@ h3 {
     margin-top: 30px !important;
     font-family: 'GyeonggiBatang';
 }
+p {
+    font-family: 'Nanum Gothic',∏º¿∫ ∞ÌµÒ, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
+    font-size: .8rem;
+    color: #555;
+    position: relative;
+}
 html {
     position: relative;
     min-height: 100%;
@@ -24,6 +30,17 @@ html {
 }
 body {
     min-height: 100%;
+}
+.box {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.dot_explain {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .footer {
     
@@ -33,8 +50,17 @@ body {
 	padding: 15px 0;
 	text-align: center;
 }
+.heading-depth03 .title:before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background-color: #aaa;
+}
 .ranking_bok {
-    font-family: 'ÎÇòÎàîÍ≥†Îîï',NanumGothic,'ÎèãÏõÄ',Dotum,Helvetica,sans-serif;
+    font-family: '≥™¥Æ∞ÌµÒ',NanumGothic,'µ∏øÚ',Dotum,Helvetica,sans-serif;
     font-size: 14px;
     color: #333;
     letter-spacing: -1px;

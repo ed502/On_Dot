@@ -151,7 +151,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">1</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title"><% out.println(word[1]); %></span>
+                                    <span class="item_title">김문송이</span>
                                         <span class="item_title_sub">
                                             양팡 집
                                         </span>
@@ -164,7 +164,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">2</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title"><%out.println(word[2]); %></span>
+                                    <span class="item_title">김학진</span>
                                         <span class="item_title_sub">
                                             미쓰백 결말, 
                                             영화 미쓰백
@@ -178,7 +178,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">3</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title"><%out.println(word[3]); %></span>
+                                    <span class="item_title">문준혁</span>
                                     </span>
                                     </div>
                                     </li>
@@ -188,7 +188,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">4</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">엣지 오브 투모로우</span>
+                                    <span class="item_title">송민욱</span>
                                     </span>
                                     </div>
                                     </li>
@@ -198,7 +198,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">5</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">안나푸르나</span>
+                                    <span class="item_title">이세민</span>
                                     </span>
                                     </div>
                                     </li>
@@ -208,7 +208,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">6</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">청하</span>
+                                    <span class="item_title">온점</span>
                                     </span>
                                     </div>
                                     </li>
@@ -218,7 +218,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">7</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">전두환</span>
+                                    <span class="item_title">졸업작품</span>
                                     </span>
                                     </div>
                                     </li>
@@ -228,7 +228,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">8</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">대니쉬 걸</span>
+                                    <span class="item_title">나무</span>
                                     </span>
                                     </div>
                                     </li>
@@ -238,7 +238,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">9</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">대통령 중임제</span>
+                                    <span class="item_title">아버지</span>
                                     </span>
                                     </div>
                                     </li>
@@ -248,9 +248,9 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">10</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">알포인트</span>
+                                    <span class="item_title">어머니</span>
                                         <span class="item_title_sub">
-                                            알포인트 해석
+                                            
                                         </span>
                                     </span>
                                     </div>
@@ -261,7 +261,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">11</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">노베나 디아볼로스</span>
+                                    <span class="item_title">사과</span>
                                     </span>
                                     </div>
                                     </li>
@@ -271,7 +271,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">12</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">고은아</span>
+                                    <span class="item_title">우거지</span>
                                     </span>
                                     </div>
                                     </li>
@@ -281,11 +281,9 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">13</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">2020근로장려금 신청기간</span>
+                                    <span class="item_title">용</span>
                                         <span class="item_title_sub">
-                                            근로장려금 자격요건, 
-                                            근로장려금, 
-                                            2020자녀장려금 신청자격
+                                            
                                         </span>
                                     </span>
                                     </div>
@@ -296,7 +294,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">14</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">멜론차트</span>
+                                    <span class="item_title">여우</span>
                                     </span>
                                     </div>
                                     </li>
@@ -306,7 +304,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">15</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">아이유 슈가</span>
+                                    <span class="item_title">아이유</span>
                                     </span>
                                     </div>
                                     </li>
@@ -316,7 +314,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">16</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">오마이걸</span>
+                                    <span class="item_title">야유</span>
                                     </span>
                                     </div>
                                     </li>
@@ -326,7 +324,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">17</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">구혜선</span>
+                                    <span class="item_title">웹</span>
                                     </span>
                                     </div>
                                     </li>
@@ -336,7 +334,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">18</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">오징어 외계인</span>
+                                    <span class="item_title">오징어</span>
                                     </span>
                                     </div>
                                     </li>
@@ -356,7 +354,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">20</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">반서진</span>
+                                    <span class="item_title">사랑</span>
                                     </span>
                                     </div>
                                     </li>

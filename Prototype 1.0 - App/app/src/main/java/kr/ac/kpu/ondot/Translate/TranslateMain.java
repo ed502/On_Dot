@@ -22,8 +22,10 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 
 public class TranslateMain extends AppCompatActivity implements CustomTouchEventListener, SensorEventListener {
@@ -41,6 +43,9 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     private CustomTouchConnectListener customTouchConnectListener;
     private int scrollCount, dataCount = 0;
     private String data = "";
+
+    private MenuType menuType = MenuType.TRANSLATE;
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
 
         initDisplaySize();
         initTouchEvent();
+        initVoicePlayer();
     }
 
     private void initTouchEvent() {
@@ -87,6 +93,11 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
 
         Screen.displayX = size.x;
         Screen.displayY = size.y;
+    }
+
+    // tts 초기화
+    private void initVoicePlayer(){
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
     @Override
@@ -247,6 +258,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        voicePlayerModuleManager.start(menuType);
     }
 
     @Override

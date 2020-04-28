@@ -19,14 +19,15 @@
 		<td>dot</td>
 		<td>count</td>
 	</tr>
-
+<%String[] word = new String[21]; %>
 	<%
+		int i=0;
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		//JDBC 프로그램 순서
 		//01단계 :드라이버 로딩 시작
-	//	Class.forName("com.mysql.jdbc.Driver");
+	//	Class.forName("com.mysql.jdbc.Driver")"C:/Users/ralgk/Desktop/Python_iot";
 		//01단계 :드라이버 로딩 끝
 		try {
 			//02단계 :DB연결(Connection)시작
@@ -42,7 +43,7 @@
 			//03단계 :Query실행을 위한 statement 또는 prepareStatement객체생성 시작
 			stmt = conn.createStatement();
 			//04단계 :Query실행 시작
-			String query = "select * from wronglog order by count desc";
+			String query = "select * from translatelog order by count desc";
 			rs = stmt.executeQuery(query);
 			//04단계 :Query실행 끝
 			//05단계 :Query실행결과 사용
@@ -57,7 +58,13 @@
 		<td><%=rs.getString("word")%></td>
 		<td><%=rs.getString("dot")%></td>
 		<td><%=rs.getString("count")%></td>
-
+		
+		<% 
+			
+			i++;
+			word[i] = rs.getString("word");
+			
+		%>
 
 	</tr>
 
@@ -95,8 +102,9 @@
 		}
 	%>
        <form method="post" action="index.jsp">
-
+<% out.println(word[2]); %>
 		<p>
 			<input type="submit" value="Home">
+			
 	</form>
 </table>

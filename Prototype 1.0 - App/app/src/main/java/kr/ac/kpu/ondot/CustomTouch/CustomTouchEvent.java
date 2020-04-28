@@ -1,11 +1,14 @@
 package kr.ac.kpu.ondot.CustomTouch;
 
 import android.content.Context;
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class CustomTouchEvent implements CustomTouchConnectListener {
     private final String DEBUG_TYPE = "type";
@@ -28,6 +31,8 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
     private Timer basicTimer, longTimer;
     private boolean longTouchCheck = false;
 
+    private VoicePlayerModuleManager voicePlayerModuleManager;
+
     protected TouchType touchType = TouchType.NONE_TYPE;
 
     public CustomTouchEvent(CustomTouchEventListener customTouchEventListener, Context context) {
@@ -35,7 +40,7 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
         this.context = context;
         fingerLocation = new FingerLocation(TWO_FINGER);
         fingerFunctionProcess = new FingerFunctionProcess();
-
+        voicePlayerModuleManager = new VoicePlayerModuleManager(context);
     }
     // 현재 터치 타입을 구분하기 위해 존재
     @Override
@@ -196,6 +201,11 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
 
             FingerFunctionType type;
 
+            /*if(touchType != TouchType.NONE_TYPE){
+                type = fingerFunctionProcess.getFingerFunctionType(fingerLocation, true);
+            }else{
+
+            }*/
             type = fingerFunctionProcess.getFingerFunctionType(fingerLocation);
 
             if(type == FingerFunctionType.BACK){
@@ -240,7 +250,6 @@ public class CustomTouchEvent implements CustomTouchConnectListener {
                         }else{
                             type = fingerFunctionProcess.getFingerFunctionType(fingerLocation);
                             customTouchEventListener.onOneFingerFunction(type);
-
                         }
                         Log.d(DEBUG_TYPE,"CustomTouchEvent - touchCount : " + String.valueOf(touchCount));
 

@@ -1,24 +1,20 @@
 package kr.ac.kpu.ondot.CustomTouch;
 
+import android.content.Context;
+
 import kr.ac.kpu.ondot.Screen;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class FingerFunctionProcess {
     private final String DEBUG_TYPE = "type";
 
     public FingerFunctionProcess(){
-
     }
 
     public FingerFunctionType getFingerFunctionType(FingerLocation fingerLocation){
         FingerFunctionType type = FingerFunctionType.NONE;
 
         int fingerCount = fingerLocation.getFingerCount();
-
-        /*if(fingerCount == FingerFunctionType.ONE_FINGER.getNumber()){
-
-        }else if(fingerCount == FingerFunctionType.TWO_FINGER.getNumber()){
-
-        }*/
 
         double finger_gapX[] = new double[fingerCount];
         double finger_gapY[] = new double[fingerCount];
@@ -96,6 +92,7 @@ public class FingerFunctionProcess {
                 }else
                     type = FingerFunctionType.NONE;
             }
+
         }else if(fingerCount == FingerFunctionType.TWO_FINGER.getNumber()){
             if(DragX == false && DragY == true){
                 if(drag_countY > 0)
@@ -121,6 +118,8 @@ public class FingerFunctionProcess {
                     type = FingerFunctionType.NONE;
             }
         }
+
+
 
         return type;
     }

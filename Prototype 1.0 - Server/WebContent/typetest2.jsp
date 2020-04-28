@@ -25,7 +25,7 @@
 		ResultSet rs = null;
 		//JDBC 프로그램 순서
 		//01단계 :드라이버 로딩 시작
-		Class.forName("com.mysql.jdbc.Driver");
+		//Class.forName("com.mysql.jdbc.Driver");
 		//01단계 :드라이버 로딩 끝
 		try {
 			//02단계 :DB연결(Connection)시작

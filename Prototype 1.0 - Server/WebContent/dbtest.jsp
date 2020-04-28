@@ -10,13 +10,12 @@
 <body>
 
        <%
-             
               Connection conn;
               Statement stmt;
               PreparedStatement ps;
               ResultSet rs;
               try {
-                     Class.forName("com.mysql.jdbc.Driver");
+                     //Class.forName("com.mysql.jdbc.Driver");
                      conn = DBConnection.getConnection();
                      stmt = conn.createStatement();
                         

@@ -20,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import kr.ac.kpu.ondot.Board.BoardMain;
 import kr.ac.kpu.ondot.CircleIndicator;
@@ -28,6 +29,8 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.CustomTouch.TouchType;
+import kr.ac.kpu.ondot.Data.DotVO;
+import kr.ac.kpu.ondot.Data.JsonModule;
 import kr.ac.kpu.ondot.Educate.EducateMain;
 import kr.ac.kpu.ondot.PermissionModule.PermissionCancelListener;
 import kr.ac.kpu.ondot.PermissionModule.PermissionModule;
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     // 퍼미션 허가 테스트
     private PermissionModule permissionModule;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,10 +84,8 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         initTouchEvent();
 
         initPermission();
+        initVoicePlayer();
 
-
-        // 음성 TTS 테스트
-        voicePlayerModuleManager = new VoicePlayerModuleManager(this);
 
         // hashkey 얻기
         getHashKey();
@@ -105,6 +107,27 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
+
+                // 메뉴 이름 음성 출력
+                switch (currentView){
+                    case 0:
+                        // 교육
+                        voicePlayerModuleManager.start(R.raw.education);
+                        break;
+                    case 1:
+                        // 퀴즈
+                        voicePlayerModuleManager.start(R.raw.quiz);
+                        break;
+                    case 2:
+                        // 번역
+                        voicePlayerModuleManager.start(R.raw.translate);
+                        break;
+                    case 3:
+                        // 음성게시판
+                        voicePlayerModuleManager.start(R.raw.board);
+                        break;
+                }
+
             }
 
             @Override
@@ -113,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             }
         });
     }
+
 
     private void initTouchEvent() {
         customTouchConnectListener = new CustomTouchEvent(this, this);
@@ -126,6 +150,11 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
         Screen.displayX = size.x;
         Screen.displayY = size.y;
+    }
+
+    // tts 초기화
+    private void initVoicePlayer(){
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
     // 퍼미션 모듈
@@ -224,6 +253,8 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                voicePlayerModuleManager.start(fingerFunctionType);
+
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
                     if (currentView < maxPage)
                         mViewpager.setCurrentItem(currentView + 1);
@@ -247,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
     @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
+        voicePlayerModuleManager.start(fingerFunctionType);
         switch (fingerFunctionType) {
             case BACK:
                 onBackPressed();

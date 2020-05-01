@@ -18,8 +18,10 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class EducateMain extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
@@ -33,6 +35,10 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
+
+    private MenuType menuType = MenuType.EDUCATE;
+    private VoicePlayerModuleManager voicePlayerModuleManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,8 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
         initDisplaySize();
         initTouchEvent();
+        initVoicePlayer();
+
 
         mViewpager = findViewById(R.id.edu_viewpager);
         mAdapter = new EduPagerAdapter(getSupportFragmentManager());
@@ -112,6 +120,10 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         Screen.displayX = size.x;
         Screen.displayY = size.y;
     }
+    // tts 초기화
+    private void initVoicePlayer(){
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
+    }
 
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
@@ -155,6 +167,12 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 break;
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        voicePlayerModuleManager.start(menuType);
     }
 
     @Override

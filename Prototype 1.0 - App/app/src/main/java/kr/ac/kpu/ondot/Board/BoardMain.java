@@ -14,13 +14,18 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class BoardMain extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
     private LinearLayout linearLayout;
     private CustomTouchConnectListener customTouchConnectListener;
+
+    private MenuType menuType = MenuType.BOARD;
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
 
         initDisplaySize();
         initTouchEvent();
+        initVoicePlayer();
 
         linearLayout = findViewById(R.id.board_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -54,6 +60,11 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
 
         Screen.displayX = size.x;
         Screen.displayY = size.y;
+    }
+
+    // tts 초기화
+    private void initVoicePlayer(){
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
 
@@ -91,5 +102,11 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
     @Override
     public void onPermissionUseDisagree() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        voicePlayerModuleManager.start(menuType);
     }
 }

@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import database.DBConnection;
 import model.DotVO;
 import model.ResDot;
-
+//xml∑Œ ¥Î√º
 /*
  * Created by hotjin on 2020-04-25
 */

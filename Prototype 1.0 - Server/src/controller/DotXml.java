@@ -16,6 +16,7 @@ import model.DotVO;
 
 /**
  * Servlet implementation class DotXml
+ * 430¼öÁ¤
  */
 @WebServlet("/DotXml")
 public class DotXml extends HttpServlet {

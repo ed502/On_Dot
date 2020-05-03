@@ -3,7 +3,6 @@ package kr.ac.kpu.ondot.Educate;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
-
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +24,6 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
-
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 

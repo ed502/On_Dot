@@ -1,0 +1,99 @@
+{
+  "InitialConsonantData" : [
+    {
+      "word" : "ㄱ",
+      "dot" : "111211",
+      "RawId" : "initial_giyeok"
+    },
+    {
+      "word" : "ㄴ",
+      "dot" : "211211",
+      "RawId" : "initial_nieun"
+    },
+    {
+      "word" : "ㄷ",
+      "dot" : "121211",
+      "RawId" : "initial_digeut"
+    },
+    {
+      "word" : "ㄹ",
+      "dot" : "111121",
+      "RawId" : "initial_rieul"
+    },
+    {
+      "word" : "ㅁ",
+      "dot" : "211121",
+      "RawId" : "initial_mieum"
+    },
+    {
+      "word" : "ㅂ",
+      "dot" : "121121",
+      "RawId" : "initial_bieup"
+    },
+    {
+      "word" : "ㅅ",
+      "dot" : "111112",
+      "RawId" : "initial_shiot"
+    },
+    {
+      "word" : "ㅈ",
+      "dot" : "111212",
+      "RawId" : "initial_jieut"
+    },
+    {
+      "word" : "ㅊ",
+      "dot" : "111122",
+      "RawId" : "initial_chieut"
+    },
+    {
+      "word" : "ㅋ",
+      "dot" : "221211",
+      "RawId" : "initial_kiuek"
+    },
+    {
+      "word" : "ㅌ",
+      "dot" : "221121",
+      "RawId" : "initial_tieut"
+    },
+    {
+      "word" : "ㅍ",
+      "dot" : "211221",
+      "RawId" : "initial_pieup"
+    },
+    {
+      "word" : "ㅎ",
+      "dot" : "121221",
+      "RawId" : "initial_hieut"
+    },
+    {
+      "word" : "ㄲ",
+      "dot" : "111112111211",
+      "RawId" : "initial_ssang_giyeok"
+    },
+    {
+      "word" : "ㄸ",
+      "dot" : "111112121211",
+      "RawId" : "initial_ssang_digeut"
+    },
+    {
+      "word" : "ㅃ",
+      "dot" : "111112121121",
+      "RawId" : "initial_ssang_bieup"
+    },
+    {
+      "word" : "ㅆ",
+      "dot" : "111112111112",
+      "RawId" : "initial_ssang_shiot"
+    },
+    {
+      "word" : "ㅉ",
+      "dot" : "111112111212",
+      "RawId" : "initial_ssang_jieut"
+    },
+    {
+      "word" : "된소리표",
+      "dot" : "111112",
+      "RawId" : "initial_fortis"
+    }
+  ]
+}

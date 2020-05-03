@@ -151,7 +151,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">1</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">김문송이</span>
+                                    <span class="item_title"><% out.print(word[1]);%></span>
                                         <span class="item_title_sub">
                                             
                                         </span>
@@ -164,7 +164,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">2</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">김학진</span>
+                                    <span class="item_title"><% out.print(word[2]);%></span>
                                         <span class="item_title_sub">
                                            
                                         </span>

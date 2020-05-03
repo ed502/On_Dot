@@ -24,18 +24,18 @@
                 <div class="settings-navbar">
                     <ul>
                         <li>
-                            <a routerlinkactive="active" href="infodot.html">
+                            <a routerlinkactive="active" href="braile.jsp"class="active">
                                 점자란?
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="ranking.html" class="active">
-                                점자랭킹
+                            <a routerlinkactive="active" href="wrongRanking.jsp" >
+                                점자퀴즈결과
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="">
-                                점자퀴즈결과
+                            <a routerlinkactive="active" href="translateRanking.jsp">
+                                점자번역결과
                             </a>
                         </li>
                         <li>

@@ -42,7 +42,7 @@
 			//03단계 :Query실행을 위한 statement 또는 prepareStatement객체생성 시작
 			stmt = conn.createStatement();
 			//04단계 :Query실행 시작
-			String query = "select translatelog.word,translatelog.count from translatelog order by count desc";
+			String query = "select * from translatelog order by count desc";
 			rs = stmt.executeQuery(query);
 			//04단계 :Query실행 끝
 			//05단계 :Query실행결과 사용

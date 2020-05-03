@@ -51,5 +51,11 @@
 		<p>
 			<input type="submit" value="번역 랭킹">
 	</form>
+	
+	<form method="post" action="wrongRanking.jsp">
+
+		<p>
+			<input type="submit" value="웹사이트">
+	</form>
 </body>
 </html>

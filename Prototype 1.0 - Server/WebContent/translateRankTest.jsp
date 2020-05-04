@@ -14,9 +14,9 @@
 <br>
 <table width="100%" border="1">
 	<tr>
-		<td>id</td>
+		
 		<td>word</td>
-		<td>dot</td>
+		
 		<td>count</td>
 	</tr>
 
@@ -57,9 +57,9 @@
 	%>
 
 	<tr>
-		<td><%=rs.getString("id")%></td>
+		
 		<td><%=rs.getString("word")%></td>
-		<td><%=rs.getString("dot")%></td>
+		
 		<td><%=rs.getString("count")%></td>
 
 

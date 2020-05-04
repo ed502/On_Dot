@@ -14,9 +14,9 @@
 <br>
 <table width="100%" border="1">
 	<tr>
-		<td>id</td>
+		
 		<td>word</td>
-		<td>dot</td>
+		
 		<td>count</td>
 	</tr>
 
@@ -56,7 +56,7 @@
 			int rs2 = stmt.executeUpdate(query2);
 			
 			//04단계 :Query실행 시작
-			String query = "select * from wronglog order by count desc";
+			String query = "select word_dots.word,wronglog.count from wronglog join word_dots where wronglog.word_id = word_dots.id;";
 			rs = stmt.executeQuery(query);
 			//04단계 :Query실행 끝
 			//05단계 :Query실행결과 사용
@@ -67,9 +67,9 @@
 	%>
 
 	<tr>
-		<td><%=rs.getString("id")%></td>
+		
 		<td><%=rs.getString("word")%></td>
-		<td><%=rs.getString("dot")%></td>
+		
 		<td><%=rs.getString("count")%></td>
 
 

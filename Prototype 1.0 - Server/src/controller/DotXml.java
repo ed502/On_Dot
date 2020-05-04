@@ -16,7 +16,7 @@ import model.DotVO;
 
 /**
  * Servlet implementation class DotXml
- * 430수정
+ * 430수정 // 사용중
  */
 @WebServlet("/DotXml")
 public class DotXml extends HttpServlet {
@@ -56,6 +56,7 @@ public class DotXml extends HttpServlet {
 	            dotVO.setWord(rs.getString("word"));
 	            dotVO.setDot(rs.getString("dot"));
 	            dotVO.setType(rs.getInt("type"));
+	            dotVO.setRaw_id(rs.getString("raw_id"));
 	            
 	            dots.add(dotVO);
 	         }
@@ -78,6 +79,9 @@ public class DotXml extends HttpServlet {
 	            dotXML.append("<dot>");
 	            dotXML.append(dotvo.getDot());
 	            dotXML.append("</dot>");
+	            dotXML.append("<raw_id>");
+	            dotXML.append(dotvo.getRaw_id());
+	            dotXML.append("</raw_id>");
 	            dotXML.append("<type>");
 	            dotXML.append(dotvo.getType());
 	            dotXML.append("</type>");

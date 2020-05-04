@@ -20,7 +20,7 @@ import model.DotVO;
 import model.ResDot;
 //xml로 대체
 /*
- * Created by hotjin on 2020-04-25
+ * Created by hotjin on 2020-04-25// 보류중
 */
 @WebServlet(name = "dotJson", description = "점자 데이터 json으로 응답", urlPatterns = { "/dotJson" })
 public class DotJson extends HttpServlet {

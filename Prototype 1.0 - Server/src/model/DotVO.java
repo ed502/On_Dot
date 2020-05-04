@@ -8,7 +8,15 @@ public class DotVO {
 	private String word;
 	private String dot;
 	private int type;
+	private String raw_id;
 	
+	
+	public String getRaw_id() {
+		return raw_id;
+	}
+	public void setRaw_id(String raw_id) {
+		this.raw_id = raw_id;
+	}
 	public int getId() {
 		return id;
 	}

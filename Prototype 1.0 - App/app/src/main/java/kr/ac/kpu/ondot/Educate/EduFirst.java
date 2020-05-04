@@ -36,7 +36,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     private ArrayList<DotVO> list;
     private DotVO data;
     private ArrayList<Integer> id, type;
-    private ArrayList<String> word, dot;
+    private ArrayList<String> word, dot, raw_id;
     private int currentLocation = 0;
 
     @Override
@@ -140,9 +140,10 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         type = new ArrayList<Integer>();
         word = new ArrayList<String>();
         dot = new ArrayList<String>();
+        raw_id = new ArrayList<>();
 
         list = new ArrayList<DotVO>();
-        boolean bId = false, bWord = false, bDot = false, bType = false;
+        boolean bId = false, bWord = false, bDot = false, bRaw_id =false, bType = false;
         try {
             URL url = new URL("http://15.165.135.160/DotXml");
 
@@ -164,6 +165,9 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
                         if (parser.getName().equals("dot")) {
                             bDot = true;
                         }
+                        if(parser.getName().equals("raw_id")){
+                            bRaw_id = true;
+                        }
                         if (parser.getName().equals("type")) {
                             bType = true;
                         }
@@ -182,6 +186,10 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
                             dot.add(parser.getText());
                             bDot = false;
                         }
+                        if(bRaw_id){
+                            raw_id.add(parser.getText());
+                            bRaw_id = false;
+                        }
                         if (bType) {
                             type.add(Integer.parseInt(parser.getText()));
                             bType = false;
@@ -198,6 +206,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             data.setId(id.get(i));
             data.setWord(word.get(i));
             data.setDot(dot.get(i));
+            data.setRaw_id(raw_id.get(i));
             data.setType(type.get(i));
             list.add(data);
         }

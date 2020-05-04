@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%-- 0428주석 --%>
+
+
 	메인페이지
 	<form method="post" action="dbtest.jsp">
 

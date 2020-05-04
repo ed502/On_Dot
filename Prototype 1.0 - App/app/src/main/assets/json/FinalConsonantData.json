@@ -1,0 +1,139 @@
+{
+  "FinalConsonantData" : [
+    {
+      "word" : "ㄱ",
+      "dot" : "211111",
+      "RawId" : "final_giyeok"
+    },
+    {
+      "word" : "ㄴ",
+      "dot" : "121121",
+      "RawId" : "final_nieun"
+    },
+    {
+      "word" : "ㄷ",
+      "dot" : "112121",
+      "RawId" : "final_digeut"
+    },
+    {
+      "word" : "ㄹ",
+      "dot" : "121111",
+      "RawId" : "final_rieul"
+    },
+    {
+      "word" : "ㅁ",
+      "dot" : "121112",
+      "RawId" : "final_mieum"
+    },
+    {
+      "word" : "ㅂ",
+      "dot" : "221111",
+      "RawId" : "final_bieup"
+    },
+    {
+      "word" : "ㅅ",
+      "dot" : "112111",
+      "RawId" : "final_shiot"
+    },
+    {
+      "word" : "ㅇ",
+      "dot" : "122122",
+      "RawId" : "final_ieung"
+    },
+    {
+      "word" : "ㅈ",
+      "dot" : "212111",
+      "RawId" : "final_jieut"
+    },
+    {
+      "word" : "ㅊ",
+      "dot" : "122111",
+      "RawId" : "final_chieut"
+    },
+    {
+      "word" : "ㅋ",
+      "dot" : "122121",
+      "RawId" : "final_kiuek"
+    },
+    {
+      "word" : "ㅌ",
+      "dot" : "122112",
+      "RawId" : "final_tieut"
+    },
+    {
+      "word" : "ㅍ",
+      "dot" : "121122",
+      "RawId" : "final_pieup"
+    },
+    {
+      "word" : "ㅎ",
+      "dot" : "112122",
+      "RawId" : "final_hieut"
+    },
+    {
+      "word" : "ㄲ",
+      "dot" : "211111211111",
+      "RawId" : "final_ssang_giyeok"
+    },
+    {
+      "word" : "ㅆ",
+      "dot" : "112111112111",
+      "RawId" : "final_ssang_shiot"
+    },
+    {
+      "word" : "ㄳ",
+      "dot" : "211111112111",
+      "RawId" : "final_giyeok_shiot"
+    },
+    {
+      "word" : "ㄵ",
+      "dot" : "121121212111",
+      "RawId" : "final_nieun_jieut"
+    },
+    {
+      "word" : "ㄶ",
+      "dot" : "121121112122",
+      "RawId" : "final_nieun_hieut"
+    },
+    {
+      "word" : "ㄺ",
+      "dot" : "121111211111",
+      "RawId" : "final_rieul_giyeok"
+    },
+    {
+      "word" : "ㄻ",
+      "dot" : "121111121112",
+      "RawId" : "final_rieul_mieum"
+    },
+    {
+      "word" : "ㄼ",
+      "dot" : "121111221111",
+      "RawId" : "final_rieul_bieup"
+    },
+    {
+      "word" : "ㄽ",
+      "dot" : "121111112111",
+      "RawId" : "final_rieul_shiot"
+    },
+    {
+      "word" : "ㄾ",
+      "dot" : "121111122112",
+      "RawId" : "final_rieul_tieut"
+    },
+    {
+      "word" : "ㄿ",
+      "dot" : "121111121122",
+      "RawId" : "final_rieul_pieup"
+    },
+    {
+      "word" : "ㅀ",
+      "dot" : "121111112122",
+      "RawId" : "final_rieul_hieut"
+    },
+    {
+      "word" : "ㅄ",
+      "dot" : "221111112111",
+      "RawId" : "final_bieup_shiot"
+    }
+  ]
+}

@@ -32,51 +32,99 @@
 
             <LinearLayout
                 android:id="@+id/edu1_circle1"
-                android:orientation="vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/stroke_circle" />
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:id="@+id/edu1_circle2"
-                android:orientation="vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/stroke_circle" />
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:id="@+id/edu1_circle3"
-                android:orientation="vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/stroke_circle" />
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:id="@+id/edu1_circle4"
-                android:orientation="vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/stroke_circle" />
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:id="@+id/edu1_circle5"
-                android:orientation="vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/stroke_circle" />
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:id="@+id/edu1_circle6"
-                android:orientation="vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/stroke_circle" />
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu1_circle7"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu1_circle8"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu1_circle9"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu1_circle10"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu1_circle11"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu1_circle12"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
 
 
         </GridLayout>

@@ -6,6 +6,7 @@ public class DotVO {
     private int id;
     private String word;
     private String dot;
+    private String raw_id;
     private int type;
 
     public int getId() {
@@ -38,6 +39,14 @@ public class DotVO {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getRaw_id() {
+        return raw_id;
+    }
+
+    public void setRaw_id(String raw_id) {
+        this.raw_id = raw_id;
     }
 
     @NonNull

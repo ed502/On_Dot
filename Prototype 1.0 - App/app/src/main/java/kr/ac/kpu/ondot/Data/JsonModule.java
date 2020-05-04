@@ -18,7 +18,6 @@ import kr.ac.kpu.ondot.Main.MainActivity;
 public class JsonModule implements Response.Listener<String>, Response.ErrorListener {
     private Context context;
     private RequestQueue requestQueue;
-    private MainActivity mainActivity;
     private ArrayList<DotVO> list;
 
 

@@ -27,6 +27,9 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_third);
 
+        //액티비티 전환 애니메이션 제거
+        overridePendingTransition(0, 0);
+
         linearLayout = findViewById(R.id.edu_third_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

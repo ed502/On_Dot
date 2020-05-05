@@ -14,4 +14,8 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="SplashTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground"></item>
+    </style>
+
 </resources>

@@ -32,6 +32,9 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.translate_result);
 
+        //액티비티 전환 애니메이션 제거
+        overridePendingTransition(0, 0);
+
         linearLayout = findViewById(R.id.trans_result_layout);
         transData = findViewById(R.id.trans_data);
 

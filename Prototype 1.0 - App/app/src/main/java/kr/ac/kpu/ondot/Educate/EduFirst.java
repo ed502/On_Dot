@@ -47,6 +47,9 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_first);
 
+        //액티비티 전환 애니메이션 제거
+        overridePendingTransition(0, 0);
+
         getData();
         setDot();
         checkData();

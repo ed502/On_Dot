@@ -1,45 +1,38 @@
-package kr.ac.kpu.ondot.Board;
+package kr.ac.kpu.ondot.Intro;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
-import kr.ac.kpu.ondot.EnumData.MenuType;
+import kr.ac.kpu.ondot.Educate.EducateMain;
+import kr.ac.kpu.ondot.Main.MainActivity;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
-import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
-public class BoardMain extends AppCompatActivity implements CustomTouchEventListener {
-    private final String DEBUG_TYPE = "type";
-    private LinearLayout linearLayout;
+public class EduIntro extends AppCompatActivity implements CustomTouchEventListener {
+
     private CustomTouchConnectListener customTouchConnectListener;
-
-    private MenuType menuType = MenuType.BOARD;
-    private VoicePlayerModuleManager voicePlayerModuleManager;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.board_main);
+        setContentView(R.layout.edu_intro);
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
-        initDisplaySize();
-        initTouchEvent();
-        initVoicePlayer();
-
-        linearLayout = findViewById(R.id.board_layout);
+        linearLayout = findViewById(R.id.edu_intro_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -49,6 +42,8 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
                 return true;
             }
         });
+        initDisplaySize();
+        initTouchEvent();
     }
 
     private void initTouchEvent() {
@@ -65,36 +60,22 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
         Screen.displayY = size.y;
     }
 
-    // tts 초기화
-    private void initVoicePlayer(){
-        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
-    }
-
-
     @Override
-    public void onOneFingerFunction(FingerFunctionType fingerFunctionType) {
-
+    public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    startActivity(new Intent(getApplicationContext(), EducateMain.class));
+                    finish();
+                }
+            }
+        });
     }
 
     @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
-        switch (fingerFunctionType) {
-            case BACK:
-                onBackPressed();
-                break;
-            case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
-                break;
-            case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
-                break;
 
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     @Override
@@ -105,11 +86,5 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
     @Override
     public void onPermissionUseDisagree() {
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        voicePlayerModuleManager.start(menuType);
     }
 }

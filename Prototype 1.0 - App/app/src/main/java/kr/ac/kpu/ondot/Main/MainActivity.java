@@ -32,6 +32,10 @@ import kr.ac.kpu.ondot.CustomTouch.TouchType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.JsonModule;
 import kr.ac.kpu.ondot.Educate.EducateMain;
+import kr.ac.kpu.ondot.Intro.BoardIntro;
+import kr.ac.kpu.ondot.Intro.EduIntro;
+import kr.ac.kpu.ondot.Intro.QuizIntro;
+import kr.ac.kpu.ondot.Intro.TranslateIntro;
 import kr.ac.kpu.ondot.PermissionModule.PermissionCancelListener;
 import kr.ac.kpu.ondot.PermissionModule.PermissionModule;
 import kr.ac.kpu.ondot.Quiz.QuizMain;
@@ -191,19 +195,19 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         Intent intent;
         switch (currentView) {
             case 0:
-                intent = new Intent(MainActivity.this, EducateMain.class);
+                intent = new Intent(MainActivity.this, EduIntro.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(MainActivity.this, QuizMain.class);
+                intent = new Intent(MainActivity.this, QuizIntro.class);
                 startActivity(intent);
                 break;
             case 2:
-                intent = new Intent(MainActivity.this, TranslateMain.class);
+                intent = new Intent(MainActivity.this, TranslateIntro.class);
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(MainActivity.this, BoardMain.class);
+                intent = new Intent(MainActivity.this, BoardIntro.class);
                 startActivity(intent);
                 break;
         }

@@ -1,5 +1,8 @@
 package kr.ac.kpu.ondot.Educate;
 
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -19,11 +23,15 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.net.URL;
 import java.util.ArrayList;
 
+import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+import app.akexorcist.bluetotohspp.library.BluetoothState;
+import app.akexorcist.bluetotohspp.library.DeviceList;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
+import kr.ac.kpu.ondot.Main.MainActivity;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
@@ -42,10 +50,45 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    private BluetoothSPP bt;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_first);
+
+        bt = new BluetoothSPP(getApplicationContext());
+
+        if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
+            Toast.makeText(getApplicationContext(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
+        }
+
+        bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
+            public void onDataReceived(byte[] data, String message) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
+            public void onDeviceConnected(String name, String address) {
+                Toast.makeText(getApplicationContext()
+                        , "Connected to " + name + "\n" + address
+                        , Toast.LENGTH_SHORT).show();
+            }
+
+            public void onDeviceDisconnected() { //연결해제
+                Toast.makeText(getApplicationContext()
+                        , "Connection lost", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onDeviceConnectionFailed() { //연결실패
+                Toast.makeText(getApplicationContext()
+                        , "Unable to connect", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btConnect();
 
         initVoicePlayer();
 
@@ -58,9 +101,26 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
 
     }
+    // 연결 시도하는 ?
+    public void btConnect(){
+        if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
+            bt.disconnect();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+        }
+    }
+
+    // 데이터 전송
+    public void btSend(String data){
+        bt.send(data,true);
+    }
 
     //id초기화 TouchListener설정 사실상 onCreate의 역할
     private void setDot() {
+
+        //btConnect();
+
         linearLayout = findViewById(R.id.edu_first_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -89,6 +149,9 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         circle[9] = findViewById(R.id.edu1_circle10);
         circle[10] = findViewById(R.id.edu1_circle11);
         circle[11] = findViewById(R.id.edu1_circle12);
+
+
+
     }
 
 
@@ -272,10 +335,50 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             }
         }
 
+
+
         String raw_id = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.start(raw_id);
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bt.stopService();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!bt.isBluetoothEnabled()) { //
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intent, BluetoothState.REQUEST_ENABLE_BT);
+        } else {
+            if (!bt.isServiceAvailable()) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER); //DEVICE_ANDROID는 안드로이드 기기 끼리
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
+            if (resultCode == Activity.RESULT_OK)
+                bt.connect(data);
+        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER);
+                String dot = list.get(currentLocation).getDot();
+                bt.send(dot,true);
+            } else {
+                Toast.makeText(getApplicationContext()
+                        , "Bluetooth was not enabled."
+                        , Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
 
 }

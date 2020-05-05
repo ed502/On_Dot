@@ -17,7 +17,7 @@
             android:id="@+id/edu2_text"
             android:text="종성"
             android:textColor="@color/colorWhite"
-            android:textSize="200dp"
+            android:textSize="100dp"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

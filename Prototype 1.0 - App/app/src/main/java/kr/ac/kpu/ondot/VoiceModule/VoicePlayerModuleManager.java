@@ -1,6 +1,7 @@
 package kr.ac.kpu.ondot.VoiceModule;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import java.util.LinkedList;
@@ -42,6 +43,25 @@ public class VoicePlayerModuleManager {
         soundIdQueue.add(soundId);
         voicePlayerModuleSingleton.start(soundIdQueue);
     }
+
+    /*
+    * raw_id 를 받아 해당 음성파일 출력
+    * */
+    public void start(String soundId){
+        int id = checkRawId(soundId);
+        start(id);
+    }
+
+    /*
+    * String 음성 파일 이름이 raw에 존재하는지 Check 하는 함수
+    * 있으면 해당 id값 , 없으면 0
+    * */
+    private int checkRawId(String soundId){
+        String packName = context.getPackageName();
+        Resources resources = context.getResources();
+        return resources.getIdentifier(soundId,"raw",packName);
+    }
+
 
     /*
     * 포커스 사운드를 출력하기 위한 함수

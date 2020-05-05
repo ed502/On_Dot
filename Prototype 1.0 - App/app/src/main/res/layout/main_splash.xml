@@ -5,12 +5,19 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     android:fitsSystemWindows="true"
+    android:gravity="center"
     android:orientation="vertical">
     <TextView
-        android:textSize="150dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:text="splash"/>
+        android:text="시각장애인을 위한 점자 교육 시스템"/>
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ondot_logo"/>
 
 </LinearLayout>

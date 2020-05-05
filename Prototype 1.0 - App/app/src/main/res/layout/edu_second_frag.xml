@@ -13,7 +13,7 @@
         android:layout_marginTop="70dp"
         android:fontFamily="@font/nanumgothic"
         android:gravity="center_horizontal"
-        android:text="종성"
+        android:text="모음"
         android:textColor="@color/colorWhite"
         android:textSize="50dp"
         android:textStyle="bold" />

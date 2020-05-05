@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".Intro.BoardIntro"></activity>
         <activity android:name=".Intro.TranslateIntro" />
         <activity android:name=".Intro.QuizIntro" />
@@ -31,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Educate.EduFirst" />
+        <activity android:name=".Educate.EduFirst"/>
         <activity android:name=".Quiz.QuizThird" />
         <activity android:name=".Quiz.QuizSecond" />
         <activity android:name=".Quiz.QuizFirst" />
@@ -41,8 +42,13 @@
         <activity android:name=".Quiz.QuizMain" />
         <activity android:name=".Educate.EducateMain" />
         <activity android:name=".Board.BoardMain" />
-        <activity android:name=".Main.MainActivity"/>
+        <activity android:name=".Main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

@@ -55,7 +55,6 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
-
         circle = new LinearLayout[6];
         scrollCount = 0;
         circle[0] = findViewById(R.id.circle1);

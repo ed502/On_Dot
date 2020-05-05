@@ -6,23 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".Educate.EduFirst">
+    android:orientation="vertical">
     <LinearLayout
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/edu1_text"
-            android:text="초성"
+            android:id="@+id/edu3_text"
+            android:text="모음"
             android:textColor="@color/colorWhite"
             android:textSize="100dp"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <GridLayout
-            android:id="@+id/edu_first_dot_layout"
+            android:id="@+id/edu_third_dot_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -31,7 +30,7 @@
             android:rowCount="3">
 
             <LinearLayout
-                android:id="@+id/edu1_circle1"
+                android:id="@+id/edu3_circle1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -39,7 +38,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle2"
+                android:id="@+id/edu3_circle2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -47,7 +46,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle3"
+                android:id="@+id/edu3_circle3"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -55,7 +54,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle4"
+                android:id="@+id/edu3_circle4"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -63,7 +62,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle5"
+                android:id="@+id/edu3_circle5"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -71,7 +70,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle6"
+                android:id="@+id/edu3_circle6"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -79,7 +78,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle7"
+                android:id="@+id/edu3_circle7"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -87,7 +86,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle8"
+                android:id="@+id/edu3_circle8"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -95,7 +94,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle9"
+                android:id="@+id/edu3_circle9"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -103,7 +102,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle10"
+                android:id="@+id/edu3_circle10"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -111,7 +110,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle11"
+                android:id="@+id/edu3_circle11"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -119,7 +118,7 @@
                 android:orientation="vertical" />
 
             <LinearLayout
-                android:id="@+id/edu1_circle12"
+                android:id="@+id/edu3_circle12"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
@@ -132,7 +131,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/edu_first_layout"
+        android:id="@+id/edu_third_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"

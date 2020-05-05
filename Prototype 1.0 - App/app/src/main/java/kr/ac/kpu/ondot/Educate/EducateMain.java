@@ -50,6 +50,8 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
+=======
+>>>>>>> abd8e7cd911903d945767c928bfceaacb07685ca
         linearLayout = findViewById(R.id.edu_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

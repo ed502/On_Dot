@@ -28,9 +28,6 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_second);
 
-        //액티비티 전환 애니메이션 제거
-        overridePendingTransition(0, 0);
-
         linearLayout = findViewById(R.id.quiz_second_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

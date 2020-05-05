@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //액티비티 전환 애니메이션 제거
-        overridePendingTransition(0, 0);
-
         circleIndicator = findViewById(R.id.main_circleIndicator);
 
         linearLayout = findViewById(R.id.main_layout);

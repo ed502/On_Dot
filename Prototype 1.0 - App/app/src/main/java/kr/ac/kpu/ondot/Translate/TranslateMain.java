@@ -52,8 +52,11 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.translate_main);
 
+<<<<<<< HEAD
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
+=======
+>>>>>>> abd8e7cd911903d945767c928bfceaacb07685ca
 
         circle = new LinearLayout[6];
         scrollCount = 0;

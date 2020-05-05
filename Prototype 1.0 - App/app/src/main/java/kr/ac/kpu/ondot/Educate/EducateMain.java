@@ -45,9 +45,6 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.educate_main);
 
-        //액티비티 전환 애니메이션 제거
-        overridePendingTransition(0, 0);
-
         circleIndicator = findViewById(R.id.edu_circleIndicator);
 
         linearLayout = findViewById(R.id.edu_layout);

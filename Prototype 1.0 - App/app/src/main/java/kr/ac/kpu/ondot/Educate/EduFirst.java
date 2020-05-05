@@ -1,14 +1,11 @@
 package kr.ac.kpu.ondot.Educate;
 
-import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +26,7 @@ import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class EduFirst extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
@@ -42,10 +40,14 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     private ArrayList<String> word, dot, raw_id;
     private int currentLocation = 0;
 
+    private VoicePlayerModuleManager voicePlayerModuleManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_first);
+
+        initVoicePlayer();
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
@@ -89,7 +91,12 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         circle[11] = findViewById(R.id.edu1_circle12);
     }
 
-    //CustomTouchEvent 구현
+
+    // tts 초기화
+    private void initVoicePlayer(){
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
+    }
+
     private void initTouchEvent() {
         customTouchConnectListener = new CustomTouchEvent(this, this);
     }
@@ -104,7 +111,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         Screen.displayY = size.y;
     }
 
-    @Override //손가락 한개 제스처
+    @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
         runOnUiThread(new Runnable() {
             @Override
@@ -121,7 +128,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         });
     }
 
-    @Override //손가락 두개 제스처
+    @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
@@ -137,7 +144,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         }
     }
 
-    @Override //뒤로가기 오버라이드
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
@@ -164,7 +171,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         list = new ArrayList<DotVO>();
         boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
         try {
-            URL url = new URL("http://15.165.135.160/DotXml");
+            URL url = new URL("http://15.165.135.160/DotInitial");
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();
@@ -230,7 +237,6 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             list.add(data);
         }
     }
-
     /*
     이 함수가 좀 복잡합
     문제점1. 점자가 6개에서 12개로 변할 때 layout을 변경해야함
@@ -266,5 +272,10 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             }
         }
 
+        String raw_id = list.get(currentLocation).getRaw_id();
+        voicePlayerModuleManager.start(raw_id);
+
     }
+
+
 }

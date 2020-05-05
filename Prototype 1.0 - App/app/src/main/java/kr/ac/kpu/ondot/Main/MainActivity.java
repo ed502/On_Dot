@@ -32,10 +32,6 @@ import kr.ac.kpu.ondot.CustomTouch.TouchType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.JsonModule;
 import kr.ac.kpu.ondot.Educate.EducateMain;
-import kr.ac.kpu.ondot.Intro.BoardIntro;
-import kr.ac.kpu.ondot.Intro.EduIntro;
-import kr.ac.kpu.ondot.Intro.QuizIntro;
-import kr.ac.kpu.ondot.Intro.TranslateIntro;
 import kr.ac.kpu.ondot.PermissionModule.PermissionCancelListener;
 import kr.ac.kpu.ondot.PermissionModule.PermissionModule;
 import kr.ac.kpu.ondot.Quiz.QuizMain;
@@ -70,9 +66,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //액티비티 전환 애니메이션 제거
-        overridePendingTransition(0, 0);
 
         circleIndicator = findViewById(R.id.main_circleIndicator);
 
@@ -198,19 +191,19 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         Intent intent;
         switch (currentView) {
             case 0:
-                intent = new Intent(MainActivity.this, EduIntro.class);
+                intent = new Intent(MainActivity.this, EducateMain.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(MainActivity.this, QuizIntro.class);
+                intent = new Intent(MainActivity.this, QuizMain.class);
                 startActivity(intent);
                 break;
             case 2:
-                intent = new Intent(MainActivity.this, TranslateIntro.class);
+                intent = new Intent(MainActivity.this, TranslateMain.class);
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(MainActivity.this, BoardIntro.class);
+                intent = new Intent(MainActivity.this, BoardMain.class);
                 startActivity(intent);
                 break;
         }
@@ -218,6 +211,44 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
+
+        /*runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
+                    if (currentView < maxPage)
+                        mViewpager.setCurrentItem(currentView + 1);
+                    else
+                        mViewpager.setCurrentItem(currentView);
+                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
+                    if (currentView > 0)
+                        mViewpager.setCurrentItem(currentView - 1);
+                    else
+                        mViewpager.setCurrentItem(currentView);
+                }
+            }
+        });*/
+        /*runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(fingerFunctionType == FingerFunctionType.ENTER){
+                    Toast.makeText(getApplicationContext(),"ENTER",Toast.LENGTH_SHORT).show();
+                }else if(fingerFunctionType == FingerFunctionType.LEFT){
+                    Toast.makeText(getApplicationContext(),"LEFT",Toast.LENGTH_SHORT).show();
+                }else if(fingerFunctionType == FingerFunctionType.RIGHT){
+                    Toast.makeText(getApplicationContext(),"RIGHT",Toast.LENGTH_SHORT).show();
+                }else if(fingerFunctionType == FingerFunctionType.UP){
+                    Toast.makeText(getApplicationContext(),"UP",Toast.LENGTH_SHORT).show();
+                }else if(fingerFunctionType == FingerFunctionType.DOWN){
+                    Toast.makeText(getApplicationContext(),"DOWN",Toast.LENGTH_SHORT).show();
+                }else if(fingerFunctionType == FingerFunctionType.LONG){
+                    Toast.makeText(getApplicationContext(),"LONG",Toast.LENGTH_SHORT).show();
+                }else if(fingerFunctionType == FingerFunctionType.NONE){
+                    Toast.makeText(getApplicationContext(),"NONE",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });*/
 
         runOnUiThread(new Runnable() {
             @Override

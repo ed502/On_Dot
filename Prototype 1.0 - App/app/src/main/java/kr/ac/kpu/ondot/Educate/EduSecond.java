@@ -27,9 +27,6 @@ public class EduSecond extends AppCompatActivity implements CustomTouchEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_second);
 
-        //액티비티 전환 애니메이션 제거
-        overridePendingTransition(0, 0);
-
         linearLayout = findViewById(R.id.edu_second_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

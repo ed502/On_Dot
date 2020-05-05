@@ -47,6 +47,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
         circleIndicator = findViewById(R.id.edu_circleIndicator);
 
+<<<<<<< HEAD
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 

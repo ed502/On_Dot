@@ -35,7 +35,7 @@ int i=0;
 			//03단계 :Query실행을 위한 statement 또는 prepareStatement객체생성 시작
 			stmt = conn.createStatement();
 			//04단계 :Query실행 시작
-			String query = "select * from translatelog order by count desc";
+			String query = "select word_dots.word, wronglog.count from wronglog join word_dots where wronglog.word_id = word_dots.id order by wronglog.count desc;";
 			rs = stmt.executeQuery(query);
 			//04단계 :Query실행 끝
 			//05단계 :Query실행결과 사용
@@ -44,6 +44,8 @@ int i=0;
 			//---   select문장 통해서 모든 회원 목록 가져와서 한줄씩 (레코드(record) or 로우(row))보여준다 시작 
 			while (rs.next()) {
 				i++;
+				if (i>20)
+					break;
 				word[i] = rs.getString("word");
 	%>
 
@@ -177,7 +179,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">3</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">문준혁</span>
+                                    <span class="item_title"><% out.print(word[3]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -187,7 +189,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">4</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">송민욱</span>
+                                    <span class="item_title"><% out.print(word[4]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -197,7 +199,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">5</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">이세민</span>
+                                    <span class="item_title"><%out.print(word[5]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -207,7 +209,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">6</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">온점</span>
+                                    <span class="item_title"><%out.print(word[6]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -217,7 +219,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">7</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">졸업작품</span>
+                                    <span class="item_title"><%out.print(word[7]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -227,7 +229,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">8</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">나무</span>
+                                    <span class="item_title"><%out.print(word[8]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -237,7 +239,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">9</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">아버지</span>
+                                    <span class="item_title"><%out.print(word[9]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -247,7 +249,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">10</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">어머니</span>
+                                    <span class="item_title"><%out.print(word[10]);%></span>
                                         <span class="item_title_sub">
                                             
                                         </span>
@@ -260,7 +262,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">11</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">사과</span>
+                                    <span class="item_title"><%out.print(word[11]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -270,7 +272,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">12</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">우거지</span>
+                                    <span class="item_title"><%out.print(word[12]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -280,7 +282,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">13</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">용</span>
+                                    <span class="item_title"><%out.print(word[13]);%></span>
                                         <span class="item_title_sub">
                                             
                                         </span>
@@ -293,7 +295,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">14</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">여우</span>
+                                    <span class="item_title"><%out.print(word[14]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -303,7 +305,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">15</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">아이유</span>
+                                    <span class="item_title"><%out.print(word[15]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -313,7 +315,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">16</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">야유</span>
+                                    <span class="item_title"><%out.print(word[16]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -323,7 +325,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">17</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">웹</span>
+                                    <span class="item_title"><%out.print(word[17]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -333,7 +335,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">18</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">오징어</span>
+                                    <span class="item_title"><%out.print(word[18]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -343,7 +345,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">19</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">금고</span>
+                                    <span class="item_title"><%out.print(word[19]);%></span>
                                     </span>
                                     </div>
                                     </li>
@@ -353,7 +355,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">20</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">사랑</span>
+                                    <span class="item_title"><%out.print(word[20]);%></span>
                                     </span>
                                     </div>
                                     </li>

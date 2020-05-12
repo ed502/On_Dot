@@ -63,7 +63,7 @@
 ### :large_orange_diamond: 진행상황
 ----------------------------------------------------------
 
-<img src="/images/going_5.jpg" width="100%">
+<img src="/images/going_5.png" width="100%">
 
 ### :large_orange_diamond: 참고문헌
 ----------------------------------------------------------

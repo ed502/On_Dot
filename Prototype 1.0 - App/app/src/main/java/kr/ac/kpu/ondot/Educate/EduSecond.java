@@ -47,7 +47,6 @@ public class EduSecond extends AppCompatActivity implements CustomTouchEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_second);
 
-<<<<<<< HEAD
         initVoicePlayer();
 
         //액티비티 전환 애니메이션 제거
@@ -62,8 +61,6 @@ public class EduSecond extends AppCompatActivity implements CustomTouchEventList
 
     //id초기화 TouchListener설정 사실상 onCreate의 역할
     private void setDot() {
-=======
->>>>>>> abd8e7cd911903d945767c928bfceaacb07685ca
         linearLayout = findViewById(R.id.edu_second_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

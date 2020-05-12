@@ -15,9 +15,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nanumgothic"
             android:textSize="100dp"
-            android:text="edu"
+            android:text="교육"
             android:textColor="@color/colorWhite"/>
+        <TextView
+            android:textStyle="normal"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nanumgothic"
+            android:text="이 메뉴는 점자를 학습하는 학습 메뉴입니다.\n초성, 종성, 모음 3단계로 나눠져 점자를 학습할 수 있습니다."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

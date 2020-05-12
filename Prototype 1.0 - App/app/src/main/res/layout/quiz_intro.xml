@@ -15,9 +15,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="100dp"
-            android:text="quiz"
+            android:fontFamily="@font/nanumgothic"
+            android:text="퀴즈"
             android:textColor="@color/colorWhite"/>
+        <TextView
+            android:textStyle="normal"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nanumgothic"
+            android:text="이 메뉴는 점자를 학습한 후에 학습한 내용을 복습하는 퀴즈 메뉴입니다.\n초성, 종성, 모음을 선택 한 후에 점자키트에 표시된 점자의 정답을 음성으로 말하여 문제를 풀어 주시기 바랍니다."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

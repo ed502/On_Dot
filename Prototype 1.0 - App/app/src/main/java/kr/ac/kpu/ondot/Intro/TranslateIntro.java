@@ -7,6 +7,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,7 +74,19 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
     }
 
     @Override
-    public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
+    public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
+        switch (fingerFunctionType) {
+            case BACK:
+                onBackPressed();
+                break;
+            case SPECIAL:
+                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                break;
+            case NONE:
+                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
 
     }
 

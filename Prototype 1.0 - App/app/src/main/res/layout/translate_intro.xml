@@ -15,9 +15,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="100dp"
-            android:text="translate"
+            android:fontFamily="@font/nanumgothic"
+            android:text="번역"
             android:textColor="@color/colorWhite"/>
+        <TextView
+            android:textStyle="normal"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nanumgothic"
+            android:text="이 메뉴는 번역 메뉴입니다.\n점자를 입력하면 음성으로 단어를 들을 수 있습니다.\n메뉴얼에 따라 점자를 입력해주시기 바랍니다."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

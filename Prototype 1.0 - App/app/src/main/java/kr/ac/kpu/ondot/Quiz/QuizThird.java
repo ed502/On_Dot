@@ -27,6 +27,9 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_third);
 
+        //액티비티 전환 애니메이션 제거
+        overridePendingTransition(0, 0);
+
         linearLayout = findViewById(R.id.quiz_third_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

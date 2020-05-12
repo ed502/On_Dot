@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
+        android:fontFamily="@font/nanumgothic"
         android:text="시각장애인을 위한 점자 교육 시스템"/>
     <ImageView
         android:layout_marginTop="20dp"

@@ -77,7 +77,19 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
     }
 
     @Override
-    public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
+    public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
+        switch (fingerFunctionType) {
+            case BACK:
+                onBackPressed();
+                break;
+            case SPECIAL:
+                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                break;
+            case NONE:
+                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
 
     }
 

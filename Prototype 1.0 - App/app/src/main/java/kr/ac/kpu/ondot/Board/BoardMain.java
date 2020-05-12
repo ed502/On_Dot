@@ -32,6 +32,9 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.board_main);
 
+        //액티비티 전환 애니메이션 제거
+        overridePendingTransition(0, 0);
+
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();

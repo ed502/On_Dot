@@ -15,9 +15,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="100dp"
-            android:text="board"
+            android:text="게시판"
+            android:fontFamily="@font/nanumgothic"
             android:textColor="@color/colorWhite"/>
+        <TextView
+            android:textStyle="normal"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nanumgothic"
+            android:text="이 메뉴는 생활 중에 불편한 내용을 건의하는 게시판입니다.\n건의한 내용은 종합하여 관련 단체로 전달됩니다."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

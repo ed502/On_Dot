@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //액티비티 전환 애니메이션 제거
+        overridePendingTransition(0, 0);
+
         circleIndicator = findViewById(R.id.main_circleIndicator);
 
         linearLayout = findViewById(R.id.main_layout);
@@ -215,45 +218,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
-
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
-                    if (currentView < maxPage)
-                        mViewpager.setCurrentItem(currentView + 1);
-                    else
-                        mViewpager.setCurrentItem(currentView);
-                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
-                    if (currentView > 0)
-                        mViewpager.setCurrentItem(currentView - 1);
-                    else
-                        mViewpager.setCurrentItem(currentView);
-                }
-            }
-        });*/
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(fingerFunctionType == FingerFunctionType.ENTER){
-                    Toast.makeText(getApplicationContext(),"ENTER",Toast.LENGTH_SHORT).show();
-                }else if(fingerFunctionType == FingerFunctionType.LEFT){
-                    Toast.makeText(getApplicationContext(),"LEFT",Toast.LENGTH_SHORT).show();
-                }else if(fingerFunctionType == FingerFunctionType.RIGHT){
-                    Toast.makeText(getApplicationContext(),"RIGHT",Toast.LENGTH_SHORT).show();
-                }else if(fingerFunctionType == FingerFunctionType.UP){
-                    Toast.makeText(getApplicationContext(),"UP",Toast.LENGTH_SHORT).show();
-                }else if(fingerFunctionType == FingerFunctionType.DOWN){
-                    Toast.makeText(getApplicationContext(),"DOWN",Toast.LENGTH_SHORT).show();
-                }else if(fingerFunctionType == FingerFunctionType.LONG){
-                    Toast.makeText(getApplicationContext(),"LONG",Toast.LENGTH_SHORT).show();
-                }else if(fingerFunctionType == FingerFunctionType.NONE){
-                    Toast.makeText(getApplicationContext(),"NONE",Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });*/
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

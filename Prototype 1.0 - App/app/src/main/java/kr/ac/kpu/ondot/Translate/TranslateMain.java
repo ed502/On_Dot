@@ -108,6 +108,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                voicePlayerModuleManager.start(fingerFunctionType);
                 if (dataCount == 8) {
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {

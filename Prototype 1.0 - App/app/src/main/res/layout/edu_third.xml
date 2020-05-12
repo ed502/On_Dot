@@ -16,6 +16,7 @@
         <TextView
             android:id="@+id/edu3_text"
             android:text="모음"
+            android:fontFamily="@font/nanumgothic"
             android:textColor="@color/colorWhite"
             android:textSize="100dp"
             android:layout_gravity="center"

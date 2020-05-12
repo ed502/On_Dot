@@ -301,7 +301,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         }
     }
     /*
-    이 함수가 좀 복잡합
+    checkData()
     문제점1. 점자가 6개에서 12개로 변할 때 layout을 변경해야함
     문제점2. layout이 변경되면서 초기화했던 id를 다시 초기화해야하는 상황 발생
 

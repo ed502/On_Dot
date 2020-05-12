@@ -52,7 +52,7 @@
 			<input type="submit" value="번역 랭킹">
 	</form>
 	
-	<form method="post" action="wrongRanking.jsp">
+	<form method="post" action="braile.jsp">
 
 		<p>
 			<input type="submit" value="웹사이트">

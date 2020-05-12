@@ -42,7 +42,7 @@ public class DotXml extends HttpServlet {
 	         PreparedStatement ps = null;
 	         
 	         // type =1 이 초성 2가 모음 3이 종성
-	         String sql = "select * from initial_dots where type = 1";
+	         String sql = "select * from initial_dots";
 	         ps = conn.prepareStatement(sql);
 	         
 	         ResultSet rs = ps.executeQuery();

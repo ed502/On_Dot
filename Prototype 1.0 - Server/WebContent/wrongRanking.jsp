@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>온점</title>
 <link rel="stylesheet" href="./resources/css/style.css" />   
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
 
@@ -27,11 +28,11 @@ int i=0;
 			//02단계 :DB연결(Connection)끝
 			
 			// DB 연결이 성공 되었는지 안되었는지 판단하라
-			if (conn != null) {
+			/* if (conn != null) {
 				out.println("01 DB연결 성공");
 			} else {
 				out.println("02 DB연결 실패");
-			}
+			} */
 			//03단계 :Query실행을 위한 statement 또는 prepareStatement객체생성 시작
 			stmt = conn.createStatement();
 			//04단계 :Query실행 시작
@@ -82,18 +83,18 @@ int i=0;
 				}
 		}
 	%>
-       <form method="post" action="index.jsp">
+      <!--  <form method="post" action="index.jsp">
 
 		<p>
 			<input type="submit" value="Home">
-	</form>
+	</form> -->
 
 
 
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4"><h1>온점</h1></div>
+            <div class="col-md-4"><a href="braile.jsp"style="color: black"><h1>온점</h1></a></div>
             <div class="col-md-4"><h2>시각장애인을 위한 점자 교육 시스템</h2></div>
         </div>
         <br>
@@ -117,7 +118,7 @@ int i=0;
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="">
+                             <a routerlinkactive="active" href="">
                                 점자게시판
                             </a>
                         </li>
@@ -127,7 +128,7 @@ int i=0;
                             <b>졸업작품 정보</b>
                         </label>
                         <li>
-                            <a routerlinkactive="active" href="">
+                            <a routerlinkactive="active" href="https://github.com/ed502/On_Dot">
                                 GitHub
                             </a>
                         </li>
@@ -137,7 +138,7 @@ int i=0;
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="">
+                            <a routerlinkactive="active" href="http://www.kbuwel.or.kr/Blind/Braille">
                                 점자협회
                             </a>
                         </li>

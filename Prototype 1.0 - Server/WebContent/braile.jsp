@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>온점</title>
-<link rel="stylesheet" href="./resources/css/style.css" />   
+<link rel="stylesheet" href="../resources/css/style.css" />   
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
 </head>
@@ -15,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4"><h1>온점</h1></div>
+            <div class="col-md-4"><a href="braile.jsp"style="color: black"><h1>온점</h1></a></div>
             <div class="col-md-4"><h2>시각장애인을 위한 점자 교육 시스템</h2></div>
         </div>
         <br>
@@ -59,7 +60,7 @@
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="">
+                            <a routerlinkactive="active" href="http://www.kbuwel.or.kr/Blind/Braille">
                                 점자협회
                             </a>
                         </li>

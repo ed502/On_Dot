@@ -31,10 +31,13 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     private ViewPager mViewpager;
     private EduPagerAdapter mAdapter;
     private int maxPage;
-    private int currentView;
+    private int currentView = 0;
 
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
+
+    // 음성 TTS 테스트
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
 
     @Override
@@ -60,7 +63,9 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
         initDisplaySize();
         initTouchEvent();
-
+        initVoicePlayer();
+        // 임시방편
+        //voicePlayerModuleManager.start(R.raw.initial);
 
         mViewpager = findViewById(R.id.edu_viewpager);
         mAdapter = new EduPagerAdapter(getSupportFragmentManager());
@@ -79,6 +84,8 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
+                menuVoice(currentView);
+
             }
 
             @Override
@@ -87,6 +94,37 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        menuVoice(currentView);
+    }
+
+    // tts 초기화
+    private void initVoicePlayer(){
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
+    }
+
+    private void menuVoice(int currentView){
+        // 메뉴 이름 음성 출력
+        switch (currentView){
+            case 0:
+                // 초성
+                voicePlayerModuleManager.start(R.raw.initial);
+                break;
+            case 1:
+                // 모음
+                voicePlayerModuleManager.start(R.raw.vowel);
+                break;
+            case 2:
+                // 종성
+                voicePlayerModuleManager.start(R.raw.final_);
+                break;
+        }
+    }
+
 
     public void activitySwitch(int currentView) {
         Intent intent;
@@ -127,12 +165,14 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
             @Override
             public void run() {
                 if(fingerFunctionType == FingerFunctionType.RIGHT){ //오른쪽에서 왼쪽으로 스크롤
+                    voicePlayerModuleManager.start(fingerFunctionType);
                     if(currentView<maxPage)
                         mViewpager.setCurrentItem(currentView+1);
                     else
                         mViewpager.setCurrentItem(currentView);
                 }
                 else if(fingerFunctionType == FingerFunctionType.LEFT){ //왼쪽에서 오른쪽으로 스크롤
+                    voicePlayerModuleManager.start(fingerFunctionType);
                     if(currentView>0)
                         mViewpager.setCurrentItem(currentView-1);
                     else
@@ -143,6 +183,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
         Log.d(DEBUG_TYPE,"MainActivity - fingerFunctionType : " + fingerFunctionType);
         if(fingerFunctionType == FingerFunctionType.ENTER){
+            voicePlayerModuleManager.start(fingerFunctionType);
             activitySwitch(currentView);
 
             Log.d(DEBUG_TYPE,"MainActivity - fingerFunctionType : " + fingerFunctionType);

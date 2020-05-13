@@ -120,11 +120,10 @@ public class VoicePlayerModuleManager {
     public void start(MenuType menuType){
         switch (menuType){
             case INITIAL:
-
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - INITIAL  수행 됨");
                 break;
             case EDUCATE:
-                start(R.raw.education_info);
+                start(R.raw.education_info1);
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - EDUCATE  수행 됨");
                 break;
             case QUIZ:

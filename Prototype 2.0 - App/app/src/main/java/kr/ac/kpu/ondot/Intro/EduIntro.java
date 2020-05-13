@@ -79,7 +79,9 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
         initTouchEvent();
         initVoicePlayer();
         initBlue();
+        voicePlayerModuleManager.start(menuType);
     }
+
 
     private void initTouchEvent() {
         customTouchConnectListener = new CustomTouchEvent(this, this);
@@ -108,6 +110,7 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
                 if(fingerFunctionType == FingerFunctionType.ENTER && mBtManager.getState() != BluetoothManager.STATE_CONNECTED){
                     Toast.makeText(getApplicationContext(),"블루투스 연결요망",Toast.LENGTH_SHORT).show();
                     //안내 음성파일
+                    voicePlayerModuleManager.start(R.raw.blue_not_connect);
                 }
                 else if (fingerFunctionType == FingerFunctionType.ENTER && mBtStatus==BluetoothManager.STATE_CONNECTED) { // 블루투스 연결이 되어있는 상태
                     startActivity(new Intent(getApplicationContext(), EducateMain.class));
@@ -266,10 +269,13 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onResume() {
         super.onResume();
-        voicePlayerModuleManager.start(menuType);
+
 
         if (mBtManager != null) {
             mBtStatus = mBtManager.getState();
+
+            if(mBtStatus == BluetoothManager.STATE_CONNECTING && mBtStatus == BluetoothManager.STATE_CONNECTED)
+                voicePlayerModuleManager.start(R.raw.education_info2);
             if (mBtHandler != null)
                 mBtManager.setHandler(mBtHandler);
         }
@@ -390,6 +396,7 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
                         Toast.makeText(mContext,
                                 "Connected to " + deviceName, Toast.LENGTH_SHORT).show();
                     }
+                    voicePlayerModuleManager.start(R.raw.education_info2);
                     break;
 
                 case BluetoothManager.MESSAGE_TOAST:

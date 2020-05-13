@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kr.ac.kpu.ondot">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ondot_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ondot_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".BluetoothModule.DeviceList"></activity>
+        <activity android:name=".Intro.BoardIntro" />
+        <activity android:name=".Intro.TranslateIntro" />
+        <activity android:name=".Intro.QuizIntro" />
+        <activity android:name=".Intro.EduIntro" />
+        <activity android:name=".Intro.MainIntro" />
+        <activity
+            android:name=".Intro.MainSplash"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Educate.EduFirst" />
+        <activity android:name=".Quiz.QuizThird" />
+        <activity android:name=".Quiz.QuizSecond" />
+        <activity android:name=".Quiz.QuizFirst" />
+        <activity android:name=".Educate.EduThird" />
+        <activity android:name=".Educate.EduSecond" />
+        <activity android:name=".Translate.TranslateMain" />
+        <activity android:name=".Translate.TranslateResult" />
+        <activity android:name=".Quiz.QuizMain" />
+        <activity android:name=".Educate.EducateMain" />
+        <activity android:name=".Board.BoardMain" />
+        <activity android:name=".Main.MainActivity" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="f94e4b5c1b16d4394b3f04bafa70453f" />
+    </application>
+
+</manifest>

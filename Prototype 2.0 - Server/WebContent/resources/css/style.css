@@ -42,6 +42,18 @@ body {
     padding-left: 20px;
     padding-right: 20px;
 }
+.apppicture {
+    width: 28%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.kitpicture {
+    width: 85%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .footer {
     
     left: 0;

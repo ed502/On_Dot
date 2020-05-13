@@ -118,8 +118,7 @@ int i=0;
                             </a>
                         </li>
                         <li>
-                             <a routerlinkactive="active" href="">
-                                점자게시판
+                       
                             </a>
                         </li>
                     </ul>
@@ -133,7 +132,7 @@ int i=0;
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="">
+                           <a routerlinkactive="active" href="onDotInfo.jsp">
                                 졸업작품 개요
                             </a>
                         </li>

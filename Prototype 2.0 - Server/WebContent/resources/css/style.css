@@ -18,7 +18,7 @@ h3 {
     font-family: 'GyeonggiBatang';
 }
 p {
-    font-family: 'Nanum Gothic',¸¼Àº °íµñ, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
+    font-family: 'Nanum Gothic',ë§‘ì€ ê³ ë”•, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
     font-size: .8rem;
     color: #555;
     position: relative;
@@ -42,6 +42,18 @@ body {
     padding-left: 20px;
     padding-right: 20px;
 }
+.apppicture {
+    width: 28%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.kitpicture {
+    width: 85%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .footer {
     
     left: 0;
@@ -60,7 +72,7 @@ body {
     background-color: #aaa;
 }
 .ranking_bok {
-    font-family: '³ª´®°íµñ',NanumGothic,'µ¸¿ò',Dotum,Helvetica,sans-serif;
+    font-family: 'ë‚˜ëˆ”ê³ ë”•',NanumGothic,'ë‹ì›€',Dotum,Helvetica,sans-serif;
     font-size: 14px;
     color: #333;
     letter-spacing: -1px;

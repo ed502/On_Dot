@@ -36,9 +36,6 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
 
-    private MenuType menuType = MenuType.QUIZ;
-    private VoicePlayerModuleManager voicePlayerModuleManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +59,6 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
 
         initDisplaySize();
         initTouchEvent();
-        initVoicePlayer();
 
         mViewpager = findViewById(R.id.quiz_viewpager);
         mAdapter = new QuizPagerAdapter(getSupportFragmentManager());
@@ -122,11 +118,6 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
         Screen.displayY = size.y;
     }
 
-    // tts 초기화
-    private void initVoicePlayer(){
-        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
-    }
-
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
 
@@ -169,12 +160,6 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
                 break;
 
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        voicePlayerModuleManager.start(menuType);
     }
 
     @Override

@@ -46,13 +46,12 @@ import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class MainActivity extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
-
     private CircleIndicator circleIndicator;
 
     private ViewPager mViewpager;
     private MainPagerAdapter mAdapter;
     private int maxPage;
-    private int currentView;
+    private int currentView = 0;
 
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         initPermission();
         initVoicePlayer();
 
-
         // hashkey 얻기
         getHashKey();
 
@@ -114,27 +112,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
-
-                // 메뉴 이름 음성 출력
-                switch (currentView){
-                    case 0:
-                        // 교육
-                        voicePlayerModuleManager.start(R.raw.education);
-                        break;
-                    case 1:
-                        // 퀴즈
-                        voicePlayerModuleManager.start(R.raw.quiz);
-                        break;
-                    case 2:
-                        // 번역
-                        voicePlayerModuleManager.start(R.raw.translate);
-                        break;
-                    case 3:
-                        // 음성게시판
-                        voicePlayerModuleManager.start(R.raw.board);
-                        break;
-                }
-
+                menuVoice(currentView);
             }
 
             @Override
@@ -143,7 +121,33 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             }
         });
     }
+    private void menuVoice(int currentView){
+        // 메뉴 이름 음성 출력
+        switch (currentView){
+            case 0:
+                // 교육
+                voicePlayerModuleManager.start(R.raw.education);
+                break;
+            case 1:
+                // 퀴즈
+                voicePlayerModuleManager.start(R.raw.quiz);
+                break;
+            case 2:
+                // 번역
+                voicePlayerModuleManager.start(R.raw.translate);
+                break;
+            case 3:
+                // 음성게시판
+                voicePlayerModuleManager.start(R.raw.board);
+                break;
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        menuVoice(currentView);
+    }
 
     private void initTouchEvent() {
         customTouchConnectListener = new CustomTouchEvent(this, this);

@@ -44,7 +44,6 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     private int scrollCount, dataCount = 0;
     private String data = "";
 
-    private MenuType menuType = MenuType.TRANSLATE;
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
     @Override
@@ -257,12 +256,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        voicePlayerModuleManager.start(menuType);
-    }
+
 
     @Override
     protected void onPause() {

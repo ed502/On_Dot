@@ -24,9 +24,6 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
     private LinearLayout linearLayout;
     private CustomTouchConnectListener customTouchConnectListener;
 
-    private MenuType menuType = MenuType.BOARD;
-    private VoicePlayerModuleManager voicePlayerModuleManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +34,7 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
 
         initDisplaySize();
         initTouchEvent();
-        initVoicePlayer();
+
 
         linearLayout = findViewById(R.id.board_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -65,10 +62,7 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
         Screen.displayY = size.y;
     }
 
-    // tts 초기화
-    private void initVoicePlayer(){
-        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
-    }
+
 
 
     @Override
@@ -107,9 +101,5 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        voicePlayerModuleManager.start(menuType);
-    }
+
 }

@@ -26,9 +26,10 @@
         android:orientation="vertical"
         android:gravity="bottom">
         <ImageView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
             android:layout_margin="20dp"
-            android:src="@drawable/kakao_image"
-            android:layout_width="102px"
-            android:layout_height="15px"/>
+            android:src="@drawable/kakao_image" />
     </LinearLayout>
 </FrameLayout>

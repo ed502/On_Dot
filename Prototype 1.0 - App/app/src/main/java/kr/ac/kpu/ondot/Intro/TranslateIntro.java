@@ -2,6 +2,8 @@ package kr.ac.kpu.ondot.Intro;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -15,14 +17,19 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.Translate.TranslateMain;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class TranslateIntro extends AppCompatActivity implements CustomTouchEventListener {
 
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
+
+    private MenuType menuType = MenuType.TRANSLATE;
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
         });
         initDisplaySize();
         initTouchEvent();
+        initVoicePlayer();
     }
 
     private void initTouchEvent() {
@@ -58,6 +66,11 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
 
         Screen.displayX = size.x;
         Screen.displayY = size.y;
+    }
+
+    // tts 초기화
+    private void initVoicePlayer() {
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
     @Override
@@ -85,9 +98,7 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
             case NONE:
                 Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
-
         }
-
     }
 
     @Override
@@ -98,5 +109,11 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
     @Override
     public void onPermissionUseDisagree() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        voicePlayerModuleManager.start(menuType);
     }
 }

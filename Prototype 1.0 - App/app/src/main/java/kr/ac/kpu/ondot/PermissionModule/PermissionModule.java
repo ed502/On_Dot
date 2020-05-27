@@ -179,9 +179,9 @@ public class PermissionModule {
         if(drawableId != 0 && rawid != 0){
             checkPermissionView();
             recyclePermissionImage();
-            permissionGuideBackGround.setVisibility(View.VISIBLE);
-            permissionGuideImage.setImageDrawable(getDrawableImage(drawableId, permissionGuideImage.getLayoutParams().width, permissionGuideImage.getLayoutParams().height));
-            permissionGuideImage.setVisibility(View.VISIBLE);
+            //permissionGuideBackGround.setVisibility(View.VISIBLE);
+            //permissionGuideImage.setImageDrawable(getDrawableImage(drawableId, permissionGuideImage.getLayoutParams().width, permissionGuideImage.getLayoutParams().height));
+            //permissionGuideImage.setVisibility(View.VISIBLE);
             ActivityCompat.requestPermissions(activity,permissions,PERMISSIONS);
             //  음성 들어갈 곳
             permissionCheckWaitThreadStart();

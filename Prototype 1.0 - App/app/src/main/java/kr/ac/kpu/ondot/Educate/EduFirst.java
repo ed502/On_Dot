@@ -1,11 +1,13 @@
 package kr.ac.kpu.ondot.Educate;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -23,20 +24,21 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.net.URL;
 import java.util.ArrayList;
 
-import app.akexorcist.bluetotohspp.library.BluetoothSPP;
-import app.akexorcist.bluetotohspp.library.BluetoothState;
-import app.akexorcist.bluetotohspp.library.DeviceList;
+import kr.ac.kpu.ondot.BluetoothModule.BluetoothManager;
+import kr.ac.kpu.ondot.BluetoothModule.ConnectionInfo;
+import kr.ac.kpu.ondot.BluetoothModule.Constants;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
-import kr.ac.kpu.ondot.Main.MainActivity;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class EduFirst extends AppCompatActivity implements CustomTouchEventListener {
+    private static final String TAG = "EduFirst";
+
     private final String DEBUG_TYPE = "type";
     private LinearLayout linearLayout;
     private CustomTouchConnectListener customTouchConnectListener;
@@ -50,45 +52,22 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
-    private BluetoothSPP bt;
+    // Bluetooth
 
+    private Context mContext;
+    private BtHandler mHandler;
+
+    private BluetoothManager mBtManager = null;
+    private BluetoothAdapter mBtAdapter = null;
+    private ConnectionInfo mConnectionInfo = null;        // Remembers connection info when BT connection is made
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_first);
 
-        bt = new BluetoothSPP(getApplicationContext());
-
-        if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
-            Toast.makeText(getApplicationContext(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
-        }
-
-        bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
-            public void onDataReceived(byte[] data, String message) {
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
-            public void onDeviceConnected(String name, String address) {
-                Toast.makeText(getApplicationContext()
-                        , "Connected to " + name + "\n" + address
-                        , Toast.LENGTH_SHORT).show();
-            }
-
-            public void onDeviceDisconnected() { //연결해제
-                Toast.makeText(getApplicationContext()
-                        , "Connection lost", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onDeviceConnectionFailed() { //연결실패
-                Toast.makeText(getApplicationContext()
-                        , "Unable to connect", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btConnect();
+        mContext = getApplicationContext();
+        initBlue();
 
         initVoicePlayer();
 
@@ -101,62 +80,9 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
 
     }
-    // 연결 시도하는 ?
-    public void btConnect(){
-        if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-            bt.disconnect();
-        } else {
-            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
-            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
-        }
-    }
-
-    // 데이터 전송
-    public void btSend(String data){
-        bt.send(data,true);
-    }
-
-    //id초기화 TouchListener설정 사실상 onCreate의 역할
-    private void setDot() {
-
-        //btConnect();
-
-        linearLayout = findViewById(R.id.edu_first_layout);
-        linearLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (customTouchConnectListener != null) {
-                    customTouchConnectListener.touchEvent(motionEvent);
-                }
-                return true;
-            }
-        });
-        initDisplaySize();
-        initTouchEvent();
-        textData = findViewById(R.id.edu1_text);
-
-        circle = new LinearLayout[12];
-
-        circle[0] = findViewById(R.id.edu1_circle1);
-        circle[1] = findViewById(R.id.edu1_circle2);
-        circle[2] = findViewById(R.id.edu1_circle3);
-        circle[3] = findViewById(R.id.edu1_circle4);
-        circle[4] = findViewById(R.id.edu1_circle5);
-        circle[5] = findViewById(R.id.edu1_circle6);
-        circle[6] = findViewById(R.id.edu1_circle7);
-        circle[7] = findViewById(R.id.edu1_circle8);
-        circle[8] = findViewById(R.id.edu1_circle9);
-        circle[9] = findViewById(R.id.edu1_circle10);
-        circle[10] = findViewById(R.id.edu1_circle11);
-        circle[11] = findViewById(R.id.edu1_circle12);
-
-
-
-    }
-
 
     // tts 초기화
-    private void initVoicePlayer(){
+    private void initVoicePlayer() {
         voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
@@ -220,6 +146,38 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     public void onPermissionUseDisagree() {
 
+    }
+
+    //id초기화 TouchListener설정 사실상 onCreate의 역할
+    private void setDot() {
+        linearLayout = findViewById(R.id.edu_first_layout);
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (customTouchConnectListener != null) {
+                    customTouchConnectListener.touchEvent(motionEvent);
+                }
+                return true;
+            }
+        });
+        initDisplaySize();
+        initTouchEvent();
+        textData = findViewById(R.id.edu1_text);
+
+        circle = new LinearLayout[12];
+
+        circle[0] = findViewById(R.id.edu1_circle1);
+        circle[1] = findViewById(R.id.edu1_circle2);
+        circle[2] = findViewById(R.id.edu1_circle3);
+        circle[3] = findViewById(R.id.edu1_circle4);
+        circle[4] = findViewById(R.id.edu1_circle5);
+        circle[5] = findViewById(R.id.edu1_circle6);
+        circle[6] = findViewById(R.id.edu1_circle7);
+        circle[7] = findViewById(R.id.edu1_circle8);
+        circle[8] = findViewById(R.id.edu1_circle9);
+        circle[9] = findViewById(R.id.edu1_circle10);
+        circle[10] = findViewById(R.id.edu1_circle11);
+        circle[11] = findViewById(R.id.edu1_circle12);
     }
 
     // 서버에서 데이터 파싱해서 ArrayList에 저장
@@ -300,6 +258,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             list.add(data);
         }
     }
+
     /*
     checkData()
     문제점1. 점자가 6개에서 12개로 변할 때 layout을 변경해야함
@@ -334,51 +293,111 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
                 }
             }
         }
-
-
-
+        sendData(dotData);
         String raw_id = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.start(raw_id);
 
     }
 
+    public void sendData(String str) {
+        Log.d(TAG, "strrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : " + str);
+        mBtManager.write(str.getBytes());
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bt.stopService();
+        mBtManager.write("222222".getBytes());
+        finalize();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (!bt.isBluetoothEnabled()) { //
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(intent, BluetoothState.REQUEST_ENABLE_BT);
-        } else {
-            if (!bt.isServiceAvailable()) {
-                bt.setupService();
-                bt.startService(BluetoothState.DEVICE_OTHER); //DEVICE_ANDROID는 안드로이드 기기 끼리
-            }
-        }
+    public void onLowMemory() {
+        super.onLowMemory();
+        finalize();
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
-            if (resultCode == Activity.RESULT_OK)
-                bt.connect(data);
-        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
-            if (resultCode == Activity.RESULT_OK) {
-                bt.setupService();
-                bt.startService(BluetoothState.DEVICE_OTHER);
-                String dot = list.get(currentLocation).getDot();
-                bt.send(dot,true);
-            } else {
-                Toast.makeText(getApplicationContext()
-                        , "Bluetooth was not enabled."
-                        , Toast.LENGTH_SHORT).show();
-                finish();
-            }
+
+    /**
+     * Receives messages from bluetooth manager
+     */
+    class BtHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                // Received packets from remote
+                case BluetoothManager.MESSAGE_READ:
+                    Log.d(TAG, "BT - MESSAGE_READ: ");
+
+                    /*byte[] readBuf = (byte[]) msg.obj;
+                    int readCount = msg.arg1;
+                    if(msg.arg1 > 0) {
+                        String strMsg = new String(readBuf, 0, msg.arg1);
+                        // parse string
+                        if(strMsg.contains("b")) {
+                            mRenderer.fire();
+                        } else if(strMsg.contains("c")) {
+                            // update score
+                            int score = mRenderer.getScore();
+                            int top_score = mSettings.getTopScore();
+                            if(score > top_score) {
+                                mSettings.setTopScore(score);
+                            }
+                            mSettings.setLastScore(score);
+
+                            // release resources
+                            try {
+                                mRenderer.finish();
+                            } catch(Throwable e) {
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
+                    }*/
+                    break;
+                case BluetoothManager.MESSAGE_TOAST:
+                    Log.d(TAG, "BT - MESSAGE_TOAST: ");
+
+                    Toast.makeText(mContext,
+                            msg.getData().getString(Constants.SERVICE_HANDLER_MSG_KEY_TOAST),
+                            Toast.LENGTH_SHORT).show();
+                    break;
+
+            }    // End of switch(msg.what)
+
+            super.handleMessage(msg);
+        }
+    }    // End of class BtHandler
+
+    /*****************************************************
+     *	Private methods
+     ******************************************************/
+    private void initBlue() {
+        // Make instances
+        mConnectionInfo = ConnectionInfo.getInstance(mContext);
+
+        mHandler = new BtHandler();
+        mBtManager = BluetoothManager.getInstance(mContext, mHandler);
+        if (mBtManager != null)
+            mBtManager.setHandler(mHandler);
+
+        // Get  Bluetooth adapter
+        mBtAdapter = mBtManager.getAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            return;
         }
     }
 
+    public void finalize() {
+        // Stop the bluetooth session
+        if (mBtManager != null) {
+            //mBtManager.stop();
+            mBtManager.setHandler(null);
+        }
+        mBtManager = null;
+        mContext = null;
+        mConnectionInfo = null;
+    }
 }

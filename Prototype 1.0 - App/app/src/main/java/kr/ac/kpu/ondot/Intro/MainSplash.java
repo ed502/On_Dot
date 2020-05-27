@@ -29,7 +29,7 @@ public class MainSplash extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MainIntro.class));
                 finish();
             }
-        },3000);
+        },1000);
     }
 
 }

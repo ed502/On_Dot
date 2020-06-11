@@ -107,12 +107,13 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(fingerFunctionType == FingerFunctionType.ENTER && mBtManager.getState() != BluetoothManager.STATE_CONNECTED){
+                /*if(fingerFunctionType == FingerFunctionType.ENTER && mBtManager.getState() != BluetoothManager.STATE_CONNECTED){
                     Toast.makeText(getApplicationContext(),"블루투스 연결요망",Toast.LENGTH_SHORT).show();
                     //안내 음성파일
                     voicePlayerModuleManager.start(R.raw.blue_not_connect);
-                }
-                else if (fingerFunctionType == FingerFunctionType.ENTER && mBtStatus==BluetoothManager.STATE_CONNECTED) { // 블루투스 연결이 되어있는 상태
+                }*/
+                //else if (fingerFunctionType == FingerFunctionType.ENTER && mBtStatus==BluetoothManager.STATE_CONNECTED) { // 블루투스 연결이 되어있는 상태
+                if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
                     startActivity(new Intent(getApplicationContext(), EducateMain.class));
                     finish();
                 } else if (fingerFunctionType == FingerFunctionType.LONG) {

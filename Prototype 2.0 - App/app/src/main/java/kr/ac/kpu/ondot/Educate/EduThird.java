@@ -35,7 +35,7 @@ import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
-
+//종성
 public class EduThird extends AppCompatActivity implements CustomTouchEventListener {
     private static final String TAG = "EduThird";
 
@@ -66,7 +66,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
 
         initVoicePlayer();
         mContext = getApplicationContext();
-        initBlue();
+        //initBlue();
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
@@ -294,7 +294,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
 
         String raw_id = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.start(raw_id);
-        sendData(dotData);
+        //sendData(dotData);
     }
 
     public void sendData(String str) {
@@ -305,7 +305,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBtManager.write("222222".getBytes());
+        //mBtManager.write("222222".getBytes());
         finalize();
     }
 

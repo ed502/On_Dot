@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/edu4_text"
+            android:text="특수문자"
+            android:fontFamily="@font/nanumgothic"
+            android:textColor="@color/colorWhite"
+            android:textSize="100dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <GridLayout
+            android:id="@+id/edu_fourth_dot_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:columnCount="2"
+            android:orientation="vertical"
+            android:rowCount="3">
+
+            <LinearLayout
+                android:id="@+id/edu4_circle1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle4"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle5"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle6"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle7"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle8"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle9"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle10"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle11"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/edu4_circle12"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+
+        </GridLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edu_fourth_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            android:src="@drawable/kakao_image" />
+    </LinearLayout>
+</FrameLayout>

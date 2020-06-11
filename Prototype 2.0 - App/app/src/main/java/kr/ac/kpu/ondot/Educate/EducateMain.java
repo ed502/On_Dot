@@ -141,6 +141,14 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 intent =  new Intent(EducateMain.this, EduThird.class);
                 startActivity(intent);
                 break;
+            case 3:
+                intent = new Intent(EducateMain.this, EduFourth.class);
+                startActivity(intent);
+                break;
+            case 4:
+                intent = new Intent(EducateMain.this, EduFifth.class);
+                startActivity(intent);
+                break;
         }
     }
 

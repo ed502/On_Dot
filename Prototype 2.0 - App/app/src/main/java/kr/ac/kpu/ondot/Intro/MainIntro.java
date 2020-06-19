@@ -15,6 +15,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Main.BluetoothActivity;
 import kr.ac.kpu.ondot.Main.MainActivity;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
@@ -66,7 +67,7 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), BluetoothActivity.class));
                     finish();
                 }
             }

@@ -33,6 +33,19 @@
 			<input type="submit" value="종성">
 	</form>
 	
+	</form>
+		<form method="post" action="typetest4.jsp">
+
+		<p>
+			<input type="submit" value="특수기호/숫자">
+	</form>
+	
+	</form>
+		<form method="post" action="typetest5.jsp">
+
+		<p>
+			<input type="submit" value="약어">
+	</form>
 	
 	<form method="post" action="wordtest.jsp">
 

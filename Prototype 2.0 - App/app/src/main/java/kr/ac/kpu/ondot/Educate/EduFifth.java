@@ -223,7 +223,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
                 parserEvent = parser.next();
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         for (int i = 0; i < id.size(); i++) {
             data = new DotVO();

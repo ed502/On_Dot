@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
-    private static int MAX_PAGE = 4;
+    private static int MAX_PAGE = 3;
 
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -23,8 +23,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
                 return MainQuiz.newInstance();
             case 2:
                 return MainTranslate.newInstance();
-            case 3:
-                return MainBoard.newInstance();
             default:
                 return null;
         }

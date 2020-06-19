@@ -10,12 +10,87 @@
     tools:context=".Quiz.QuizThird">
 
     <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/quiz3_text"
+            android:text="퀴즈3"
+            android:fontFamily="@font/nanumgothic"
+            android:textColor="@color/colorWhite"
+            android:textSize="100dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <GridLayout
+            android:id="@+id/quiz_third_dot_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:columnCount="2"
+            android:orientation="vertical"
+            android:rowCount="3">
+
+            <LinearLayout
+                android:id="@+id/quiz3_circle1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/quiz3_circle2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/quiz3_circle3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/quiz3_circle4"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/quiz3_circle5"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/quiz3_circle6"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/stroke_circle"
+                android:orientation="vertical" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/quiz_third_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        android:orientation="vertical">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="30dp"

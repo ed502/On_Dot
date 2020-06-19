@@ -20,7 +20,6 @@
         <activity android:name=".Educate.EduFifth"></activity>
         <activity android:name=".Educate.EduFourth" />
         <activity android:name=".BluetoothModule.DeviceList" />
-        <activity android:name=".Intro.BoardIntro" />
         <activity android:name=".Intro.TranslateIntro" />
         <activity android:name=".Intro.QuizIntro" />
         <activity android:name=".Intro.EduIntro" />
@@ -44,7 +43,6 @@
         <activity android:name=".Translate.TranslateResult" />
         <activity android:name=".Quiz.QuizMain" />
         <activity android:name=".Educate.EducateMain" />
-        <activity android:name=".Board.BoardMain" />
         <activity android:name=".Main.MainActivity" />
 
         <meta-data

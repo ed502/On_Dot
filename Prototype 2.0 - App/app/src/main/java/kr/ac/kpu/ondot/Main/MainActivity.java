@@ -22,7 +22,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import kr.ac.kpu.ondot.Board.BoardMain;
 import kr.ac.kpu.ondot.CircleIndicator;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
@@ -32,7 +31,6 @@ import kr.ac.kpu.ondot.CustomTouch.TouchType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.JsonModule;
 import kr.ac.kpu.ondot.Educate.EducateMain;
-import kr.ac.kpu.ondot.Intro.BoardIntro;
 import kr.ac.kpu.ondot.Intro.EduIntro;
 import kr.ac.kpu.ondot.Intro.QuizIntro;
 import kr.ac.kpu.ondot.Intro.TranslateIntro;
@@ -211,10 +209,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 break;
             case 2:
                 intent = new Intent(MainActivity.this, TranslateIntro.class);
-                startActivity(intent);
-                break;
-            case 3:
-                intent = new Intent(MainActivity.this, BoardIntro.class);
                 startActivity(intent);
                 break;
         }

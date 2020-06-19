@@ -54,14 +54,21 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
-        circle = new LinearLayout[6];
+        circle = new LinearLayout[12];
         scrollCount = 0;
-        circle[0] = findViewById(R.id.circle1);
-        circle[1] = findViewById(R.id.circle2);
-        circle[2] = findViewById(R.id.circle3);
-        circle[3] = findViewById(R.id.circle4);
-        circle[4] = findViewById(R.id.circle5);
-        circle[5] = findViewById(R.id.circle6);
+        circle[0] = findViewById(R.id.trans_circle1);
+        circle[1] = findViewById(R.id.trans_circle2);
+        circle[2] = findViewById(R.id.trans_circle3);
+        circle[3] = findViewById(R.id.trans_circle4);
+        circle[4] = findViewById(R.id.trans_circle5);
+        circle[5] = findViewById(R.id.trans_circle6);
+        circle[6] = findViewById(R.id.trans_circle7);
+        circle[7] = findViewById(R.id.trans_circle8);
+        circle[8] = findViewById(R.id.trans_circle9);
+        circle[9] = findViewById(R.id.trans_circle10);
+        circle[10] = findViewById(R.id.trans_circle11);
+        circle[11] = findViewById(R.id.trans_circle12);
+
 
         linearLayout = findViewById(R.id.translate_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -112,73 +119,122 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN) {
-                        scrollCount++;
-                        int i = scrollCount % 6;
-                        if (scrollCount % 6 == 1) {
-                            for (int j = 0; j < 6; j++) {
+                        int i = scrollCount % 12;
+                        if (fingerFunctionType == FingerFunctionType.UP) {
+                            switch (i) {
+                                case 0:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 1:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 2:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 3:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 4:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 5:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 6:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 7:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 8:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 9:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 10:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                                case 11:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                    data = data + "2";
+                                    break;
+                            }
+                            Toast.makeText(getApplicationContext(), scrollCount+1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
+                            scrollCount++;
+                        }
+                        else if (fingerFunctionType == FingerFunctionType.DOWN) {
+                            switch (i) {
+                                case 0:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 1:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 2:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 3:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 4:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 5:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 6:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 7:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 8:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 9:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 10:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                                case 11:
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    data = data + "1";
+                                    break;
+                            }
+                            Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
+                            scrollCount++;
+                        }
+                        if (scrollCount % 12 == 0) {
+                            for (int j = 0; j < 12; j++) {
                                 circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                             }
                             data = data + "  ";
                             dataCount++;
                             Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
-                        }
-                        if (fingerFunctionType == FingerFunctionType.UP) {
-                            switch (i) {
-                                case 1:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 2:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 3:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 4:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 5:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 0:
-                                    circle[5].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                            }
-                            Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
-
-                        } else if (fingerFunctionType == FingerFunctionType.DOWN) {
-                            switch (i) {
-                                case 1:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 2:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 3:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 4:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 5:
-                                    circle[i - 1].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 0:
-                                    circle[5].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                            }
-                            Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
                         }
 
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN) {
@@ -188,6 +244,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 if(fingerFunctionType==FingerFunctionType.ENTER){
                     if(scrollCount%6==0 && scrollCount >1) {
                         Intent intent = new Intent(getApplicationContext(), TranslateResult.class);
+
                         intent.putExtra("data", data);
                         startActivity(intent);
                         finish();
@@ -206,7 +263,15 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                if(scrollCount%12==0) {
+                    if(scrollCount==0){
+                        data = data + "111111";
+                    }
+                    scrollCount = scrollCount + 6;
+                    Toast.makeText(this, "6개 빈칸", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case NONE:
                 Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();

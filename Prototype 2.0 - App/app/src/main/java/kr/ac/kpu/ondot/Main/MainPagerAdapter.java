@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
-    private static int MAX_PAGE = 3;
+    private static int MAX_PAGE = 4;
 
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -18,10 +18,12 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return MainEducate.newInstance();
+                return MainMenual.newInstance();
             case 1:
-                return MainQuiz.newInstance();
+                return MainEducate.newInstance();
             case 2:
+                return MainQuiz.newInstance();
+            case 3:
                 return MainTranslate.newInstance();
             default:
                 return null;

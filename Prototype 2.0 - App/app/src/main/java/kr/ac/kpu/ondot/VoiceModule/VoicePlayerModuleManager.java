@@ -49,7 +49,9 @@ public class VoicePlayerModuleManager {
     * */
     public void start(String soundId){
         int id = checkRawId(soundId);
-        start(id);
+        if(id != 0){
+            start(id);
+        }
     }
 
     /*
@@ -104,7 +106,7 @@ public class VoicePlayerModuleManager {
                 soundIdQueue.add(R.raw.back);
                 break;
             case NONE:
-                //soundIdQueue.add(R.raw.retry);
+                soundIdQueue.add(R.raw.retry);
                 break;
         }
         Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - getFingerFunctionQueue  수행 됨");

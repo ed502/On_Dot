@@ -17,9 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanumgothic"
-            android:textSize="100dp"
+            android:textSize="30dp"
             android:layout_gravity="center"
-            android:text="어플\n안내\n화면"
+            android:text="이 어플은 시각장애인 또는 저시력자를 위한 점자 교육용 어플입니다.\n어플 내의 모든 메뉴 이동과 입력은 제스처를 이용하여 사용합니다."
             android:textColor="@color/colorWhite"/>
 
     </LinearLayout>

@@ -57,7 +57,6 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
         sData = intent.getExtras().getString("data");
         transData.setText(sData);
 
-        getData();
         storeData();
 
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -121,84 +120,6 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
     @Override
     public void onPermissionUseDisagree() {
 
-    }
-
-    public void getData() {
-        StrictMode.enableDefaults();
-        id = new ArrayList<Integer>();
-        type = new ArrayList<Integer>();
-        word = new ArrayList<String>();
-        dot = new ArrayList<String>();
-        raw_id = new ArrayList<>();
-
-        list = new ArrayList<DotVO>();
-        boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
-        try {
-            URL url = new URL("http://15.165.135.160/DotXml");
-
-            XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = parserFactory.newPullParser();
-
-            parser.setInput(url.openStream(), null);
-
-            int parserEvent = parser.getEventType();
-            while (parserEvent != XmlPullParser.END_DOCUMENT) {
-                switch (parserEvent) {
-                    case XmlPullParser.START_TAG:
-                        if (parser.getName().equals("id")) {
-                            bId = true;
-                        }
-                        if (parser.getName().equals("word")) {
-                            bWord = true;
-                        }
-                        if (parser.getName().equals("dot")) {
-                            bDot = true;
-                        }
-                        if (parser.getName().equals("raw_id")) {
-                            bRaw_id = true;
-                        }
-                        if (parser.getName().equals("type")) {
-                            bType = true;
-                        }
-                        break;
-
-                    case XmlPullParser.TEXT:
-                        if (bId) {
-                            id.add(Integer.parseInt(parser.getText()));
-                            bId = false;
-                        }
-                        if (bWord) {
-                            word.add(parser.getText());
-                            bWord = false;
-                        }
-                        if (bDot) {
-                            dot.add(parser.getText());
-                            bDot = false;
-                        }
-                        if (bRaw_id) {
-                            raw_id.add(parser.getText());
-                            bRaw_id = false;
-                        }
-                        if (bType) {
-                            type.add(Integer.parseInt(parser.getText()));
-                            bType = false;
-                        }
-                        break;
-                }
-                parserEvent = parser.next();
-            }
-        } catch (Exception e) {
-
-        }
-        for (int i = 0; i < id.size(); i++) {
-            data = new DotVO();
-            data.setId(id.get(i));
-            data.setWord(word.get(i));
-            data.setDot(dot.get(i));
-            data.setRaw_id(raw_id.get(i));
-            data.setType(type.get(i));
-            list.add(data);
-        }
     }
 
     public void storeData(){

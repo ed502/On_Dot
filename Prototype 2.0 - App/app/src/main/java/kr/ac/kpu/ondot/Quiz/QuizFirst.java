@@ -1,7 +1,9 @@
 package kr.ac.kpu.ondot.Quiz;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -18,16 +20,25 @@ import androidx.core.content.ContextCompat;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
+import kr.ac.kpu.ondot.Main.MainActivity;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.Translate.TranslateResult;
@@ -42,9 +53,9 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     private ArrayList<String> word, dot, raw_id;
     private LinearLayout linearLayout;
     private int[] random;
-    private int dataCount = 0, scrollCount = 0, answerCheck = 0, randomIndex=0, answerCount=0, wronganswerCount=0;
+    private int dataCount = 0, scrollCount = 0, answerCheck = 0, randomIndex = 0, answerCount = 0, wronganswerCount = 0;
     private String answer = "";
-    private String voiceRaw_id="";
+    private String voiceRaw_id = "";
     private CustomTouchConnectListener customTouchConnectListener;
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
@@ -68,15 +79,15 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         random = new int[10];
 
         getData();
-        for(int i=0; i<10; i++){
-            random[i]=(int)(Math.random()*list.size());
-            for(int j=0; j<i; j++){
-                if(random[j]==random[i]){
+        for (int i = 0; i < 10; i++) {
+            random[i] = (int) (Math.random() * list.size());
+            for (int j = 0; j < i; j++) {
+                if (random[j] == random[i]) {
                     i--;
                     break;
                 }
             }
-            Log.i("randomValue",""+random[i]);
+            Log.i("randomValue", "" + random[i]);
         }
         setDot();
         checkData(random[randomIndex]);
@@ -263,13 +274,13 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                 onBackPressed();
                 break;
             case SPECIAL:
-                if(scrollCount%6==0) {
-                    if(scrollCount==0){
+                if (scrollCount % 6 == 0) {
+                    if (scrollCount == 0) {
                         answer = answer + "111111";
                     }
                     scrollCount = scrollCount + 6;
                     Toast.makeText(this, "6개 빈칸", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -306,7 +317,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         list = new ArrayList<DotVO>();
         boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
         try {
-            URL url = new URL("http://15.165.135.160/DotInitial");
+            URL url = new URL("http://15.165.135.160/Quiz1");
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();
@@ -413,14 +424,19 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
             answer = "정답입니다";
             answerCount++;
         } else {
+            //하드웨어에 틀린 데이터 보내는 코드 추가 퀴즈 1,2,3 모두 추가
+            //서버에도 데이터를 보내야함
             answer = "오답입니다";
+            String url = "http://15.165.135.160/test.jsp";
+            NetworkTask networkTask = new NetworkTask(url, null);
+            networkTask.execute();
             wronganswerCount++;
         }
         Intent intent = new Intent(getApplicationContext(), TranslateResult.class);
         intent.putExtra("data", answer);
         startActivity(intent);
         answer = "";
-        if(randomIndex<9)
+        if (randomIndex < 9)
             randomIndex++;
         checkData(random[randomIndex]);
         scrollCount = 0;
@@ -431,5 +447,106 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     protected void onResume() {
         super.onResume();
         voicePlayerModuleManager.start(voiceRaw_id);
+    }
+
+
+    class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url, ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result;
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            //output.setText
+        }
+    }
+
+    public class RequestHttpURLConnection {
+
+
+        public String request(String _url, ContentValues _params) {
+            HttpURLConnection urlConn = null;
+            StringBuffer sbParams = new StringBuffer();
+
+            if (_params == null)
+                sbParams.append("");
+            else {
+                boolean isAnd = false;
+                String key;
+                String value;
+
+                for (Map.Entry<String, Object> parameter : _params.valueSet()) {
+                    key = parameter.getKey();
+                    value = parameter.getValue().toString();
+
+                    if (isAnd)
+                        sbParams.append("&");
+                    sbParams.append(key).append("=").append(value);
+
+                    if (!isAnd)
+                        if (_params.size() >= 2)
+                            isAnd = true;
+                }
+            }
+            try {
+                URL url = new URL(_url);
+                urlConn = (HttpURLConnection) url.openConnection();
+
+                urlConn.setDefaultUseCaches(false);
+                urlConn.setDoInput(true);
+                urlConn.setDoOutput(true);
+                urlConn.setRequestMethod("POST");
+                urlConn.setRequestProperty("Accept-Charset", "UTF-8");
+                urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("id").append("=").append(list.get(random[randomIndex]).getId());
+
+                Log.i("boardWrite", buffer.toString());
+
+                OutputStreamWriter os = new OutputStreamWriter(urlConn.getOutputStream(), "UTF-8");
+                PrintWriter writer = new PrintWriter(os);
+                writer.write(buffer.toString());
+                writer.flush();
+
+                if (urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)
+                    return null;
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
+
+                String line;
+                String page = "";
+
+                while ((line = reader.readLine()) != null) {
+                    page += line + "\n";
+                }
+                return page;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConn != null)
+                    urlConn.disconnect();
+            }
+            return null;
+        }
     }
 }

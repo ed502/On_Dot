@@ -120,23 +120,24 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         });
     }
     private void menuVoice(int currentView){
+        voicePlayerModuleManager.stop();
         // 메뉴 이름 음성 출력
         switch (currentView){
-            case 0:
+            case 1:
                 // 교육
                 voicePlayerModuleManager.start(R.raw.education);
                 break;
-            case 1:
+            case 2:
                 // 퀴즈
                 voicePlayerModuleManager.start(R.raw.quiz);
                 break;
-            case 2:
+            case 3:
                 // 번역
                 voicePlayerModuleManager.start(R.raw.translate);
                 break;
-            case 3:
-                // 음성게시판
-                voicePlayerModuleManager.start(R.raw.board);
+            case 0:
+                // 메뉴얼
+
                 break;
         }
     }
@@ -200,14 +201,18 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         Intent intent;
         switch (currentView) {
             case 0:
-                intent = new Intent(MainActivity.this, EduIntro.class);
+                intent = new Intent(MainActivity.this,Menual.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(MainActivity.this, QuizIntro.class);
+                intent = new Intent(MainActivity.this, EduIntro.class);
                 startActivity(intent);
                 break;
             case 2:
+                intent = new Intent(MainActivity.this, QuizIntro.class);
+                startActivity(intent);
+                break;
+            case 3:
                 intent = new Intent(MainActivity.this, TranslateIntro.class);
                 startActivity(intent);
                 break;
@@ -219,23 +224,33 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                voicePlayerModuleManager.start(fingerFunctionType);
-
+                /*if(fingerFunctionType != FingerFunctionType.UP || fingerFunctionType != FingerFunctionType.DOWN){
+                    Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                }*/
+                Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
                     if (currentView < maxPage)
                         mViewpager.setCurrentItem(currentView + 1);
                     else
                         mViewpager.setCurrentItem(currentView);
+
+                    voicePlayerModuleManager.start(fingerFunctionType);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
                     if (currentView > 0)
                         mViewpager.setCurrentItem(currentView - 1);
                     else
                         mViewpager.setCurrentItem(currentView);
+
+                    voicePlayerModuleManager.start(fingerFunctionType);
                 }else if (fingerFunctionType == FingerFunctionType.ENTER) {
                     // activitySwitch(currentView);
                     checkPermission();
-
+                    voicePlayerModuleManager.start(fingerFunctionType);
                     Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+                }else if (fingerFunctionType == FingerFunctionType.NONE){
+                    //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+                    voicePlayerModuleManager.start(fingerFunctionType);
                 }
             }
         });
@@ -244,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
     @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
+        voicePlayerModuleManager.stop();
         voicePlayerModuleManager.start(fingerFunctionType);
         switch (fingerFunctionType) {
             case BACK:

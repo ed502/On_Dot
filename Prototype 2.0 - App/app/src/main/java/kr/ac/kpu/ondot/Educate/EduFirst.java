@@ -55,7 +55,6 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     // Bluetooth
 
     private Context mContext;
-    private BtHandler mHandler;
 
     private BluetoothManager mBtManager = null;
     private BluetoothAdapter mBtAdapter = null;
@@ -67,7 +66,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         setContentView(R.layout.edu_first);
 
         mContext = getApplicationContext();
-        //initBlue();
+        initBlue();
 
         initVoicePlayer();
 
@@ -292,7 +291,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
                 }
             }
         }
-        //sendData(dotData);
+        sendData(dotData);
         String raw_id = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.start(raw_id);
 
@@ -306,7 +305,6 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //mBtManager.write("222222".getBytes());
         finalize();
     }
 
@@ -316,68 +314,10 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         finalize();
     }
 
-    /**
-     * Receives messages from bluetooth manager
-     */
-    class BtHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                // Received packets from remote
-                case BluetoothManager.MESSAGE_READ:
-                    Log.d(TAG, "BT - MESSAGE_READ: ");
-
-                    /*byte[] readBuf = (byte[]) msg.obj;
-                    int readCount = msg.arg1;
-                    if(msg.arg1 > 0) {
-                        String strMsg = new String(readBuf, 0, msg.arg1);
-                        // parse string
-                        if(strMsg.contains("b")) {
-                            mRenderer.fire();
-                        } else if(strMsg.contains("c")) {
-                            // update score
-                            int score = mRenderer.getScore();
-                            int top_score = mSettings.getTopScore();
-                            if(score > top_score) {
-                                mSettings.setTopScore(score);
-                            }
-                            mSettings.setLastScore(score);
-
-                            // release resources
-                            try {
-                                mRenderer.finish();
-                            } catch(Throwable e) {
-                                e.printStackTrace();
-                            }
-                            finish();
-                        }
-                    }*/
-                    break;
-                case BluetoothManager.MESSAGE_TOAST:
-                    Log.d(TAG, "BT - MESSAGE_TOAST: ");
-
-                    Toast.makeText(mContext,
-                            msg.getData().getString(Constants.SERVICE_HANDLER_MSG_KEY_TOAST),
-                            Toast.LENGTH_SHORT).show();
-                    break;
-
-            }    // End of switch(msg.what)
-
-            super.handleMessage(msg);
-        }
-    }    // End of class BtHandler
-
-    /*****************************************************
-     *	Private methods
-     ******************************************************/
     private void initBlue() {
-        // Make instances
         mConnectionInfo = ConnectionInfo.getInstance(mContext);
 
-        mHandler = new BtHandler();
-        mBtManager = BluetoothManager.getInstance(mContext, mHandler);
-        if (mBtManager != null)
-            mBtManager.setHandler(mHandler);
+        mBtManager = BluetoothManager.getInstance(mContext, null);
 
         // Get  Bluetooth adapter
         mBtAdapter = mBtManager.getAdapter();
@@ -387,12 +327,14 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
+
+        Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 
     public void finalize() {
         // Stop the bluetooth session
         if (mBtManager != null) {
-            //mBtManager.stop();
+            mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Educate.EduFifth"></activity>
+        <activity android:name=".Main.Menual"></activity>
+        <activity android:name=".Intro.BluetoothActivity" />
+        <activity android:name=".Educate.EduFifth" />
         <activity android:name=".Educate.EduFourth" />
         <activity android:name=".BluetoothModule.DeviceList" />
         <activity android:name=".Intro.TranslateIntro" />

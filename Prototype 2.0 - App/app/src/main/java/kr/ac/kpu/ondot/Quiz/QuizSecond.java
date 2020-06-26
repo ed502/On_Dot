@@ -1,7 +1,9 @@
 package kr.ac.kpu.ondot.Quiz;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -18,8 +20,16 @@ import androidx.core.content.ContextCompat;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
@@ -304,7 +314,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
         list = new ArrayList<DotVO>();
         boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
         try {
-            URL url = new URL("http://15.165.135.160/DotInitial");
+            URL url = new URL("http://15.165.135.160/Quiz2");
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();
@@ -412,6 +422,9 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
             answerCount++;
         } else {
             answer = "오답입니다";
+            String url = "http://15.165.135.160/test.jsp";
+            NetworkTask networkTask = new NetworkTask(url, null);
+            networkTask.execute();
             wronganswerCount++;
         }
         Intent intent = new Intent(getApplicationContext(), TranslateResult.class);
@@ -429,5 +442,105 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
     protected void onResume() {
         super.onResume();
         voicePlayerModuleManager.start(voiceRaw_id);
+    }
+
+    class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url, ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result;
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            //output.setText
+        }
+    }
+
+    public class RequestHttpURLConnection {
+
+
+        public String request(String _url, ContentValues _params) {
+            HttpURLConnection urlConn = null;
+            StringBuffer sbParams = new StringBuffer();
+
+            if (_params == null)
+                sbParams.append("");
+            else {
+                boolean isAnd = false;
+                String key;
+                String value;
+
+                for (Map.Entry<String, Object> parameter : _params.valueSet()) {
+                    key = parameter.getKey();
+                    value = parameter.getValue().toString();
+
+                    if (isAnd)
+                        sbParams.append("&");
+                    sbParams.append(key).append("=").append(value);
+
+                    if (!isAnd)
+                        if (_params.size() >= 2)
+                            isAnd = true;
+                }
+            }
+            try {
+                URL url = new URL(_url);
+                urlConn = (HttpURLConnection) url.openConnection();
+
+                urlConn.setDefaultUseCaches(false);
+                urlConn.setDoInput(true);
+                urlConn.setDoOutput(true);
+                urlConn.setRequestMethod("POST");
+                urlConn.setRequestProperty("Accept-Charset", "UTF-8");
+                urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("id").append("=").append(list.get(random[randomIndex]).getId());
+
+                Log.i("boardWrite", buffer.toString());
+
+                OutputStreamWriter os = new OutputStreamWriter(urlConn.getOutputStream(), "UTF-8");
+                PrintWriter writer = new PrintWriter(os);
+                writer.write(buffer.toString());
+                writer.flush();
+
+                if (urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)
+                    return null;
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
+
+                String line;
+                String page = "";
+
+                while ((line = reader.readLine()) != null) {
+                    page += line + "\n";
+                }
+                return page;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConn != null)
+                    urlConn.disconnect();
+            }
+            return null;
+        }
     }
 }

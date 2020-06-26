@@ -1,42 +1,51 @@
-package kr.ac.kpu.ondot.Board;
+package kr.ac.kpu.ondot.Main;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
 
+import kr.ac.kpu.ondot.CircleIndicator;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
-import kr.ac.kpu.ondot.EnumData.MenuType;
+import kr.ac.kpu.ondot.Data.DotVO;
+import kr.ac.kpu.ondot.Data.TransDataVO;
+import kr.ac.kpu.ondot.Quiz.QuizFirst;
+import kr.ac.kpu.ondot.Quiz.QuizMain;
+import kr.ac.kpu.ondot.Quiz.QuizPagerAdapter;
+import kr.ac.kpu.ondot.Quiz.QuizSecond;
+import kr.ac.kpu.ondot.Quiz.QuizThird;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
-import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
-public class BoardMain extends AppCompatActivity implements CustomTouchEventListener {
+public class Menual extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
+
     private LinearLayout linearLayout;
     private CustomTouchConnectListener customTouchConnectListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.board_main);
+        setContentView(R.layout.menual);
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
-        initDisplaySize();
-        initTouchEvent();
-
-
-        linearLayout = findViewById(R.id.board_layout);
+        linearLayout = findViewById(R.id.menual_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -46,6 +55,8 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
                 return true;
             }
         });
+        initDisplaySize();
+        initTouchEvent();
     }
 
     private void initTouchEvent() {
@@ -61,9 +72,6 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
         Screen.displayX = size.x;
         Screen.displayY = size.y;
     }
-
-
-
 
     @Override
     public void onOneFingerFunction(FingerFunctionType fingerFunctionType) {
@@ -100,6 +108,4 @@ public class BoardMain extends AppCompatActivity implements CustomTouchEventList
     public void onPermissionUseDisagree() {
 
     }
-
-
 }

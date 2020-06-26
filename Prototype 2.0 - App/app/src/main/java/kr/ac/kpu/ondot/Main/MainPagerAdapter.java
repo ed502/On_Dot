@@ -18,13 +18,13 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return MainEducate.newInstance();
+                return MainMenual.newInstance();
             case 1:
-                return MainQuiz.newInstance();
+                return MainEducate.newInstance();
             case 2:
-                return MainTranslate.newInstance();
+                return MainQuiz.newInstance();
             case 3:
-                return MainBoard.newInstance();
+                return MainTranslate.newInstance();
             default:
                 return null;
         }

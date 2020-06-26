@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import kr.ac.kpu.ondot.Main.MainBoard;
 import kr.ac.kpu.ondot.Main.MainEducate;
 import kr.ac.kpu.ondot.Main.MainQuiz;
 import kr.ac.kpu.ondot.Main.MainTranslate;
 
 public class TranslatePagerAdapter extends FragmentPagerAdapter {
-    private static int MAX_PAGE = 4;
+    private static int MAX_PAGE = 3;
 
     public TranslatePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -28,8 +27,6 @@ public class TranslatePagerAdapter extends FragmentPagerAdapter {
                 return MainQuiz.newInstance();
             case 2:
                 return MainTranslate.newInstance();
-            case 3:
-                return MainBoard.newInstance();
             default:
                 return null;
         }

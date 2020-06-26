@@ -3,6 +3,8 @@ package kr.ac.kpu.ondot.Educate;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -20,6 +22,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.net.URL;
 import java.util.ArrayList;
 
+import kr.ac.kpu.ondot.BluetoothModule.BluetoothManager;
+import kr.ac.kpu.ondot.BluetoothModule.ConnectionInfo;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
@@ -46,10 +50,22 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    // Bluetooth
+
+    private Context mContext;
+
+    private BluetoothManager mBtManager = null;
+    private BluetoothAdapter mBtAdapter = null;
+    private ConnectionInfo mConnectionInfo = null;        // Remembers connection info when BT connection is made
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_fifth);
+
+        mContext = getApplicationContext();
+        initBlue();
 
         initVoicePlayer();
 
@@ -223,7 +239,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
                 parserEvent = parser.next();
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         for (int i = 0; i < id.size(); i++) {
             data = new DotVO();
@@ -270,10 +286,54 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
                 }
             }
         }
-        //sendData(dotData);
+        sendData(dotData);
         String raw_id = list.get(currentLocation).getRaw_id();
         //voicePlayerModuleManager.start(raw_id);
 
+    }
+    public void sendData(String str) {
+        Log.d(TAG, "strrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : " + str);
+        mBtManager.write(str.getBytes());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finalize();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        finalize();
+    }
+
+    private void initBlue() {
+        mConnectionInfo = ConnectionInfo.getInstance(mContext);
+
+        mBtManager = BluetoothManager.getInstance(mContext, null);
+
+        // Get  Bluetooth adapter
+        mBtAdapter = mBtManager.getAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void finalize() {
+        // Stop the bluetooth session
+        if (mBtManager != null) {
+            mBtManager.stop();
+            mBtManager.setHandler(null);
+        }
+        mBtManager = null;
+        mContext = null;
+        mConnectionInfo = null;
     }
 
 }

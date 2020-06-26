@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <GridLayout
+        android:id="@+id/edu_second_dot_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -17,52 +18,100 @@
         android:rowCount="3">
 
         <LinearLayout
-            android:id="@+id/circle1"
-            android:orientation="vertical"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/trans_circle1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle" />
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
 
         <LinearLayout
-            android:id="@+id/circle2"
-            android:orientation="vertical"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/trans_circle2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle" />
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
 
         <LinearLayout
-            android:id="@+id/circle3"
-            android:orientation="vertical"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/trans_circle3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle" />
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
 
         <LinearLayout
-            android:id="@+id/circle4"
-            android:orientation="vertical"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/trans_circle4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle" />
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
 
         <LinearLayout
-            android:id="@+id/circle5"
-            android:orientation="vertical"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/trans_circle5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle" />
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
 
         <LinearLayout
-            android:id="@+id/circle6"
-            android:orientation="vertical"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/trans_circle6"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle" />
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/trans_circle7"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/trans_circle8"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/trans_circle9"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/trans_circle10"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/trans_circle11"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/trans_circle12"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_circle"
+            android:orientation="vertical" />
 
 
     </GridLayout>

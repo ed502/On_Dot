@@ -2,23 +2,25 @@ package kr.ac.kpu.ondot.Main;
 
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
-
 import kr.ac.kpu.ondot.R;
 
-public class MainBoard extends Fragment {
 
-    public MainBoard() {
+public class MainMenual extends Fragment {
+
+    public MainMenual() {
         // Required empty public constructor
     }
 
-    public static MainBoard newInstance(){
+    public static MainMenual newInstance(){
         Bundle args = new Bundle();
-        MainBoard fragment = new MainBoard();
+        MainMenual fragment = new MainMenual();
         fragment.setArguments(args);
         return fragment;
     }
@@ -27,7 +29,7 @@ public class MainBoard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.main_board, container, false);
+        return inflater.inflate(R.layout.main_menual, container, false);
     }
 
 }

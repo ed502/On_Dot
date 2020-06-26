@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Quiz.QuizFirst">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="100dp"
-            android:text="게시판"
+            android:id="@+id/menual_text"
+            android:text="메뉴얼"
             android:fontFamily="@font/nanumgothic"
-            android:textColor="@color/colorWhite"/>
-        <TextView
-            android:textStyle="normal"
             android:textColor="@color/colorWhite"
-            android:fontFamily="@font/nanumgothic"
-            android:text="이 메뉴는 생활 중에 불편한 내용을 건의하는 게시판입니다.\n건의한 내용은 종합하여 관련 단체로 전달됩니다."
+            android:textSize="100dp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/board_intro_layout"
+        android:id="@+id/menual_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        android:orientation="vertical">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="30dp"

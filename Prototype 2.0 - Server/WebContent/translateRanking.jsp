@@ -37,6 +37,22 @@ int i=0;
 			stmt = conn.createStatement();
 			//04단계 :Query실행 시작
 			String query = "select * from translatelog order by count desc";
+			// INSERT INTO translatelog(word, dot, count) VALUES('아버지', '221112111221122211111212212121', 21);
+			// update translatelog set count = count +1 where word ='아버지';
+			// select id from translatelog where word = '아버지';
+			/*
+			int hakjin =0;
+				String query = "select id from translatelog where word = '아버지'";
+				rs = stmt.executeQuery(query);
+				hakjin = rs.getString("id");
+				if(hakjin==True){
+					// String query = "update translatelog set count = count +1 where word ='아버지';"
+				}
+				else{
+					INSERT INTO translatelog(word, dot, count) VALUES('아버지', '221112111221122211111212212121', 1);
+				}
+			
+			*/
 			rs = stmt.executeQuery(query);
 			//04단계 :Query실행 끝
 			//05단계 :Query실행결과 사용
@@ -197,7 +213,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">5</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">이세민</span>
+                                    <span class="item_title">온점</span>
                                     </span>
                                     </div>
                                     </li>
@@ -207,7 +223,7 @@ int i=0;
                                     <div class="item_box">
                                     <span class="item_num">6</span>
                                     <span class="item_title_wrap">
-                                    <span class="item_title">온점</span>
+                                    <span class="item_title">이세민</span>
                                     </span>
                                     </div>
                                     </li>

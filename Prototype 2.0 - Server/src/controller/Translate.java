@@ -2,9 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,20 +15,21 @@ import database.DBConnection;
 import model.DotVO;
 
 /**
- * Servlet implementation class DotVowel
+ * Servlet implementation class DotXml
+ * 430수정 // 사용중
  */
-@WebServlet(description = "모음", urlPatterns = { "/DotAbbrev" })
-public class DotAbbrev extends HttpServlet {
+@WebServlet("/Translate")
+public class Translate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Connection conn = null;   
-	
-    public DotAbbrev() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	   Connection conn = null;   
+	 
+	    public Translate() {
+	        super();
+	        // TODO Auto-generated constructor stub
+	    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
+	   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	      try {
 	         conn = DBConnection.getConnection();
 	         //02단계 :DB연결(Connection)끝
 	         System.out.println(conn + "<-- conn m_list.jsp");
@@ -42,7 +42,7 @@ public class DotAbbrev extends HttpServlet {
 	         PreparedStatement ps = null;
 	         
 	         // type =1 이 초성 2가 모음 3이 종성
-	         String sql = "select * from initial_dots where type = 5,or type = 7";
+	         String sql = "select * from initial_dots";
 	         ps = conn.prepareStatement(sql);
 	         
 	         ResultSet rs = ps.executeQuery();
@@ -110,11 +110,12 @@ public class DotAbbrev extends HttpServlet {
 	            } catch (Exception e) {
 	            }
 	      }
-	}
+	   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	   
+	   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	      // TODO Auto-generated method stub
+	      doGet(request, response);
+	   }
 
 }

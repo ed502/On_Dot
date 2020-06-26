@@ -18,12 +18,12 @@ import model.DotVO;
 /**
  * Servlet implementation class DotVowel
  */
-@WebServlet(description = "모음", urlPatterns = { "/DotAbbrev" })
-public class DotAbbrev extends HttpServlet {
+@WebServlet(description = "모음", urlPatterns = { "/Quiz2" })
+public class Quiz2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Connection conn = null;   
 	
-    public DotAbbrev() {
+    public Quiz2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class DotAbbrev extends HttpServlet {
 	         PreparedStatement ps = null;
 	         
 	         // type =1 이 초성 2가 모음 3이 종성
-	         String sql = "select * from initial_dots where type = 5,or type = 7";
+	         String sql = "select * from initial_dots where type = 4 or type = 5, type =7 ";
 	         ps = conn.prepareStatement(sql);
 	         
 	         ResultSet rs = ps.executeQuery();

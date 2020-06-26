@@ -84,7 +84,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
-                menuVoice(currentView);
+                //menuVoice(currentView);
 
             }
 
@@ -108,6 +108,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     }
 
     private void menuVoice(int currentView){
+        voicePlayerModuleManager.stop();
         // 메뉴 이름 음성 출력
         switch (currentView){
             case 0:
@@ -122,6 +123,15 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 // 종성
                 voicePlayerModuleManager.start(R.raw.final_);
                 break;
+            case 3:
+                // 특수기호 , 숫자
+                voicePlayerModuleManager.start(R.raw.special_symbols_num);
+                break;
+            case 4:
+                // 줄임말
+                voicePlayerModuleManager.start(R.raw.abbreviation);
+                break;
+
         }
     }
 
@@ -173,18 +183,33 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
             @Override
             public void run() {
                 if(fingerFunctionType == FingerFunctionType.RIGHT){ //오른쪽에서 왼쪽으로 스크롤
-                    voicePlayerModuleManager.start(fingerFunctionType);
+
                     if(currentView<maxPage)
                         mViewpager.setCurrentItem(currentView+1);
                     else
                         mViewpager.setCurrentItem(currentView);
+
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 }
                 else if(fingerFunctionType == FingerFunctionType.LEFT){ //왼쪽에서 오른쪽으로 스크롤
-                    voicePlayerModuleManager.start(fingerFunctionType);
+
                     if(currentView>0)
                         mViewpager.setCurrentItem(currentView-1);
                     else
                         mViewpager.setCurrentItem(currentView);
+
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
+                }else if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    // activitySwitch(currentView);
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //menuVoice(currentView);
+                }else if (fingerFunctionType == FingerFunctionType.NONE){
+                    //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //menuVoice(currentView);
                 }
             }
         });

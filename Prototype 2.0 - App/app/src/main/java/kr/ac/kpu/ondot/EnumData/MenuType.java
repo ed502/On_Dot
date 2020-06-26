@@ -10,5 +10,5 @@ package kr.ac.kpu.ondot.EnumData;
  * BOARD : 음성 게시판
  */
 public enum MenuType {
-    INITIAL, EDUCATE, QUIZ, TRANSLATE, BOARD, BLUETOOTH
+    MAIN, EDUCATE, QUIZ, TRANSLATE, BLUETOOTH
 }

@@ -305,13 +305,15 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        finalize();
+        sendData("121212121212121212121212121212121212121212121212");
+        //sendData("222222222222222222222222222222222222222222222222");
+        //finalize();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        finalize();
+        //finalize();
     }
 
     private void initBlue() {
@@ -333,6 +335,8 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     public void finalize() {
         // Stop the bluetooth session
+        //sendData("222222222222222222222222222222222222");
+
         if (mBtManager != null) {
             mBtManager.stop();
             mBtManager.setHandler(null);

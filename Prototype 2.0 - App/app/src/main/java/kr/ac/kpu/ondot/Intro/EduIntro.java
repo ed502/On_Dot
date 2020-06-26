@@ -95,6 +95,8 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
+                    voicePlayerModuleManager.allStop();
+                    voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), EducateMain.class));
                     finish();
                 }
@@ -109,10 +111,10 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(menuType);
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }

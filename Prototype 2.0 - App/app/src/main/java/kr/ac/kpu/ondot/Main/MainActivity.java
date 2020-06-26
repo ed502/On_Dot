@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
-                menuVoice(currentView);
             }
 
             @Override
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 break;
             case 0:
                 // 메뉴얼
-
+                voicePlayerModuleManager.start(R.raw.menual);
                 break;
         }
     }
@@ -236,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                         mViewpager.setCurrentItem(currentView);
 
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
                     if (currentView > 0)
                         mViewpager.setCurrentItem(currentView - 1);
@@ -243,14 +243,18 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                         mViewpager.setCurrentItem(currentView);
 
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 }else if (fingerFunctionType == FingerFunctionType.ENTER) {
                     // activitySwitch(currentView);
                     checkPermission();
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    //menuVoice(currentView);
                     Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
                 }else if (fingerFunctionType == FingerFunctionType.NONE){
                     //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 }
             }
         });

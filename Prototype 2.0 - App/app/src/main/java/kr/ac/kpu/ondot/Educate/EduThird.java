@@ -304,13 +304,14 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        finalize();
+        sendData("222222222222222222222222222222222222");
+        //finalize();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        finalize();
+        //finalize();
     }
 
     private void initBlue() {

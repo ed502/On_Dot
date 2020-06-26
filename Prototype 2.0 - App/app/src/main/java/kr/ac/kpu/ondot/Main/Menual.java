@@ -23,6 +23,8 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.TransDataVO;
+import kr.ac.kpu.ondot.Educate.EducateMain;
+import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.Quiz.QuizFirst;
 import kr.ac.kpu.ondot.Quiz.QuizMain;
 import kr.ac.kpu.ondot.Quiz.QuizPagerAdapter;
@@ -30,12 +32,16 @@ import kr.ac.kpu.ondot.Quiz.QuizSecond;
 import kr.ac.kpu.ondot.Quiz.QuizThird;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class Menual extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
 
     private LinearLayout linearLayout;
     private CustomTouchConnectListener customTouchConnectListener;
+
+    private MenuType menuType = MenuType.MAIN;
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +63,19 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
         });
         initDisplaySize();
         initTouchEvent();
+        initVoicePlayer();
+        voicePlayerModuleManager.start(menuType);
+
+        if(voicePlayerModuleManager.getMenuInfoPlaying() == false){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
     }
+
+    private void initVoicePlayer() {
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
+    }
+
 
     private void initTouchEvent() {
         customTouchConnectListener = new CustomTouchEvent(this, this);
@@ -74,7 +92,18 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
     }
 
     @Override
-    public void onOneFingerFunction(FingerFunctionType fingerFunctionType) {
+    public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
+                    voicePlayerModuleManager.allStop();
+                    //voicePlayerModuleManager.start(fingerFunctionType);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
+        });
 
     }
 
@@ -85,10 +114,10 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(menuType);
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }

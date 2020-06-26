@@ -1,5 +1,6 @@
 package kr.ac.kpu.ondot.Translate;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -7,7 +8,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -18,11 +21,27 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.EnumData.MenuType;
+import kr.ac.kpu.ondot.Quiz.QuizFirst;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
@@ -42,7 +61,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     private LinearLayout[] circle;
     private CustomTouchConnectListener customTouchConnectListener;
     private int scrollCount, dataCount = 0;
-    private String data = "";
+    private String data = "", result="";
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
@@ -232,7 +251,6 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                             for (int j = 0; j < 12; j++) {
                                 circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                             }
-                            data = data + "  ";
                             dataCount++;
                             Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
                         }
@@ -243,9 +261,9 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 }
                 if(fingerFunctionType==FingerFunctionType.ENTER){
                     if(scrollCount%6==0 && scrollCount >1) {
+                        getData();
                         Intent intent = new Intent(getApplicationContext(), TranslateResult.class);
-
-                        intent.putExtra("data", data);
+                        intent.putExtra("data", result);
                         startActivity(intent);
                         finish();
                     }else{
@@ -321,8 +339,6 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
 
     }
 
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -337,5 +353,39 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     @Override
     public void onPermissionUseDisagree() {
 
+    }
+
+    public void getData() {
+        StrictMode.enableDefaults();
+        boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
+        try {
+            URL url = new URL("http://15.165.135.160/dotCombine?dot="+data);
+
+            XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = parserFactory.newPullParser();
+
+            parser.setInput(url.openStream(), null);
+
+            int parserEvent = parser.getEventType();
+            while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                switch (parserEvent) {
+                    case XmlPullParser.START_TAG:
+                        if (parser.getName().equals("dot")) {
+                            bDot = true;
+                        }
+                        break;
+
+                    case XmlPullParser.TEXT:
+                        if (bDot) {
+                            result = (parser.getText());
+                            bDot = false;
+                        }
+                        break;
+                }
+                parserEvent = parser.next();
+            }
+        } catch (Exception e) {
+
+        }
     }
 }

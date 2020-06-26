@@ -121,23 +121,24 @@ public class VoicePlayerModuleManager {
     * */
     public void start(MenuType menuType){
         switch (menuType){
-            case INITIAL:
+            case MAIN:
+                start(R.raw.main_tutorial);
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - INITIAL  수행 됨");
                 break;
             case EDUCATE:
-                start(R.raw.education_info1);
+                start(R.raw.edu_tutorial);
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - EDUCATE  수행 됨");
                 break;
             case QUIZ:
-                start(R.raw.quiz_info);
+                start(R.raw.quiz_tutorial);
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - QUIZ  수행 됨");
                 break;
             case TRANSLATE:
-                start(R.raw.translate_info);
+                start(R.raw.tran_tutorial);
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - TRANSLATE  수행 됨");
                 break;
-            case BOARD:
-                start(R.raw.board_info);
+            case BLUETOOTH:
+                start(R.raw.blue_info);
                 Log.d(DEBUG_TYPE,"VoicePlayerModuleManager - BOARD  수행 됨");
                 break;
 

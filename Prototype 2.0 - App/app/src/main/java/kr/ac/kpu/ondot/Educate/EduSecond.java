@@ -301,14 +301,14 @@ public class EduSecond extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //mBtManager.write("222222".getBytes());
-        finalize();
+        sendData("222222222222222222222222222222222222");
+        //finalize();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        finalize();
+        //finalize();
     }
 
     private void initBlue() {

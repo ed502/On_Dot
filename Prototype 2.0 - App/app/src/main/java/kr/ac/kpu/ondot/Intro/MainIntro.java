@@ -15,11 +15,6 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
-<<<<<<< HEAD
-=======
-import kr.ac.kpu.ondot.Main.BluetoothActivity;
-import kr.ac.kpu.ondot.Main.MainActivity;
->>>>>>> 2236b3e4739a8d469038c1654299af72a6caca5b
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 

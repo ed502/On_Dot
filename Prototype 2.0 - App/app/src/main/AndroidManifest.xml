@@ -17,8 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+<<<<<<< HEAD
         <activity android:name=".Main.Menual"></activity>
         <activity android:name=".Intro.BluetoothActivity" />
+=======
+        <activity android:name=".Main.BluetoothActivity"></activity>
+>>>>>>> 2236b3e4739a8d469038c1654299af72a6caca5b
         <activity android:name=".Educate.EduFifth" />
         <activity android:name=".Educate.EduFourth" />
         <activity android:name=".BluetoothModule.DeviceList" />

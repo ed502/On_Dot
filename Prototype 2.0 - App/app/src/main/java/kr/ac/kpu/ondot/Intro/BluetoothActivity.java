@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -36,7 +37,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
 
     private CustomTouchConnectListener customTouchConnectListener;
     private VoicePlayerModuleManager voicePlayerModuleManager;
-
+    private Vibrator vibrator;
     private MenuType menuType = MenuType.BLUETOOTH;
 
     /**
@@ -55,6 +56,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         mContext = getApplicationContext();
         initDisplaySize();
@@ -107,17 +109,20 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }else if (fingerFunctionType == FingerFunctionType.LONG) {
                     voicePlayerModuleManager.allStop();
+                    vibrator.vibrate(500);
                     doScan();
                 }
                /* if(fingerFunctionType == FingerFunctionType.ENTER && mBtManager.getState() != BluetoothManager.STATE_CONNECTED){
                     Toast.makeText(getApplicationContext(),"블루투스 연결요망",Toast.LENGTH_SHORT).show();
                     //안내 음성파일
-                    voicePlayerModuleManager.start(R.raw.blue_not_connect);
+                   // voicePlayerModuleManager.start(R.raw.blue_not_connect);
                 }else if (fingerFunctionType == FingerFunctionType.ENTER && mBtStatus==BluetoothManager.STATE_CONNECTED) { // 블루투스 연결이 되어있는 상태
                     if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
                 }else if (fingerFunctionType == FingerFunctionType.LONG) {
+                    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                    vibrator.vibrate(500);
                     doScan();
                 }*/
             }

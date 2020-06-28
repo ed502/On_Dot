@@ -3,6 +3,7 @@ package kr.ac.kpu.ondot.Intro;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,12 +29,17 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
 
     private MenuType menuType = MenuType.QUIZ;
     private VoicePlayerModuleManager voicePlayerModuleManager;
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_intro);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -77,6 +83,7 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    vibrator.vibrate(vibrateEnterPattern,-1);
                     startActivity(new Intent(getApplicationContext(), QuizMain.class));
                     finish();
                 }
@@ -88,6 +95,7 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
     public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:

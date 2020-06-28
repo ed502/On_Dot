@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -43,6 +44,12 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
     private MenuType menuType = MenuType.MAIN;
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {50, 100};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +57,7 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         linearLayout = findViewById(R.id.menual_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -98,6 +105,7 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
                     voicePlayerModuleManager.allStop();
+                    vibrator.vibrate(vibrateEnterPattern,-1);
                     //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
@@ -111,9 +119,11 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
+                vibrator.vibrate(vibrateSpecialPattern,-1);
                 voicePlayerModuleManager.allStop();
                 voicePlayerModuleManager.start(menuType);
                 break;

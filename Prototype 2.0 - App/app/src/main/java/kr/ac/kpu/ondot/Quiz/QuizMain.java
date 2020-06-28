@@ -3,6 +3,7 @@ package kr.ac.kpu.ondot.Quiz;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -36,6 +37,12 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {50, 100};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +50,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         circleIndicator = findViewById(R.id.quiz_circleIndicator);
 
         linearLayout = findViewById(R.id.quiz_layout);
@@ -125,15 +132,21 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
-                    if (currentView < maxPage)
+                    if (currentView < maxPage) {
                         mViewpager.setCurrentItem(currentView + 1);
-                    else
+                        vibrator.vibrate(vibrateNormalPattern,-1);
+                    } else {
                         mViewpager.setCurrentItem(currentView);
+                        vibrator.vibrate(vibrateErrorPattern, -1);
+                    }
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
-                    if (currentView > 0)
+                    if (currentView > 0) {
                         mViewpager.setCurrentItem(currentView - 1);
-                    else
+                        vibrator.vibrate(vibrateNormalPattern,-1);
+                    } else {
                         mViewpager.setCurrentItem(currentView);
+                        vibrator.vibrate(vibrateErrorPattern, -1);
+                    }
                 }
             }
         });
@@ -141,7 +154,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
         Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
         if (fingerFunctionType == FingerFunctionType.ENTER) {
             activitySwitch(currentView);
-
+            vibrator.vibrate(vibrateEnterPattern,-1);
             Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
         }
     }
@@ -150,6 +163,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:

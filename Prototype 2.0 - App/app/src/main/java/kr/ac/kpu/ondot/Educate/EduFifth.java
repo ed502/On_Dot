@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -32,6 +33,7 @@ import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
+
 //줄임말
 public class EduFifth extends AppCompatActivity implements CustomTouchEventListener {
 
@@ -50,6 +52,12 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50, 300};
+    private long[] vibrateSpecialPattern = {50, 100};
+
     // Bluetooth
 
     private Context mContext;
@@ -63,7 +71,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_fifth);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mContext = getApplicationContext();
         initBlue();
 
@@ -99,11 +107,13 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if ((fingerFunctionType == FingerFunctionType.RIGHT) && currentLocation < list.size()-1) { //오른쪽에서 왼쪽으로 스크롤
+                if ((fingerFunctionType == FingerFunctionType.RIGHT) && currentLocation < list.size() - 1) { //오른쪽에서 왼쪽으로 스크롤
                     currentLocation++;
+                    vibrator.vibrate(vibrateNormalPattern, -1);
                     checkData();
                 } else if ((fingerFunctionType == FingerFunctionType.LEFT) && currentLocation > 0) { //왼쪽에서 오른쪽으로 스크롤
                     currentLocation--;
+                    vibrator.vibrate(vibrateNormalPattern, -1);
                     checkData();
                 }
 
@@ -115,6 +125,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern, -1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -291,6 +302,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
         //voicePlayerModuleManager.start(raw_id);
 
     }
+
     public void sendData(String str) {
         Log.d(TAG, "strrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : " + str);
         mBtManager.write(str.getBytes());
@@ -323,7 +335,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
             return;
         }
 
-        Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 
     public void finalize() {

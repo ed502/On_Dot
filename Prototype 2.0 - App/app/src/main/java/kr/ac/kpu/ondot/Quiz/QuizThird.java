@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -55,6 +56,11 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     private CustomTouchConnectListener customTouchConnectListener;
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
 
     private TextView textData;
     private LinearLayout[] circle;
@@ -64,7 +70,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_third);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -118,8 +124,8 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                 if (dataCount == 8) {
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN) {
-                        int i = scrollCount % 6;
+                    if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
+                        int i = scrollCount % 12;
                         if (fingerFunctionType == FingerFunctionType.UP) {
                             switch (i) {
                                 case 0:
@@ -146,32 +152,33 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
-/*                                case 6:
+                                case 6:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer+"2";
+                                    answer = answer + "2";
                                     break;
                                 case 7:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer+"2";
+                                    answer = answer + "2";
                                     break;
                                 case 8:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer+"2";
+                                    answer = answer + "2";
                                     break;
                                 case 9:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer+"2";
+                                    answer = answer + "2";
                                     break;
                                 case 10:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer+"2";
+                                    answer = answer + "2";
                                     break;
                                 case 11:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer+"2";
-                                    break;*/
+                                    answer = answer + "2";
+                                    break;
                             }
                             Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
+                            vibrator.vibrate(vibrateNormalPattern, -1);
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.DOWN) {
                             switch (i) {
@@ -199,63 +206,81 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
-/*                                case 6:
+                                case 6:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer+"1";
+                                    answer = answer + "1";
                                     break;
                                 case 7:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer+"1";
+                                    answer = answer + "1";
                                     break;
                                 case 8:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer+"1";
+                                    answer = answer + "1";
                                     break;
                                 case 9:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer+"1";
+                                    answer = answer + "1";
                                     break;
                                 case 10:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer+"1";
+                                    answer = answer + "1";
                                     break;
                                 case 11:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer+"1";
-                                    break;*/
+                                    answer = answer + "1";
+                                    break;
                             }
-                            Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
+                            vibrator.vibrate(vibrateNormalPattern, -1);
                             scrollCount++;
+                        } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
+                            if (scrollCount > 0) {
+                                if (scrollCount % 12 == 0) {
+                                    scrollCount--;
+                                    dataCount--;
+                                    answer = answer.substring(0, scrollCount);
+                                    Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
+                                    for (int j = 0; j < 11; j++) {
+                                        if (answer.substring(dataCount * 12 + j, dataCount * 12 + j + 1).equals("1")) {
+                                            circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                        } else if (answer.substring(dataCount * 12 + j, dataCount * 12 + j + 1).equals("2")) {
+                                            circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                        }
+                                    }
+
+                                    vibrator.vibrate(vibrateNormalPattern, -1);
+                                } else {
+                                    scrollCount--;
+                                    Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
+                                    i = scrollCount % 12;
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    vibrator.vibrate(vibrateNormalPattern, -1);
+                                    answer = answer.substring(0, scrollCount);
+                                }
+                            } else if (scrollCount == 0) {
+                                vibrator.vibrate(vibrateErrorPattern, -1);
+                            }
                         }
-                        if (scrollCount % 6 == 0) {
-                            for (int j = 0; j < 6; j++) {
+                        if (scrollCount % 12 == 0) {
+                            for (int j = 0; j < 12; j++) {
                                 circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                             }
                             dataCount++;
-                            //Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), answer, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN) {
+                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
+                        vibrator.vibrate(vibrateErrorPattern, -1);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                /*if ((fingerFunctionType == FingerFunctionType.RIGHT) && currentLocation < list.size() - 1 && answerCheck == 1) { //오른쪽에서 왼쪽으로 스크롤
-                    answerCheck = 0;
-                    currentLocation++;
-                    checkData();
-                }
-                if ((fingerFunctionType == FingerFunctionType.LEFT) && currentLocation > 0 && answerCheck == 1) { //왼쪽에서 오른쪽으로 스크롤
-                    answerCheck = 0;
-                    currentLocation--;
-                    checkData();
-                }*/
-
-
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
                     if (scrollCount % 6 == 0 && scrollCount > 1) {
                         answerCheckFunc();
+                        vibrator.vibrate(vibrateEnterPattern,-1);
                     } else {
+                        vibrator.vibrate(vibrateErrorPattern,-1);
                         Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -267,6 +292,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -275,8 +301,10 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                         answer = answer + "111111";
                     }
                     scrollCount = scrollCount + 6;
+                    vibrator.vibrate(vibrateSpecialPattern,-1);
                     Toast.makeText(this, "6개 빈칸", Toast.LENGTH_SHORT).show();
                 }else{
+                    vibrator.vibrate(vibrateErrorPattern,-1);
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;

@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -61,15 +62,22 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     private LinearLayout[] circle;
     private CustomTouchConnectListener customTouchConnectListener;
     private int scrollCount, dataCount = 0;
-    private String data = "", result="";
+    private String data = "", result = "";
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
+
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50, 300};
+    private long[] vibrateSpecialPattern = {10, 50, 10, 50, 10, 50};
+    private long[] vibrateShakePattern = {50, 100, 10, 200, 10, 100};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.translate_main);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -123,7 +131,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     }
 
     // tts 초기화
-    private void initVoicePlayer(){
+    private void initVoicePlayer() {
         voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
@@ -137,7 +145,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 if (dataCount == 8) {
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN) {
+                    if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
                         int i = scrollCount % 12;
                         if (fingerFunctionType == FingerFunctionType.UP) {
                             switch (i) {
@@ -190,10 +198,10 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                                     data = data + "2";
                                     break;
                             }
-                            Toast.makeText(getApplicationContext(), scrollCount+1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
+                            vibrator.vibrate(vibrateNormalPattern, -1);
                             scrollCount++;
-                        }
-                        else if (fingerFunctionType == FingerFunctionType.DOWN) {
+                        } else if (fingerFunctionType == FingerFunctionType.DOWN) {
                             switch (i) {
                                 case 0:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
@@ -245,7 +253,35 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                                     break;
                             }
                             Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
+                            vibrator.vibrate(vibrateNormalPattern, -1);
                             scrollCount++;
+                        } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
+                            if (scrollCount > 0) {
+                                if (scrollCount % 12 == 0) {
+                                    scrollCount--;
+                                    dataCount--;
+                                    data = data.substring(0, scrollCount);
+                                    Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
+                                    for (int j = 0; j < 11; j++) {
+                                        if (data.substring(dataCount * 12 + j, dataCount * 12 + j + 1).equals("1")) {
+                                            circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                        } else if (data.substring(dataCount * 12 + j, dataCount * 12 + j + 1).equals("2")) {
+                                            circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
+                                        }
+                                    }
+
+                                    vibrator.vibrate(vibrateNormalPattern, -1);
+                                } else {
+                                    scrollCount--;
+                                    Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
+                                    i = scrollCount % 12;
+                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                                    vibrator.vibrate(vibrateNormalPattern, -1);
+                                    data = data.substring(0, scrollCount);
+                                }
+                            } else if (scrollCount == 0) {
+                                vibrator.vibrate(vibrateErrorPattern, -1);
+                            }
                         }
                         if (scrollCount % 12 == 0) {
                             for (int j = 0; j < 12; j++) {
@@ -255,18 +291,21 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                             Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN) {
+                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
+                        vibrator.vibrate(vibrateErrorPattern, -1);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
-                if(fingerFunctionType==FingerFunctionType.ENTER){
-                    if(scrollCount%6==0 && scrollCount >1) {
+                if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    if (scrollCount % 6 == 0 && scrollCount > 1) {
                         getData();
+                        vibrator.vibrate(vibrateEnterPattern, -1);
                         Intent intent = new Intent(getApplicationContext(), TranslateResult.class);
                         intent.putExtra("data", result);
                         startActivity(intent);
                         finish();
-                    }else{
+                    } else {
+                        vibrator.vibrate(vibrateErrorPattern, -1);
                         Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -278,16 +317,19 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern, -1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                if(scrollCount%12==0) {
-                    if(scrollCount==0){
+                if (scrollCount % 12 == 0) {
+                    if (scrollCount == 0) {
                         data = data + "111111";
                     }
                     scrollCount = scrollCount + 6;
+                    vibrator.vibrate(vibrateSpecialPattern, -1);
                     Toast.makeText(this, "6개 빈칸", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
+                    vibrator.vibrate(vibrateErrorPattern, -1);
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -326,9 +368,10 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 scrollCount = 0;
                 dataCount = 0;
                 data = "";
-                for (int j = 0; j < 6; j++) {
+                for (int j = 0; j < 12; j++) {
                     circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                 }
+                vibrator.vibrate(vibrateShakePattern, -1);
                 Toast.makeText(getApplicationContext(), "초기화", Toast.LENGTH_SHORT).show();
             }
         }
@@ -346,6 +389,12 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
     public void onPermissionUseAgree() {
 
     }
@@ -359,7 +408,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         StrictMode.enableDefaults();
         boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
         try {
-            URL url = new URL("http://15.165.135.160/dotCombine?dot="+data);
+            URL url = new URL("http://15.165.135.160/dotCombine?dot=" + data);
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();

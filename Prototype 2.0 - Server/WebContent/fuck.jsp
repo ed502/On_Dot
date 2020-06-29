@@ -113,8 +113,8 @@
 				out.println(type[i]);
 			}
 			
-			String result = CombineData.hak(data, type);
-			out.println(result);
+			//String result = CombineData.hak(data, type);
+			//out.println(result);
 			
 		} catch (SQLException ex) {
 			out.println(ex.getMessage());

@@ -36,7 +36,7 @@ int i=0;
 			//03단계 :Query실행을 위한 statement 또는 prepareStatement객체생성 시작
 			stmt = conn.createStatement();
 			//04단계 :Query실행 시작
-			String query = "select word_dots.word, wronglog.count from wronglog join word_dots where wronglog.word_id = word_dots.id order by wronglog.count desc;";
+			String query = "select word from initial_dots order by count desc";
 			rs = stmt.executeQuery(query);
 			//04단계 :Query실행 끝
 			//05단계 :Query실행결과 사용
@@ -122,7 +122,7 @@ int i=0;
                             </a>
                         </li>
                     </ul>
-                    <ul style="margin-top: 32px">
+                    <ul style="margin-top: 36px">
                         <label>
                             <b>졸업작품 정보</b>
                         </label>
@@ -373,8 +373,8 @@ int i=0;
             <div class="card">
                 <div>
                     <blockquote class="blockquote mb-0">
-                        <h2 style="text-align: center; margin-top: 20px !important;">Developer</h2>
-                        <h2 style="text-align: center; margin-top: 20px !important;">2015154009 김학진 2015154014 문준혁 2015154021 송민욱 2015154027 이세민</h2>
+                        <h2 style="text-align: center; margin-top: 24px !important;">Developer</h2>
+                        <h2 style="text-align: center; margin-top: 24px !important;">2015154009 김학진 2015154014 문준혁 2015154021 송민욱 2015154027 이세민</h2>
                         <footer class="blockquote-footer"  style="text-align: left !important;">
                             <cite title="Source Title">한국산업기술대학교 컴퓨터공학부</cite>
                         </footer>

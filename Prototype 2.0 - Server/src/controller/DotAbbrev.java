@@ -42,7 +42,7 @@ public class DotAbbrev extends HttpServlet {
 	         PreparedStatement ps = null;
 	         
 	         // type =1 이 초성 2가 모음 3이 종성
-	         String sql = "select * from initial_dots where type = 5,or type = 7";
+	         String sql = "select * from initial_dots where type = 5 or type = 7";
 	         ps = conn.prepareStatement(sql);
 	         
 	         ResultSet rs = ps.executeQuery();

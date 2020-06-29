@@ -23,6 +23,7 @@ public class DotCombine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private CombineData combineData = null;
+	private Sql sql = null;
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
@@ -42,9 +43,10 @@ public class DotCombine extends HttpServlet {
 		// doGet(request, response);
 
 		combineData = new CombineData();
+		sql = new Sql();
 		// 어플에서 받은 값 및 분리
 		String dot = request.getParameter("dot");
-		
+
 		String[] arr = new String[10];
 		int num = dot.length() / 12;
 		String[] data = new String[num];
@@ -57,6 +59,7 @@ public class DotCombine extends HttpServlet {
 			}
 		}
 
+		String result = "";
 		try {
 			conn = DBConnection.getConnection();
 			stmt = conn.createStatement();
@@ -69,6 +72,18 @@ public class DotCombine extends HttpServlet {
 				}
 
 			}
+
+			combineData.hak(data, type);
+
+			result = combineData.getData();
+
+			if (num == 1) {
+				result = data[0];
+			}
+			System.out.println("result 넘겨");
+			sql.translate(result);
+			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
@@ -92,10 +107,6 @@ public class DotCombine extends HttpServlet {
 				}
 		}
 
-		combineData.hak(data, type);
-
-		String result = combineData.getData();
-		
 		if (result != null) {
 			StringBuffer dotCombineXML = new StringBuffer(2048);
 			dotCombineXML.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
@@ -108,14 +119,13 @@ public class DotCombine extends HttpServlet {
 
 			dotCombineXML.append("</Dots>");
 			System.out.println(dotCombineXML.toString());
-			
+
 			// 응답
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/xml; charset=utf-8");
 			response.getWriter().println(dotCombineXML.toString());
 		}
 
-		
 	}
 
 }

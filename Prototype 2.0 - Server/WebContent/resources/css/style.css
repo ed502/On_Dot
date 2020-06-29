@@ -18,7 +18,7 @@ h3 {
     font-family: 'GyeonggiBatang';
 }
 p {
-    font-family: 'Nanum Gothic',맑은 고딕, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
+    font-family: 'Nanum Gothic',留묒� 怨좊뵓, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
     font-size: .8rem;
     color: #555;
     position: relative;
@@ -72,7 +72,7 @@ body {
     background-color: #aaa;
 }
 .ranking_bok {
-    font-family: '나눔고딕',NanumGothic,'돋움',Dotum,Helvetica,sans-serif;
+    font-family: '�굹�닎怨좊뵓',NanumGothic,'�룍��',Dotum,Helvetica,sans-serif;
     font-size: 14px;
     color: #333;
     letter-spacing: -1px;
@@ -86,7 +86,7 @@ a.active {
     font-family: "Open Sans", sans-serif;
     line-height: 1.428571429;
     list-style: none;
-    font-size: 15px;
+    font-size: 18px;
     box-sizing: inherit;
     background-color: transparent;
     touch-action: manipulation;
@@ -103,7 +103,7 @@ a {
     font-family: "Open Sans", sans-serif;
     line-height: 1.428571429;
     list-style: none;
-    font-size: 15px;
+    font-size: 18px;
     box-sizing: inherit;
     background-color: transparent;
     touch-action: manipulation;
@@ -253,7 +253,7 @@ section.widget {
     left: 0;
     min-width: 13px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 28px;
     font-style: italic;
     font-family:Helvetica,sans-serif;
     text-align: center;
@@ -300,4 +300,10 @@ section.widget {
     background:url(../img/spr/ico_noti.png) no-repeat;
     -webkit-background-size: 44px 44px;
     background-size: 44px 44px;
+}
+
+
+.psize
+{
+	font-size: 22px;
 }

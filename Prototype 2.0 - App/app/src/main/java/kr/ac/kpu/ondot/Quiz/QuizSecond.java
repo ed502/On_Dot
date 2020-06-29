@@ -127,7 +127,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
-                        int i = scrollCount % 12;
+                        int i = scrollCount % 6;
                         if (fingerFunctionType == FingerFunctionType.UP) {
                             switch (i) {
                                 case 0:
@@ -151,30 +151,6 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                     answer = answer + "2";
                                     break;
                                 case 5:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer + "2";
-                                    break;
-                                case 6:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer + "2";
-                                    break;
-                                case 7:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer + "2";
-                                    break;
-                                case 8:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer + "2";
-                                    break;
-                                case 9:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer + "2";
-                                    break;
-                                case 10:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    answer = answer + "2";
-                                    break;
-                                case 11:
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
@@ -208,45 +184,21 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
-                                case 6:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer + "1";
-                                    break;
-                                case 7:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer + "1";
-                                    break;
-                                case 8:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer + "1";
-                                    break;
-                                case 9:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer + "1";
-                                    break;
-                                case 10:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer + "1";
-                                    break;
-                                case 11:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    answer = answer + "1";
-                                    break;
                             }
                             Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
                             vibrator.vibrate(vibrateNormalPattern, -1);
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
                             if (scrollCount > 0) {
-                                if (scrollCount % 12 == 0) {
+                                if (scrollCount % 6 == 0) {
                                     scrollCount--;
                                     dataCount--;
                                     answer = answer.substring(0, scrollCount);
                                     Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
-                                    for (int j = 0; j < 11; j++) {
-                                        if (answer.substring(dataCount * 12 + j, dataCount * 12 + j + 1).equals("1")) {
+                                    for (int j = 0; j < 5; j++) {
+                                        if (answer.substring(dataCount * 6 + j, dataCount * 6 + j + 1).equals("1")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                        } else if (answer.substring(dataCount * 12 + j, dataCount * 12 + j + 1).equals("2")) {
+                                        } else if (answer.substring(dataCount * 6 + j, dataCount * 6 + j + 1).equals("2")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                         }
                                     }
@@ -255,7 +207,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                 } else {
                                     scrollCount--;
                                     Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
-                                    i = scrollCount % 12;
+                                    i = scrollCount % 6;
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     vibrator.vibrate(vibrateNormalPattern, -1);
                                     answer = answer.substring(0, scrollCount);
@@ -264,8 +216,8 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                 vibrator.vibrate(vibrateErrorPattern, -1);
                             }
                         }
-                        if (scrollCount % 12 == 0) {
-                            for (int j = 0; j < 12; j++) {
+                        if (scrollCount % 6 == 0) {
+                            for (int j = 0; j < 6; j++) {
                                 circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                             }
                             dataCount++;

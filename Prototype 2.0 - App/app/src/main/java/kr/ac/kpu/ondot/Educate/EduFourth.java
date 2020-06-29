@@ -298,9 +298,9 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
                 }
             }
         }
-        sendData(dotData);
+        //sendData(dotData);
         String raw_id = list.get(currentLocation).getRaw_id();
-        //voicePlayerModuleManager.start(raw_id);
+        voicePlayerModuleManager.start(raw_id);
 
     }
 
@@ -312,7 +312,7 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sendData("222222222222222222222222222222222222");
+        //sendData("222222222222222222222222222222222222");
         //finalize();
     }
 

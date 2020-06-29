@@ -214,6 +214,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                     // activitySwitch(currentView);
                     vibrator.vibrate(vibrateEnterPattern,-1);
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    activitySwitch(currentView);
                     //menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.NONE) {
                     //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
@@ -225,12 +226,12 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         });
 
         Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        if (fingerFunctionType == FingerFunctionType.ENTER) {
+        /*if (fingerFunctionType == FingerFunctionType.ENTER) {
             voicePlayerModuleManager.start(fingerFunctionType);
             vibrator.vibrate(vibrateEnterPattern,-1);
             activitySwitch(currentView);
             Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        }
+        }*/
     }
 
     @Override

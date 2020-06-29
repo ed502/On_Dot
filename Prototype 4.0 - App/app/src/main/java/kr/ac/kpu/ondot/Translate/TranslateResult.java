@@ -26,6 +26,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.TransDataVO;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 
@@ -44,16 +45,14 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
     private ArrayList<String> word, dot, raw_id;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {50, 100};
+    private VibratorPattern pattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.translate_result);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -102,7 +101,7 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:

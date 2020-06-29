@@ -33,6 +33,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
@@ -53,10 +54,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {50, 100};
+    private VibratorPattern pattern;
 
     // Bluetooth
     private Context mContext;
@@ -70,6 +68,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_third);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         initVoicePlayer();
         mContext = getApplicationContext();
         initBlue();
@@ -143,11 +142,11 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
             public void run() {
                 if ((fingerFunctionType == FingerFunctionType.RIGHT) && currentLocation < 26) { //오른쪽에서 왼쪽으로 스크롤
                     currentLocation++;
-                    vibrator.vibrate(vibrateNormalPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     checkData();
                 } else if ((fingerFunctionType == FingerFunctionType.LEFT) && currentLocation > 0) { //왼쪽에서 오른쪽으로 스크롤
                     currentLocation--;
-                    vibrator.vibrate(vibrateNormalPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     checkData();
                 }
 
@@ -159,7 +158,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -302,6 +301,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
         }
 
         String raw_id = list.get(currentLocation).getRaw_id();
+        voicePlayerModuleManager.allStop();
         voicePlayerModuleManager.start(raw_id);
         sendData(dotData);
     }
@@ -314,7 +314,7 @@ public class EduThird extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sendData("222222222222222222222222222222222222");
+        sendData("222222222222222222222222222222222222222222222222");
         //finalize();
     }
 

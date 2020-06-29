@@ -28,6 +28,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.Educate.EducateMain;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.Main.MainActivity;
@@ -45,10 +46,7 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
     private MenuType menuType = MenuType.EDUCATE;
     private VoicePlayerModuleManager voicePlayerModuleManager;
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
+    private VibratorPattern pattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +98,9 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
-                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     voicePlayerModuleManager.allStop();
-                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), EducateMain.class));
                     finish();
                 }
@@ -114,7 +112,8 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
     public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -126,6 +125,11 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
 
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

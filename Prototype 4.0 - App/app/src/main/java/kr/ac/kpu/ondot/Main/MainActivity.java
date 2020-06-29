@@ -31,6 +31,7 @@ import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.CustomTouch.TouchType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.JsonModule;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.Educate.EducateMain;
 import kr.ac.kpu.ondot.Intro.EduIntro;
 import kr.ac.kpu.ondot.Intro.QuizIntro;
@@ -64,10 +65,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     private PermissionModule permissionModule;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
+    private VibratorPattern pattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         circleIndicator = findViewById(R.id.main_circleIndicator);
 
         linearLayout = findViewById(R.id.main_layout);
@@ -238,26 +237,26 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
                     if (currentView < maxPage) {
                         mViewpager.setCurrentItem(currentView + 1);
-                        vibrator.vibrate(vibrateNormalPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     } else {
                         mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(vibrateErrorPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     }
                     voicePlayerModuleManager.start(fingerFunctionType);
                     menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
                     if (currentView > 0) {
                         mViewpager.setCurrentItem(currentView - 1);
-                        vibrator.vibrate(vibrateNormalPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     } else {
                         mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(vibrateErrorPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     }
                     voicePlayerModuleManager.start(fingerFunctionType);
                     menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.ENTER) {
                     //activitySwitch(currentView);
-                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     checkPermission();
                     voicePlayerModuleManager.start(fingerFunctionType);
                     //menuVoice(currentView);
@@ -279,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         voicePlayerModuleManager.start(fingerFunctionType);
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:

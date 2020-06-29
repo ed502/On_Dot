@@ -19,6 +19,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
@@ -35,10 +36,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     private int currentView = 0;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {50, 100};
+    private VibratorPattern pattern;
 
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
@@ -56,6 +54,8 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
+
         linearLayout = findViewById(R.id.edu_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,12 +99,12 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
             }
         });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         menuVoice(currentView);
     }
 
@@ -191,28 +191,28 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
                     if (currentView < maxPage) {
                         mViewpager.setCurrentItem(currentView + 1);
-                        vibrator.vibrate(vibrateNormalPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     }
                     else {
                         mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(vibrateErrorPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(),-1);
                     }
                     voicePlayerModuleManager.start(fingerFunctionType);
                     menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
                     if (currentView > 0) {
                         mViewpager.setCurrentItem(currentView - 1);
-                        vibrator.vibrate(vibrateNormalPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     }
                     else {
                         mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(vibrateErrorPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(),-1);
                     }
                     voicePlayerModuleManager.start(fingerFunctionType);
                     menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.ENTER) {
                     // activitySwitch(currentView);
-                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     voicePlayerModuleManager.start(fingerFunctionType);
                     activitySwitch(currentView);
                     //menuVoice(currentView);
@@ -238,7 +238,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -251,6 +251,10 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {

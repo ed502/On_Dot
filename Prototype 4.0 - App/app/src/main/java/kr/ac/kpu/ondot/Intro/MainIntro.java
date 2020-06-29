@@ -16,6 +16,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
@@ -30,11 +31,7 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
 
     private MenuType menuType = MenuType.MAIN;
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
-
+    private VibratorPattern pattern;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +40,7 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         linearLayout = findViewById(R.id.main_intro_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -86,9 +84,9 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
-                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     voicePlayerModuleManager.allStop();
-                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), BluetoothActivity.class));
                     finish();
                 }
@@ -121,7 +119,6 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
 
     }
 }

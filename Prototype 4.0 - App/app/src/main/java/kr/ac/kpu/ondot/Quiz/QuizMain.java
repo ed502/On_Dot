@@ -19,6 +19,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
@@ -38,10 +39,9 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
     private LinearLayout linearLayout;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {50, 100};
+    private VibratorPattern pattern;
+
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         circleIndicator = findViewById(R.id.quiz_circleIndicator);
 
         linearLayout = findViewById(R.id.quiz_layout);
@@ -66,6 +67,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
 
         initDisplaySize();
         initTouchEvent();
+        initVoicePlayer();
 
         mViewpager = findViewById(R.id.quiz_viewpager);
         mAdapter = new QuizPagerAdapter(getSupportFragmentManager());
@@ -91,6 +93,30 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
 
             }
         });
+    }
+
+    private void initVoicePlayer() {
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
+    }
+
+    private void menuVoice(int currentView) {
+        voicePlayerModuleManager.stop();
+        // 메뉴 이름 음성 출력
+        switch (currentView) {
+            case 0:
+                // 1단계
+                voicePlayerModuleManager.start(R.raw.quiz_1);
+                break;
+            case 1:
+                // 2단계
+                voicePlayerModuleManager.start(R.raw.quiz_2);
+                break;
+            case 2:
+                // 3단계
+                voicePlayerModuleManager.start(R.raw.quiz_3);
+                break;
+
+        }
     }
 
     public void activitySwitch(int currentView) {
@@ -134,46 +160,53 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
                     if (currentView < maxPage) {
                         mViewpager.setCurrentItem(currentView + 1);
-                        vibrator.vibrate(vibrateNormalPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     } else {
                         mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(vibrateErrorPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     }
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
                     if (currentView > 0) {
                         mViewpager.setCurrentItem(currentView - 1);
-                        vibrator.vibrate(vibrateNormalPattern,-1);
+                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
                     } else {
                         mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(vibrateErrorPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     }
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
+                }else if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    activitySwitch(currentView);
+                }else if (fingerFunctionType == FingerFunctionType.NONE) {
+                    voicePlayerModuleManager.start(fingerFunctionType);
                 }
             }
         });
-
-        Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        if (fingerFunctionType == FingerFunctionType.ENTER) {
-            activitySwitch(currentView);
-            vibrator.vibrate(vibrateEnterPattern,-1);
-            Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-        }
     }
 
     @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        menuVoice(currentView);
     }
 
     @Override

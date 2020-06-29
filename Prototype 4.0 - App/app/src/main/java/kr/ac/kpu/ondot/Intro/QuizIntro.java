@@ -16,6 +16,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.Quiz.QuizMain;
 import kr.ac.kpu.ondot.R;
@@ -30,16 +31,13 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
     private MenuType menuType = MenuType.QUIZ;
     private VoicePlayerModuleManager voicePlayerModuleManager;
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
-
+    private VibratorPattern pattern;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_intro);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -56,6 +54,8 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();
+
+        voicePlayerModuleManager.start(menuType);
     }
 
     private void initTouchEvent() {
@@ -83,7 +83,9 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
-                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                    voicePlayerModuleManager.allStop();
+                    //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), QuizMain.class));
                     finish();
                 }
@@ -95,14 +97,14 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
     public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(menuType);
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -120,6 +122,11 @@ public class QuizIntro extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onResume() {
         super.onResume();
-        voicePlayerModuleManager.start(menuType);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

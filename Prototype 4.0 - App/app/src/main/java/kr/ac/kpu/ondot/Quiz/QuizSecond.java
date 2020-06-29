@@ -37,6 +37,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.Translate.TranslateResult;
@@ -59,10 +60,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50, 300};
-    private long[] vibrateSpecialPattern = {10, 50, 10, 50, 10, 50};
+    private VibratorPattern pattern;
 
     private TextView textData;
     private LinearLayout[] circle;
@@ -73,6 +71,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_second);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -156,7 +155,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                     break;
                             }
                             Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
-                            vibrator.vibrate(vibrateNormalPattern, -1);
+                            vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.DOWN) {
                             switch (i) {
@@ -186,7 +185,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                     break;
                             }
                             Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
-                            vibrator.vibrate(vibrateNormalPattern, -1);
+                            vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
                             if (scrollCount > 0) {
@@ -196,24 +195,24 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                                     answer = answer.substring(0, scrollCount);
                                     Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
                                     for (int j = 0; j < 5; j++) {
-                                        if (answer.substring(dataCount * 6 + j, dataCount * 6 + j + 1).equals("1")) {
+                                        if (answer.substring((scrollCount/6)*6 + j, (scrollCount/6)*6 + j + 1).equals("1")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                        } else if (answer.substring(dataCount * 6 + j, dataCount * 6 + j + 1).equals("2")) {
+                                        } else if (answer.substring((scrollCount/6)*6 + j, (scrollCount/6)*6 + j + 1).equals("2")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                         }
                                     }
 
-                                    vibrator.vibrate(vibrateNormalPattern, -1);
+                                    vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                                 } else {
                                     scrollCount--;
                                     Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
                                     i = scrollCount % 6;
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    vibrator.vibrate(vibrateNormalPattern, -1);
+                                    vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                                     answer = answer.substring(0, scrollCount);
                                 }
                             } else if (scrollCount == 0) {
-                                vibrator.vibrate(vibrateErrorPattern, -1);
+                                vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                             }
                         }
                         if (scrollCount % 6 == 0) {
@@ -225,16 +224,16 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                         }
 
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
-                        vibrator.vibrate(vibrateErrorPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
                     if (scrollCount % 6 == 0 && scrollCount > 1) {
-                        vibrator.vibrate(vibrateEnterPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
                         answerCheckFunc();
                     } else {
-                        vibrator.vibrate(vibrateErrorPattern, -1);
+                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -246,19 +245,17 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern, -1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                if (scrollCount % 6 == 0) {
-                    if (scrollCount == 0) {
+                if (scrollCount % 6 == 0 && dataCount<8) {
                         answer = answer + "111111";
-                    }
                     scrollCount = scrollCount + 6;
-                    vibrator.vibrate(vibrateSpecialPattern, -1);
+                    vibrator.vibrate(pattern.getVibrateSpecialPattern(), -1);
                     Toast.makeText(this, "6개 빈칸", Toast.LENGTH_SHORT).show();
                 } else {
-                    vibrator.vibrate(vibrateErrorPattern, -1);
+                    vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;

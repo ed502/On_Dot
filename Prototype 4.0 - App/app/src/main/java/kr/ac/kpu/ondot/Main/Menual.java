@@ -24,6 +24,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.TransDataVO;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.Educate.EducateMain;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.Quiz.QuizFirst;
@@ -45,10 +46,7 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
     private Vibrator vibrator;
-    private long[] vibrateErrorPattern = {50, 100, 50, 100};
-    private long[] vibrateNormalPattern = {50, 100};
-    private long[] vibrateEnterPattern = {50,300};
-    private long[] vibrateSpecialPattern = {50, 100};
+    private VibratorPattern pattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +56,7 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
         linearLayout = findViewById(R.id.menual_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -72,10 +71,6 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
         initTouchEvent();
         initVoicePlayer();
         voicePlayerModuleManager.start(menuType);
-
-        Log.d(DEBUG_TYPE, "voic : "+ voicePlayerModuleManager.getMediaPlaying());
-
-
     }
 
     private void initVoicePlayer() {
@@ -104,7 +99,7 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
                     voicePlayerModuleManager.allStop();
-                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
@@ -118,11 +113,11 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(vibrateEnterPattern,-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                vibrator.vibrate(vibrateSpecialPattern,-1);
+                vibrator.vibrate(pattern.getVibrateSpecialPattern(),-1);
                 voicePlayerModuleManager.allStop();
                 voicePlayerModuleManager.start(menuType);
                 break;

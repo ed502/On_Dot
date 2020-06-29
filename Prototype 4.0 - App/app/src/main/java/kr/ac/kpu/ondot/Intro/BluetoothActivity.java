@@ -25,6 +25,7 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
+import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.EnumData.MenuType;
 import kr.ac.kpu.ondot.Main.MainActivity;
 import kr.ac.kpu.ondot.R;
@@ -38,6 +39,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
     private CustomTouchConnectListener customTouchConnectListener;
     private VoicePlayerModuleManager voicePlayerModuleManager;
     private Vibrator vibrator;
+    private VibratorPattern pattern;
     private MenuType menuType = MenuType.BLUETOOTH;
 
     /**
@@ -57,6 +59,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         setContentView(R.layout.activity_bluetooth);
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        pattern = new VibratorPattern();
 
         mContext = getApplicationContext();
         initDisplaySize();
@@ -105,7 +108,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
                     voicePlayerModuleManager.allStop();
-                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }else if (fingerFunctionType == FingerFunctionType.LONG) {
                     voicePlayerModuleManager.allStop();
@@ -139,10 +142,8 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
             case SPECIAL:
                 voicePlayerModuleManager.allStop();
                 voicePlayerModuleManager.start(menuType);
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -299,7 +300,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         super.onStop();
     }
     /*****************************************************
-     *	Inner classes  ,  Handler , activity Result
+     *   Inner classes  ,  Handler , activity Result
      ******************************************************/
 
     /**

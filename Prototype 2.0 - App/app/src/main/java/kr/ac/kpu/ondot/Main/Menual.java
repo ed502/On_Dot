@@ -73,10 +73,9 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
         initVoicePlayer();
         voicePlayerModuleManager.start(menuType);
 
-        if(voicePlayerModuleManager.getMenuInfoPlaying() == false){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }
+        Log.d(DEBUG_TYPE, "voic : "+ voicePlayerModuleManager.getMediaPlaying());
+
+
     }
 
     private void initVoicePlayer() {

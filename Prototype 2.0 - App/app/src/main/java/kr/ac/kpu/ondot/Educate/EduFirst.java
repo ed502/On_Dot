@@ -303,7 +303,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
                 }
             }
         }
-        sendData(dotData);
+        //sendData(dotData);
         String raw_id = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.start(raw_id);
 
@@ -317,7 +317,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sendData("121212121212121212121212121212121212121212121212");
+        //sendData("121212121212121212121212121212121212121212121212");
         //sendData("222222222222222222222222222222222222222222222222");
         //finalize();
     }

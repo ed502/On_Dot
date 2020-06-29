@@ -115,6 +115,7 @@
 			
 			String result = CombineData.hak(data, type);
 			out.println(result);
+			
 		} catch (SQLException ex) {
 			out.println(ex.getMessage());
 			ex.printStackTrace();
@@ -139,6 +140,13 @@
 				}
 		}
 	%>
+	
+	<form method="post" action="/DotCombine">
+	
+			<input type="submit" value="Home">
+	</form>
+	
+	
 	<form method="post" action="index.jsp">
 
 		<p>

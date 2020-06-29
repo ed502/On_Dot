@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +31,11 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
 
     private MenuType menuType = MenuType.TRANSLATE;
     private VoicePlayerModuleManager voicePlayerModuleManager;
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,7 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         linearLayout = findViewById(R.id.translate_intro_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -80,6 +86,7 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
                     startActivity(new Intent(getApplicationContext(), TranslateMain.class));
+                    vibrator.vibrate(vibrateEnterPattern,-1);
                     finish();
                 }
             }
@@ -90,6 +97,7 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
     public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:

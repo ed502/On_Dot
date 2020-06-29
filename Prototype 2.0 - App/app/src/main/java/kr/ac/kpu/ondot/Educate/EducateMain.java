@@ -3,6 +3,7 @@ package kr.ac.kpu.ondot.Educate;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -33,12 +34,17 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     private int maxPage;
     private int currentView = 0;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {50, 100};
+
     private CustomTouchConnectListener customTouchConnectListener;
     private LinearLayout linearLayout;
 
     // 음성 TTS 테스트
     private VoicePlayerModuleManager voicePlayerModuleManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +55,12 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         linearLayout = findViewById(R.id.edu_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(customTouchConnectListener != null){
+                if (customTouchConnectListener != null) {
                     customTouchConnectListener.touchEvent(motionEvent);
                 }
                 return true;
@@ -84,7 +90,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
-                menuVoice(currentView);
+                //menuVoice(currentView);
 
             }
 
@@ -103,13 +109,14 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     }
 
     // tts 초기화
-    private void initVoicePlayer(){
+    private void initVoicePlayer() {
         voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
-    private void menuVoice(int currentView){
+    private void menuVoice(int currentView) {
+        voicePlayerModuleManager.stop();
         // 메뉴 이름 음성 출력
-        switch (currentView){
+        switch (currentView) {
             case 0:
                 // 초성
                 voicePlayerModuleManager.start(R.raw.initial);
@@ -122,6 +129,15 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 // 종성
                 voicePlayerModuleManager.start(R.raw.final_);
                 break;
+            case 3:
+                // 특수기호 , 숫자
+                voicePlayerModuleManager.start(R.raw.special_symbols_num);
+                break;
+            case 4:
+                // 줄임말
+                voicePlayerModuleManager.start(R.raw.abbreviation);
+                break;
+
         }
     }
 
@@ -130,15 +146,15 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         Intent intent;
         switch (currentView) {
             case 0:
-                intent =  new Intent(EducateMain.this, EduFirst.class);
+                intent = new Intent(EducateMain.this, EduFirst.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent =  new Intent(EducateMain.this, EduSecond.class);
+                intent = new Intent(EducateMain.this, EduSecond.class);
                 startActivity(intent);
                 break;
             case 2:
-                intent =  new Intent(EducateMain.this, EduThird.class);
+                intent = new Intent(EducateMain.this, EduThird.class);
                 startActivity(intent);
                 break;
             case 3:
@@ -157,7 +173,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     }
 
     // 해상도 구하기
-    private void initDisplaySize(){
+    private void initDisplaySize() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -172,48 +188,67 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(fingerFunctionType == FingerFunctionType.RIGHT){ //오른쪽에서 왼쪽으로 스크롤
-                    voicePlayerModuleManager.start(fingerFunctionType);
-                    if(currentView<maxPage)
-                        mViewpager.setCurrentItem(currentView+1);
-                    else
+                if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
+                    if (currentView < maxPage) {
+                        mViewpager.setCurrentItem(currentView + 1);
+                        vibrator.vibrate(vibrateNormalPattern,-1);
+                    }
+                    else {
                         mViewpager.setCurrentItem(currentView);
-                }
-                else if(fingerFunctionType == FingerFunctionType.LEFT){ //왼쪽에서 오른쪽으로 스크롤
+                        vibrator.vibrate(vibrateErrorPattern,-1);
+                    }
                     voicePlayerModuleManager.start(fingerFunctionType);
-                    if(currentView>0)
-                        mViewpager.setCurrentItem(currentView-1);
-                    else
+                    menuVoice(currentView);
+                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
+                    if (currentView > 0) {
+                        mViewpager.setCurrentItem(currentView - 1);
+                        vibrator.vibrate(vibrateNormalPattern,-1);
+                    }
+                    else {
                         mViewpager.setCurrentItem(currentView);
+                        vibrator.vibrate(vibrateErrorPattern,-1);
+                    }
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
+                } else if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    // activitySwitch(currentView);
+                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //menuVoice(currentView);
+                } else if (fingerFunctionType == FingerFunctionType.NONE) {
+                    //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+
+                    voicePlayerModuleManager.start(fingerFunctionType);
+                    //menuVoice(currentView);
                 }
             }
         });
 
-        Log.d(DEBUG_TYPE,"MainActivity - fingerFunctionType : " + fingerFunctionType);
-        if(fingerFunctionType == FingerFunctionType.ENTER){
+        Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+        if (fingerFunctionType == FingerFunctionType.ENTER) {
             voicePlayerModuleManager.start(fingerFunctionType);
+            vibrator.vibrate(vibrateEnterPattern,-1);
             activitySwitch(currentView);
-
-            Log.d(DEBUG_TYPE,"MainActivity - fingerFunctionType : " + fingerFunctionType);
+            Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
         }
     }
 
     @Override
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
-        switch (fingerFunctionType){
+        switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this,"SPECIAL",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this,"NONE",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
     }
-
 
 
     @Override

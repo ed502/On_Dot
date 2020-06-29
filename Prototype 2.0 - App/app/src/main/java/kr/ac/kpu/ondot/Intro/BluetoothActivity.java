@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -36,7 +37,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
 
     private CustomTouchConnectListener customTouchConnectListener;
     private VoicePlayerModuleManager voicePlayerModuleManager;
-
+    private Vibrator vibrator;
     private MenuType menuType = MenuType.BLUETOOTH;
 
     /**
@@ -55,6 +56,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         mContext = getApplicationContext();
         initDisplaySize();
@@ -62,7 +64,9 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         initVoicePlayer();
         initBlue();
 
-        // voicePlayerModuleManager.start(menuType);
+
+
+        voicePlayerModuleManager.start(menuType);
     }
 
     @Override
@@ -92,23 +96,33 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
+
+
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
+                    voicePlayerModuleManager.allStop();
+                    voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }else if (fingerFunctionType == FingerFunctionType.LONG) {
+                    voicePlayerModuleManager.allStop();
+                    vibrator.vibrate(500);
+                    doScan();
                 }
                /* if(fingerFunctionType == FingerFunctionType.ENTER && mBtManager.getState() != BluetoothManager.STATE_CONNECTED){
                     Toast.makeText(getApplicationContext(),"블루투스 연결요망",Toast.LENGTH_SHORT).show();
                     //안내 음성파일
-                    voicePlayerModuleManager.start(R.raw.blue_not_connect);
+                   // voicePlayerModuleManager.start(R.raw.blue_not_connect);
                 }else if (fingerFunctionType == FingerFunctionType.ENTER && mBtStatus==BluetoothManager.STATE_CONNECTED) { // 블루투스 연결이 되어있는 상태
                     if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
                 }else if (fingerFunctionType == FingerFunctionType.LONG) {
+                    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                    vibrator.vibrate(500);
                     doScan();
                 }*/
             }
@@ -123,6 +137,8 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
                 onBackPressed();
                 break;
             case SPECIAL:
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(menuType);
                 Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
@@ -261,13 +277,12 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
 
     @Override
     protected void onResume() {
+
         super.onResume();
 
         if (mBtManager != null) {
             mBtStatus = mBtManager.getState();
 
-            if(mBtStatus == BluetoothManager.STATE_CONNECTING && mBtStatus == BluetoothManager.STATE_CONNECTED)
-                voicePlayerModuleManager.start(R.raw.education_info2);
             if (mBtHandler != null)
                 mBtManager.setHandler(mBtHandler);
         }
@@ -344,10 +359,13 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
                             break;
                         case BluetoothManager.STATE_CONNECTING:
                             mBtStatus = BluetoothManager.STATE_CONNECTING;
+
                             showBtStatus();
                             break;
                         case BluetoothManager.STATE_CONNECTED:
                             mBtStatus = BluetoothManager.STATE_CONNECTED;
+                            voicePlayerModuleManager.start(R.raw.blue_connected);
+                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             showBtStatus();
                             break;
                     }
@@ -376,7 +394,6 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
                         Toast.makeText(mContext,
                                 "Connected to " + deviceName, Toast.LENGTH_SHORT).show();
                     }
-                    voicePlayerModuleManager.start(R.raw.education_info2);
                     break;
 
                 case BluetoothManager.MESSAGE_TOAST:

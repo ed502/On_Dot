@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -52,6 +53,12 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {50, 100};
+
     // Bluetooth
 
     private Context mContext;
@@ -64,7 +71,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_first);
-
+        vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mContext = getApplicationContext();
         initBlue();
 
@@ -105,11 +112,15 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             public void run() {
                 if ((fingerFunctionType == FingerFunctionType.RIGHT) && currentLocation < list.size()-1) { //오른쪽에서 왼쪽으로 스크롤
                     currentLocation++;
+                    vibrator.vibrate(vibrateNormalPattern,-1);
                     checkData();
                 } else if ((fingerFunctionType == FingerFunctionType.LEFT) && currentLocation > 0) { //왼쪽에서 오른쪽으로 스크롤
                     currentLocation--;
+                    vibrator.vibrate(vibrateNormalPattern,-1);
                     checkData();
                 }
+                else
+                    vibrator.vibrate(vibrateErrorPattern,-1);
 
             }
         });
@@ -119,6 +130,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -305,13 +317,15 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        finalize();
+        sendData("121212121212121212121212121212121212121212121212");
+        //sendData("222222222222222222222222222222222222222222222222");
+        //finalize();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        finalize();
+        //finalize();
     }
 
     private void initBlue() {
@@ -333,6 +347,8 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     public void finalize() {
         // Stop the bluetooth session
+        //sendData("222222222222222222222222222222222222");
+
         if (mBtManager != null) {
             mBtManager.stop();
             mBtManager.setHandler(null);

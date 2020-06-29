@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -50,6 +51,12 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {50, 100};
+
     // Bluetooth
 
     private Context mContext;
@@ -63,7 +70,7 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_fourth);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mContext = getApplicationContext();
         initBlue();
 
@@ -102,9 +109,11 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
             public void run() {
                 if ((fingerFunctionType == FingerFunctionType.RIGHT) && currentLocation < list.size()-1) { //오른쪽에서 왼쪽으로 스크롤
                     currentLocation++;
+                    vibrator.vibrate(vibrateNormalPattern,-1);
                     checkData();
                 } else if ((fingerFunctionType == FingerFunctionType.LEFT) && currentLocation > 0) { //왼쪽에서 오른쪽으로 스크롤
                     currentLocation--;
+                    vibrator.vibrate(vibrateNormalPattern,-1);
                     checkData();
                 }
 
@@ -116,6 +125,7 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -302,13 +312,14 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        finalize();
+        sendData("222222222222222222222222222222222222");
+        //finalize();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        finalize();
+        //finalize();
     }
 
     private void initBlue() {

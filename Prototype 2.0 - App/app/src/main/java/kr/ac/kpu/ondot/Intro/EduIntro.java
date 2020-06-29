@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -43,13 +44,17 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
 
     private MenuType menuType = MenuType.EDUCATE;
     private VoicePlayerModuleManager voicePlayerModuleManager;
-
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edu_intro);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
 
@@ -95,6 +100,9 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) { // 블루투스 연결이 되어있는 상태
+                    vibrator.vibrate(vibrateEnterPattern,-1);
+                    voicePlayerModuleManager.allStop();
+                    voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), EducateMain.class));
                     finish();
                 }
@@ -106,13 +114,14 @@ public class EduIntro extends AppCompatActivity implements CustomTouchEventListe
     public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(menuType);
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }

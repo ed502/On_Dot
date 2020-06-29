@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
@@ -62,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     // 퍼미션 허가 테스트
     private PermissionModule permissionModule;
 
+    private Vibrator vibrator;
+    private long[] vibrateErrorPattern = {50, 100, 50, 100};
+    private long[] vibrateNormalPattern = {50, 100};
+    private long[] vibrateEnterPattern = {50,300};
+    private long[] vibrateSpecialPattern = {10, 50,10,50,10,50};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
         //액티비티 전환 애니메이션 제거
         overridePendingTransition(0, 0);
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         circleIndicator = findViewById(R.id.main_circleIndicator);
 
         linearLayout = findViewById(R.id.main_layout);
@@ -110,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             public void onPageSelected(int position) {
                 currentView = position;
                 circleIndicator.selectDot(position);
-                menuVoice(currentView);
             }
 
             @Override
@@ -119,10 +124,11 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             }
         });
     }
-    private void menuVoice(int currentView){
+
+    private void menuVoice(int currentView) {
         voicePlayerModuleManager.stop();
         // 메뉴 이름 음성 출력
-        switch (currentView){
+        switch (currentView) {
             case 1:
                 // 교육
                 voicePlayerModuleManager.start(R.raw.education);
@@ -137,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 break;
             case 0:
                 // 메뉴얼
-
+                voicePlayerModuleManager.start(R.raw.menual);
                 break;
         }
     }
@@ -163,13 +169,13 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     }
 
     // tts 초기화
-    private void initVoicePlayer(){
+    private void initVoicePlayer() {
         voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
     // 퍼미션 모듈
     private void initPermission() {
-        permissionModule = new PermissionModule(this,linearLayout,this);
+        permissionModule = new PermissionModule(this, linearLayout, this);
     }
 
     // 메뉴에 들어가기 전 퍼미션 체크
@@ -178,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
             @Override
             public void run() {
                 int checkPermissionResult = permissionModule.checkPermission();
-                if(checkPermissionResult == PermissionModule.PERMISSION_NOT_CHECKED){
+                if (checkPermissionResult == PermissionModule.PERMISSION_NOT_CHECKED) {
                     customTouchConnectListener.setTouchType(TouchType.PERMISSION_CHECK_TYPE);
 
                     permissionModule.startPermissionGuide(checkPermissionResult);
@@ -189,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                             permissionModule.cancelPermissionGuide();
                         }
                     });
-                }else{
+                } else {
                     activitySwitch(currentView);
                 }
             }
@@ -201,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         Intent intent;
         switch (currentView) {
             case 0:
-                intent = new Intent(MainActivity.this,Menual.class);
+                intent = new Intent(MainActivity.this, Menual.class);
                 startActivity(intent);
                 break;
             case 1:
@@ -230,27 +236,37 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 }*/
                 Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
                 if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
-                    if (currentView < maxPage)
+                    if (currentView < maxPage) {
                         mViewpager.setCurrentItem(currentView + 1);
-                    else
+                        vibrator.vibrate(vibrateNormalPattern,-1);
+                    } else {
                         mViewpager.setCurrentItem(currentView);
-
+                        vibrator.vibrate(vibrateErrorPattern, -1);
+                    }
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
-                    if (currentView > 0)
+                    if (currentView > 0) {
                         mViewpager.setCurrentItem(currentView - 1);
-                    else
+                        vibrator.vibrate(vibrateNormalPattern,-1);
+                    } else {
                         mViewpager.setCurrentItem(currentView);
-
+                        vibrator.vibrate(vibrateErrorPattern, -1);
+                    }
                     voicePlayerModuleManager.start(fingerFunctionType);
-                }else if (fingerFunctionType == FingerFunctionType.ENTER) {
-                    // activitySwitch(currentView);
+                    menuVoice(currentView);
+                } else if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    //activitySwitch(currentView);
+                    vibrator.vibrate(vibrateEnterPattern,-1);
                     checkPermission();
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    //menuVoice(currentView);
                     Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-                }else if (fingerFunctionType == FingerFunctionType.NONE){
+                } else if (fingerFunctionType == FingerFunctionType.NONE) {
                     //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
+
                     voicePlayerModuleManager.start(fingerFunctionType);
+                    menuVoice(currentView);
                 }
             }
         });
@@ -263,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         voicePlayerModuleManager.start(fingerFunctionType);
         switch (fingerFunctionType) {
             case BACK:
+                vibrator.vibrate(vibrateEnterPattern,-1);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -279,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     public void onBackPressed() {
         second_time = System.currentTimeMillis();
         Toast.makeText(MainActivity.this, "종료하시겠습니까?", Toast.LENGTH_SHORT).show();
-        if(second_time - first_time < 2000){
+        if (second_time - first_time < 2000) {
             super.onBackPressed();
             finishAffinity();
         }
@@ -302,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         permissionModule.cancelPermissionGuide();
     }
 
-    private void getHashKey(){
+    private void getHashKey() {
         PackageInfo packageInfo = null;
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);

@@ -102,7 +102,7 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
             }
         }
 
-        //menuInfoPlaying = false;
+        menuInfoPlaying = false;
         mediaPlaying = false;
     }
 
@@ -232,6 +232,9 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
      */
     private void checkMenuInfoMedia(int id){
         int menuInfo_Id[] = new int[]{
+                R.raw.main_tutorial, R.raw.edu_tutorial,
+                R.raw.quiz_tutorial, R.raw.tran_tutorial,
+                R.raw.blue_info
         };
 
         for(int menuInfoId : menuInfo_Id){

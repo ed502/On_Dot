@@ -24,9 +24,11 @@ import android.widget.TextView;
 
 import java.util.Set;
 
+import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
+import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.R;
 
-public class DeviceList extends AppCompatActivity {
+public class DeviceList extends AppCompatActivity implements CustomTouchEventListener {
     // Debugging
     private static final String TAG = "DeviceListActivity";
     private static final boolean D = true;
@@ -193,4 +195,41 @@ public class DeviceList extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(fingerFunctionType==FingerFunctionType.BACK){
+                    onBackPressed();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onPermissionUseAgree() {
+
+    }
+
+    @Override
+    public void onPermissionUseDisagree() {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

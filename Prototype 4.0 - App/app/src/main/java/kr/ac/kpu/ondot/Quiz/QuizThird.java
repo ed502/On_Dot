@@ -1,6 +1,8 @@
 package kr.ac.kpu.ondot.Quiz;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
@@ -32,6 +34,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
+import kr.ac.kpu.ondot.BluetoothModule.BluetoothManager;
+import kr.ac.kpu.ondot.BluetoothModule.ConnectionInfo;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
@@ -64,6 +68,12 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     private LinearLayout[] circle;
     private int currentLocation = 0, quizLocation = 0;
 
+    // Bluetooth
+    private Context mContext;
+    private BluetoothManager mBtManager = null;
+    private BluetoothAdapter mBtAdapter = null;
+    private ConnectionInfo mConnectionInfo = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +86,9 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();
+
+        mContext = getApplicationContext();
+        initBlue();
 
         random = new int[10];
 
@@ -119,8 +132,8 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                voicePlayerModuleManager.start(fingerFunctionType);
                 if (dataCount == 8) {
+                    voicePlayerModuleManager.start(R.raw.not_insert_dot);
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
@@ -128,26 +141,32 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                         if (fingerFunctionType == FingerFunctionType.UP) {
                             switch (i) {
                                 case 0:
+                                    voicePlayerModuleManager.start(R.raw.dot_1);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
                                 case 1:
+                                    voicePlayerModuleManager.start(R.raw.dot_2);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
                                 case 2:
+                                    voicePlayerModuleManager.start(R.raw.dot_3);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
                                 case 3:
+                                    voicePlayerModuleManager.start(R.raw.dot_4);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
                                 case 4:
+                                    voicePlayerModuleManager.start(R.raw.dot_5);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
                                 case 5:
+                                    voicePlayerModuleManager.start(R.raw.dot_6);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     answer = answer + "2";
                                     break;
@@ -158,26 +177,32 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                         } else if (fingerFunctionType == FingerFunctionType.DOWN) {
                             switch (i) {
                                 case 0:
+                                    voicePlayerModuleManager.start(R.raw.dot_1);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
                                 case 1:
+                                    voicePlayerModuleManager.start(R.raw.dot_2);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
                                 case 2:
+                                    voicePlayerModuleManager.start(R.raw.dot_3);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
                                 case 3:
+                                    voicePlayerModuleManager.start(R.raw.dot_4);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
                                 case 4:
+                                    voicePlayerModuleManager.start(R.raw.dot_5);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
                                 case 5:
+                                    voicePlayerModuleManager.start(R.raw.dot_6);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     answer = answer + "1";
                                     break;
@@ -190,6 +215,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                                 if (scrollCount % 6 == 0) {
                                     scrollCount--;
                                     dataCount--;
+                                    voicePlayerModuleManager.start(R.raw.delete);
                                     answer = answer.substring(0, scrollCount);
                                     Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
                                     for (int j = 0; j < 5; j++) {
@@ -209,6 +235,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                                     answer = answer.substring(0, scrollCount);
                                 }
                             } else if (scrollCount == 0) {
+                                voicePlayerModuleManager.start(R.raw.not_delete);
                                 vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                             }
                         }
@@ -222,15 +249,18 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
 
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
+                        voicePlayerModuleManager.start(R.raw.reinput);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
                     if (scrollCount % 6 == 0 && scrollCount > 1) {
+                        voicePlayerModuleManager.start(R.raw.submit);
                         answerCheckFunc();
                         vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
                     } else {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
+                        voicePlayerModuleManager.start(R.raw.not_dot_input);
                         Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -243,6 +273,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
@@ -394,9 +425,14 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         answerCheck = 1;
         if (list.get(random[randomIndex]).getDot().equals(answer)) {
             answer = "정답입니다";
+            voicePlayerModuleManager.start(R.raw.correct);
             answerCount++;
         } else {
             answer = "오답입니다";
+            voicePlayerModuleManager.start(R.raw.wrong);
+            Log.d(DEBUG_TYPE, "answer : "+ list.get(random[randomIndex]).getDot());
+            sendData(list.get(random[randomIndex]).getDot());
+
             String url = "http://15.165.135.160/test.jsp";
             NetworkTask networkTask = new NetworkTask(url, null);
             networkTask.execute();
@@ -416,6 +452,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onResume() {
         super.onResume();
+        voicePlayerModuleManager.allStop();
         voicePlayerModuleManager.start(voiceRaw_id);
     }
 
@@ -517,5 +554,39 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
             }
             return null;
         }
+    }
+
+    public void sendData(String str) {
+        mBtManager.write(str.getBytes());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sendData("2222222222222222222222222222222222222222222222222");
+        //finalize();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        //finalize();
+    }
+
+    private void initBlue() {
+        mConnectionInfo = ConnectionInfo.getInstance(mContext);
+
+        mBtManager = BluetoothManager.getInstance(mContext, null);
+
+        // Get  Bluetooth adapter
+        mBtAdapter = mBtManager.getAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 }

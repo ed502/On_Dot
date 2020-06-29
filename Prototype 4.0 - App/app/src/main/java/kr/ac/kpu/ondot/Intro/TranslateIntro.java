@@ -57,6 +57,8 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();
+
+        voicePlayerModuleManager.start(menuType);
     }
 
     private void initTouchEvent() {
@@ -84,6 +86,8 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
             @Override
             public void run() {
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
+                    vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                    voicePlayerModuleManager.stop();
                     startActivity(new Intent(getApplicationContext(), TranslateMain.class));
                     vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     finish();
@@ -121,6 +125,6 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
     @Override
     protected void onResume() {
         super.onResume();
-        voicePlayerModuleManager.start(menuType);
+
     }
 }

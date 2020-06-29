@@ -114,6 +114,7 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                voicePlayerModuleManager.allStop();
                 onBackPressed();
                 break;
             case SPECIAL:

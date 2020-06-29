@@ -193,6 +193,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:

@@ -96,7 +96,14 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
 
     @Override
     public void onTwoFingerFunction(final FingerFunctionType fingerFunctionType) {
-
+        switch (fingerFunctionType) {
+            case BACK:
+                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(fingerFunctionType);
+                onBackPressed();
+                break;
+        }
     }
 
     @Override
@@ -119,6 +126,5 @@ public class MainIntro extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }

@@ -112,8 +112,8 @@ public class DotCombine extends HttpServlet {
 				if(data2[i]!=null) {
 					data[i]=data2[i];
 					type[i]=type2[i];
-					data[i+1]=null;
-					type[i+1]=0;
+					data[i+1]="-";
+					type[i+1]=-1;
 				}
 				if(type[i]==1&&type[i+1]==7) {
 					System.out.println("정보 "+data[i+1]+"  "+data[i]+"  "+type[i+1]+"  "+type[i]);
@@ -138,7 +138,6 @@ public class DotCombine extends HttpServlet {
 			if (num-1 == 1) {
 				result2 = data2[0];
 			}
-			System.out.println("result �Ѱ�");
 
 			sql.translate(result);
 
@@ -176,8 +175,7 @@ public class DotCombine extends HttpServlet {
 			;
 			dotCombineXML.append("</dot>");
 			dotCombineXML.append(result2);
-			for (int i = 0; i < data2.length; i++)
-				dotCombineXML.append(data2[i]+"이건뭐더라 : "+i);
+				
 
 			dotCombineXML.append("</entry>");
 

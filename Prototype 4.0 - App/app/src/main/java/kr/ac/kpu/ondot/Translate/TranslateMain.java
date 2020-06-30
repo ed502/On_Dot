@@ -87,13 +87,6 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         circle[3] = findViewById(R.id.trans_circle4);
         circle[4] = findViewById(R.id.trans_circle5);
         circle[5] = findViewById(R.id.trans_circle6);
-        circle[6] = findViewById(R.id.trans_circle7);
-        circle[7] = findViewById(R.id.trans_circle8);
-        circle[8] = findViewById(R.id.trans_circle9);
-        circle[9] = findViewById(R.id.trans_circle10);
-        circle[10] = findViewById(R.id.trans_circle11);
-        circle[11] = findViewById(R.id.trans_circle12);
-
 
         linearLayout = findViewById(R.id.translate_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -139,59 +132,41 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                voicePlayerModuleManager.start(fingerFunctionType);
                 if (dataCount == 100) {
+                    voicePlayerModuleManager.start(R.raw.not_insert_dot);
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
-                        int i = scrollCount % 12;
+                        int i = scrollCount % 6;
                         if (fingerFunctionType == FingerFunctionType.UP) {
                             switch (i) {
                                 case 0:
+                                    voicePlayerModuleManager.start(R.raw.dot_1);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     data = data + "2";
                                     break;
                                 case 1:
+                                    voicePlayerModuleManager.start(R.raw.dot_2);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     data = data + "2";
                                     break;
                                 case 2:
+                                    voicePlayerModuleManager.start(R.raw.dot_3);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     data = data + "2";
                                     break;
                                 case 3:
+                                    voicePlayerModuleManager.start(R.raw.dot_4);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     data = data + "2";
                                     break;
                                 case 4:
+                                    voicePlayerModuleManager.start(R.raw.dot_5);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     data = data + "2";
                                     break;
                                 case 5:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 6:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 7:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 8:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 9:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 10:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                                    data = data + "2";
-                                    break;
-                                case 11:
+                                    voicePlayerModuleManager.start(R.raw.dot_6);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                     data = data + "2";
                                     break;
@@ -201,50 +176,32 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                         } else if (fingerFunctionType == FingerFunctionType.DOWN) {
                             switch (i) {
                                 case 0:
+                                    voicePlayerModuleManager.start(R.raw.dot_1);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     data = data + "1";
                                     break;
                                 case 1:
+                                    voicePlayerModuleManager.start(R.raw.dot_2);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     data = data + "1";
                                     break;
                                 case 2:
+                                    voicePlayerModuleManager.start(R.raw.dot_3);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     data = data + "1";
                                     break;
                                 case 3:
+                                    voicePlayerModuleManager.start(R.raw.dot_4);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     data = data + "1";
                                     break;
                                 case 4:
+                                    voicePlayerModuleManager.start(R.raw.dot_5);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     data = data + "1";
                                     break;
                                 case 5:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 6:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 7:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 8:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 9:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 10:
-                                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                    data = data + "1";
-                                    break;
-                                case 11:
+                                    voicePlayerModuleManager.start(R.raw.dot_6);
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     data = data + "1";
                                     break;
@@ -253,38 +210,42 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
                             if (scrollCount > 0) {
-                                if (scrollCount % 12 == 0) {
+                                if (scrollCount % 6 == 0) {
                                     scrollCount--;
                                     dataCount--;
+                                    voicePlayerModuleManager.start(R.raw.delete);
                                     data = data.substring(0, scrollCount);
-                                    for (int j = 0; j < 11; j++) {
-                                        if (data.substring(((scrollCount / 12) * 12) + j, ((scrollCount / 12) * 12) + j + 1).equals("1")) {
+                                    for (int j = 0; j < 5; j++) {
+                                        if (data.substring(((scrollCount / 6) * 6) + j, ((scrollCount / 6) * 6) + j + 1).equals("1")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                        } else if (data.substring(((scrollCount / 12) * 12) + j, ((scrollCount / 12) * 12) + j + 1).equals("2")) {
+                                        } else if (data.substring(((scrollCount / 6) * 6) + j, ((scrollCount / 6) * 6) + j + 1).equals("2")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                         }
                                     }
                                     vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                                 } else {
                                     scrollCount--;
-                                    i = scrollCount % 12;
+                                    voicePlayerModuleManager.start(R.raw.delete);
+                                    i = scrollCount % 6;
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                                     data = data.substring(0, scrollCount);
                                 }
                             } else if (scrollCount == 0) {
+                                voicePlayerModuleManager.start(R.raw.not_delete);
                                 vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                             }
                         }
-                        if (scrollCount % 12 == 0) {
-                            for (int j = 0; j < 12; j++) {
+                        if (scrollCount % 6 == 0) {
+                            for (int j = 0; j < 6; j++) {
                                 circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                             }
                             dataCount++;
                         }
 
-                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
+                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT && fingerFunctionType != FingerFunctionType.ENTER ) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
+                        voicePlayerModuleManager.start(R.raw.reinput);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -301,6 +262,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                         finish();
                     } else {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
+                        voicePlayerModuleManager.start(R.raw.not_dot_input);
                         Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -313,10 +275,11 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
-                if (scrollCount % 12 == 0) {
+                /*if (scrollCount % 12 == 0) {
                     scrollCount = scrollCount + 6;
                     data = data + "111111";
                     vibrator.vibrate(pattern.getVibrateSpecialPattern(), -1);
@@ -324,7 +287,8 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 } else {
                     vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+
                 break;
             case NONE:
                 Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();

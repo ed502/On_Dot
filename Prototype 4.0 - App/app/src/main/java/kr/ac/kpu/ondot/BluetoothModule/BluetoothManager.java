@@ -127,7 +127,7 @@ public class BluetoothManager {
         mState = state;
 
         if(mState == STATE_CONNECTED)
-            cancelRetryConnect();
+            //cancelRetryConnect();
 
         // Give the new state to the Handler so the UI Activity can update
         if(mHandler != null)
@@ -233,7 +233,7 @@ public class BluetoothManager {
         setState(STATE_NONE);
 
         mIsServiceStopped = true;
-        cancelRetryConnect();
+        //cancelRetryConnect();
     }
 
     /**
@@ -272,7 +272,7 @@ public class BluetoothManager {
         */
 
         // Reserve re-connect timer
-        reserveRetryConnect();
+        //reserveRetryConnect();
     }
 
     /**
@@ -295,7 +295,7 @@ public class BluetoothManager {
         */
 
         // Reserve re-connect timer
-        reserveRetryConnect();
+        //reserveRetryConnect();
     }
 
     /**
@@ -329,7 +329,7 @@ public class BluetoothManager {
                 e.printStackTrace();
             }
             mConnectTimer = null;
-            mReconnectDelay = 20*1000;
+            mReconnectDelay = 10*1000;
         }
     }
 
@@ -506,7 +506,7 @@ public class BluetoothManager {
             int bytes;
 
             // Keep listening to the InputStream while connected
-            while (true) {
+            /*while (true) {
                 try {
                     // Read from the InputStream
                     byte[] buffer = new byte[128];
@@ -523,7 +523,7 @@ public class BluetoothManager {
                     connectionLost();
                     break;
                 }
-            }
+            }*/
         }
 
         /**

@@ -602,4 +602,16 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
 
         Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
+    public void finalize() {
+        // Stop the bluetooth session
+        //sendData("222222222222222222222222222222222222");
+
+        if (mBtManager != null) {
+            mBtManager.stop();
+            mBtManager.setHandler(null);
+        }
+        mBtManager = null;
+        mContext = null;
+        mConnectionInfo = null;
+    }
 }

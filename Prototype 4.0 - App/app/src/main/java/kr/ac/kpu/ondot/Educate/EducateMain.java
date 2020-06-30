@@ -1,5 +1,7 @@
 package kr.ac.kpu.ondot.Educate;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import kr.ac.kpu.ondot.BluetoothModule.BluetoothManager;
+import kr.ac.kpu.ondot.BluetoothModule.ConnectionInfo;
 import kr.ac.kpu.ondot.CircleIndicator;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
@@ -44,6 +48,14 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     // 음성 TTS 테스트
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
+    // Bluetooth
+    private Context mContext;
+    private BluetoothManager mBtManager = null;
+    private BluetoothAdapter mBtAdapter = null;
+    private ConnectionInfo mConnectionInfo = null;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +78,9 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 return true;
             }
         });
+
+        mContext = getApplicationContext();
+        //initBlue();
 
         initDisplaySize();
         initTouchEvent();
@@ -105,6 +120,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     @Override
     protected void onResume() {
         super.onResume();
+        //Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
         menuVoice(currentView);
     }
 
@@ -265,5 +281,22 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
     @Override
     public void onPermissionUseDisagree() {
 
+    }
+
+    private void initBlue() {
+        mConnectionInfo = ConnectionInfo.getInstance(mContext);
+
+        mBtManager = BluetoothManager.getInstance(mContext, null);
+
+        // Get  Bluetooth adapter
+        mBtAdapter = mBtManager.getAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 }

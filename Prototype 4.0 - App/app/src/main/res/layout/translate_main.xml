@@ -65,55 +65,6 @@
             android:background="@drawable/stroke_circle"
             android:orientation="vertical" />
 
-        <LinearLayout
-            android:id="@+id/trans_circle7"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:id="@+id/trans_circle8"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:id="@+id/trans_circle9"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:id="@+id/trans_circle10"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:id="@+id/trans_circle11"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:id="@+id/trans_circle12"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/stroke_circle"
-            android:orientation="vertical" />
-
-
     </GridLayout>
 
     <LinearLayout

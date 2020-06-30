@@ -162,6 +162,11 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     //id초기화 TouchListener설정 사실상 onCreate의 역할
     private void setDot() {
         linearLayout = findViewById(R.id.edu_first_layout);

@@ -129,7 +129,7 @@ public class CombineData {
 					jungsung = jun;
 					jongsung = jon;
 				}
-				if (type[i] != 5) {
+				if (type[i] != 5&&type[i]!=-1) {
 					if (i < text.length - 1) {
 						if (type[i + 1] == 1) {
 							data = data + ((char) (0XAC00 + (28 * 21 * chosung) + (28 * jungsung) + jongsung));

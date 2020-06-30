@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/stroke_layout"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nanumgothic"
+        android:lineSpacingExtra="8dp"
+        android:text="손가락 한 개로 왼쪽, 오른쪽 드래그를 하면 화면이 이동합니다. 손가락 두 개를 상단에서 하단으로 쓸어내리면 상위 메뉴로 이동합니다. 하단에서 상단으로 쓸어 올리면 안내 음성을 다시 들을 수 있습니다. 교육은 각 점자의 의미가 음성으로 나오고, 점자 키트에는 해당 점자가 나타납니다. 다음 점자로 넘어가기 위해서는 손가락 한 개를 이용하여 드래그를 하여 넘어갈 수 있습니다."
+        android:textColor="@color/colorWhite"
+        android:textSize="27dp" />
+
+</LinearLayout>

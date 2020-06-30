@@ -52,7 +52,6 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
         overridePendingTransition(0, 0);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         pattern = new VibratorPattern();
-        circleIndicator = findViewById(R.id.quiz_circleIndicator);
 
         linearLayout = findViewById(R.id.quiz_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -74,6 +73,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
         mViewpager.setAdapter(mAdapter);
         mViewpager.setClipToPadding(false);
         maxPage = mAdapter.getCount() - 1;
+        circleIndicator = findViewById(R.id.quiz_circleIndicator);
         circleIndicator.setItemMargin(5);
         circleIndicator.createDotPanel(mAdapter.getCount(), R.drawable.indicator_dot_off, R.drawable.indicator_dot_on);
 

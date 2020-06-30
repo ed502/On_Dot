@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/nanumgothic"
-        android:lineSpacingExtra="5dp"
-        android:text=" 설명을 건너뛰려면 화면을 두 번 연속 터치하세요.\n'온점'애플리케이션은 세로모드에서 진행되고, 한 손가락 또는 두 손가락을 이용한 제스처 기능을 사용합니다.\n 손가락 한 개는 메뉴를 이동하거나 접속할 때, 그리고 점자를 입력할 때 사용합니다."
+        android:lineSpacingExtra="8dp"
+        android:text="손가락 한 개로 왼쪽, 오른쪽 드래그를 하면 화면이 이동합니다. 손가락 두 개를 상단에서 하단으로 쓸어내리면 상위 메뉴로 이동합니다. 하단에서 상단으로 쓸어 올리면 안내 음성을 다시 들을 수 있습니다. 교육은 각 점자의 의미가 음성으로 나오고, 점자 키트에는 해당 점자가 나타납니다. 다음 점자로 넘어가기 위해서는 손가락 한 개를 이용하여 드래그를 하여 넘어갈 수 있습니다."
         android:textColor="@color/colorWhite"
-        android:textSize="25dp" />
+        android:textSize="27dp" />
 
 </LinearLayout>

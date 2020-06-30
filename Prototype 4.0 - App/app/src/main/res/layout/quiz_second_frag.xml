@@ -27,6 +27,6 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/edu_icon_foreground" />
+            android:src="@drawable/quiz_second" />
     </LinearLayout>
 </LinearLayout>

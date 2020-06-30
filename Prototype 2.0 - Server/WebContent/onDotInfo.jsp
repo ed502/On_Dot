@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4"><a href="braile.jsp"style="color: black"><h1>온점</h1></a></div>
+            <div class="col-md-4"><a href="index.jsp"style="color: black"><h1>온점</h1></a></div>
             <div class="col-md-4"><h2>시각장애인을 위한 점자 교육 시스템</h2></div>
         </div>
         <br>
@@ -21,7 +21,7 @@
                 <div class="settings-navbar">
                     <ul>
                         <li>
-                            <a routerlinkactive="active" href="braile.jsp">
+                            <a routerlinkactive="active" href="index.jsp">
                                 점자란?
                             </a>
                         </li>

@@ -18,15 +18,17 @@ import model.DotVO;
 
 public class CombineData {
 	private String data = "";
+	CombineData combineData = null;
+	
 	private char[] CHO =
-			/* ¤¡ ¤¢ ¤¤ ¤§ ¤¨ ¤© ¤± ¤² ¤³ ¤µ ¤¶ ¤· ¤¸ ¤¹ ¤º ¤» ¤¼ ¤½ ¤¾ */
-			{ '¤¡', '¤¢', '¤¤', '¤§', '¤¨', '¤©', '¤±', '¤²', '¤³', '¤µ', '¤¶', '¤·', '¤¸', '¤¹', '¤º', '¤»', '¤¼', '¤½', '¤¾' };
+			/* ã„± ã„² ã„´ ã„· ã„¸ ã„¹ ã… ã…‚ ã…ƒ ã…… ã…† ã…‡ ã…ˆ ã…‰ ã…Š ã…‹ ã…Œ ã… ã… */
+			{ 'ã„±', 'ã„²', 'ã„´', 'ã„·', 'ã„¸', 'ã„¹', 'ã…', 'ã…‚', 'ã…ƒ', 'ã……', 'ã…†', 'ã…‡', 'ã…ˆ', 'ã…‰', 'ã…Š', 'ã…‹', 'ã…Œ', 'ã…', 'ã…' };
 	private char[] JUN =
-			/* ¤¿¤À¤Á¤Â¤Ã¤Ä¤Å¤Æ¤Ç¤È¤É¤Ê¤Ë¤Ì¤Í¤Î¤Ï¤Ğ¤Ñ¤Ò¤Ó */
-			{ '¤¿', '¤À', '¤Á', '¤Â', '¤Ã', '¤Ä', '¤Å', '¤Æ', '¤Ç', '¤È', '¤É', '¤Ê', '¤Ë', '¤Ì', '¤Í', '¤Î', '¤Ï', '¤Ğ', '¤Ñ', '¤Ò', '¤Ó' };
-	/* X ¤¡¤¢¤£¤¤¤¥¤¦¤§¤©¤ª¤«¤¬¤­¤®¤¯¤°¤±¤²¤´¤µ¤¶¤·¤¸¤º¤»¤¼¤½¤¾ */
-	private char[] JON = { ' ', '¤¡', '¤¢', '¤£', '¤¤', '¤¥', '¤¦', '¤§', '¤©', '¤ª', '¤«', '¤¬', '¤­', '¤®', '¤¯', '¤°', '¤±', '¤²',
-			'¤´', '¤µ', '¤¶', '¤·', '¤¸', '¤º', '¤»', '¤¼', '¤½', '¤¾' };
+			/* ã…ã…ã…‘ã…’ã…“ã…”ã…•ã…–ã…—ã…˜ã…™ã…šã…›ã…œã…ã…ã…Ÿã… ã…¡ã…¢ã…£ */
+			{ 'ã…', 'ã…', 'ã…‘', 'ã…’', 'ã…“', 'ã…”', 'ã…•', 'ã…–', 'ã…—', 'ã…˜', 'ã…™', 'ã…š', 'ã…›', 'ã…œ', 'ã…', 'ã…', 'ã…Ÿ', 'ã… ', 'ã…¡', 'ã…¢', 'ã…£' };
+	/* X ã„±ã„²ã„³ã„´ã„µã„¶ã„·ã„¹ã„ºã„»ã„¼ã„½ã„¾ã„¿ã…€ã…ã…‚ã…„ã……ã…†ã…‡ã…ˆã…Šã…‹ã…Œã…ã… */
+	private char[] JON = { ' ', 'ã„±', 'ã„²', 'ã„³', 'ã„´', 'ã„µ', 'ã„¶', 'ã„·', 'ã„¹', 'ã„º', 'ã„»', 'ã„¼', 'ã„½', 'ã„¾', 'ã„¿', 'ã…€', 'ã…', 'ã…‚',
+			'ã…„', 'ã……', 'ã…†', 'ã…‡', 'ã…ˆ', 'ã…Š', 'ã…‹', 'ã…Œ', 'ã…', 'ã…' };
 
 	public String getData() {
 		return data;
@@ -36,34 +38,66 @@ public class CombineData {
 		this.data = data;
 	}
 
+	public void kim(String a, String b) {
+		System.out.println("ë°›ì€ê²ƒ : " + a);
+		
+		int jung = ((((int) a.charAt(0) - 0xAC00) / 28) % 21) + 0x1161;
+		int jong = ((((int) a.charAt(0) - 0xAC00) % 28)) + 0x11A8 - 1;
+		jong = (((int) a.charAt(0) - 0xAC00) % 28) != 0 ? (char) ((((int) a.charAt(0) - 0xAC00) % 28)) + 0x11A8 - 1 : 0;
+
+		int cho = b.charAt(0);
+		System.out.println((char) cho);
+		System.out.println((char)(jung));
+		System.out.println((char) jong);
+
+		String[] data = new String[3];
+		int[] type = new int[3];
+		data[0] = b.charAt(0) + "";
+		//data[1] = "ã…¡";
+		//data[2] = "ã„¹";
+		
+		data[1] = ((char) jung) + "";
+		data[2] = ((char) jong) + "";
+		 
+		type[0] = 1;
+		type[1] = 2;
+		type[2] = 3;
+		
+		hak(data, type);
+
+	}
+
 	public void hak(String[] text, int[] type) {
 		int chosung = 0;
 		int jungsung = 0;
 		int jongsung = 0;
-
+		int a = 0;
+		int b = 0;
 		if (text.length == 1) {
-			
+
 		} else {
-			for (String t : text) {
-				System.out.println("CombineData  text : " + t);
+			for (int i = 0; i < text.length; i++) {
+				System.out.println("ì¸ë±ìŠ¤ " + i + "   word :" + text[i] + "  íƒ€ì… " + type[i]);
 			}
-			for (int i : type)
-				System.out.println("CombineData type : " + i);
 
 			for (int i = 0; i < text.length; i++) {
+				System.out.println("ë°ì´í„° ë°°ì—´ì—ìˆëŠ” ê²ƒë“¤ : "+text[i]);
 				if (type[i] == 5) {
 					data = data + text[i];
-				} else if (type[i] == 1) {
+				} else if (type[i] == 1 /*|| type[i] == 5*/) {
 					for (int j = 0; j < CHO.length; j++) {
 						if (text[i].charAt(0) == CHO[j]) {
 							chosung = j;
+							System.out.println("ì´ˆì„± :  " + chosung);
 							break;
 						}
 					}
 				} else if (type[i] == 2) {
 					for (int j = 0; j < JUN.length; j++) {
+						
 						if (text[i].charAt(0) == JUN[j]) {
 							jungsung = j;
+							System.out.println("ëª¨ìŒ :  " + jungsung);
 							break;
 						}
 					}
@@ -71,6 +105,7 @@ public class CombineData {
 					for (int j = 0; j < JON.length; j++) {
 						if (text[i].charAt(0) == JON[j]) {
 							jongsung = j;
+							System.out.println("ì¢…ì„± :  " + jongsung);
 							break;
 						}
 					}

@@ -7,20 +7,27 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/nanumgothic"
+        android:gravity="center_horizontal"
+        android:text="블루투스 연결"
+        android:textColor="@color/colorWhite"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nanumgothic"
-            android:textSize="30dp"
-            android:layout_gravity="center"
-            android:text="블루투스 연동화면"
-            android:textColor="@color/colorWhite"/>
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/bluetooth_icon_foreground"/>
 
     </LinearLayout>
 

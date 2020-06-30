@@ -436,16 +436,16 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     public void answerCheckFunc() {
         answerCheck = 1;
         if (list.get(random[randomIndex]).getDot().equals(answer)) {
-            answer = "정답입니다";
+            answer = "정답";
             voicePlayerModuleManager.start(R.raw.correct);
             answerCount++;
         } else {
-            answer = "오답입니다";
+            answer = "오답";
             voicePlayerModuleManager.start(R.raw.wrong);
             Log.d(DEBUG_TYPE, "answer : "+ list.get(random[randomIndex]).getDot());
             sendData(list.get(random[randomIndex]).getDot());
 
-            String url = "http://15.165.135.160/test.jsp";
+            String url = "http://15.165.135.160/QuizUpload.jsp";
             NetworkTask networkTask = new NetworkTask(url, null);
             networkTask.execute();
             wronganswerCount++;

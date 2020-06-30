@@ -73,6 +73,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         setContentView(R.layout.edu_first);
         vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
         pattern = new VibratorPattern();
+
         mContext = getApplicationContext();
         initBlue();
 
@@ -165,6 +166,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onResume() {
         super.onResume();
+        mContext = getApplicationContext();
     }
 
     //id초기화 TouchListener설정 사실상 onCreate의 역할

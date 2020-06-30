@@ -435,18 +435,18 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     public void answerCheckFunc() {
         answerCheck = 1;
         if (list.get(random[randomIndex]).getDot().equals(answer)) {
-            answer = "정답입니다";
+            answer = "정답";
             voicePlayerModuleManager.start(R.raw.correct);
             answerCount++;
         } else {
             //하드웨어에 틀린 데이터 보내는 코드 추가 퀴즈 1,2,3 모두 추가
             //서버에도 데이터를 보내야함
-            answer = "오답입니다";
+            answer = "오답";
             voicePlayerModuleManager.start(R.raw.wrong);
             Log.d(DEBUG_TYPE, "answer : " + list.get(random[randomIndex]).getDot());
             sendData(list.get(random[randomIndex]).getDot());
 
-            String url = "http://15.165.135.160/test.jsp";
+            String url = "http://15.165.135.160/QuizUpload.jsp";
             NetworkTask networkTask = new NetworkTask(url, null);
             networkTask.execute();
             wronganswerCount++;
@@ -571,6 +571,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         super.onResume();
         voicePlayerModuleManager.allStop();
         voicePlayerModuleManager.start(voiceRaw_id);
+        mContext = getApplicationContext();
     }
 
     @Override

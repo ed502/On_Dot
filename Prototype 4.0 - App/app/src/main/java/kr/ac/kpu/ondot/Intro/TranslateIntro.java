@@ -22,7 +22,6 @@ import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.EnumData.MenuType;
-import kr.ac.kpu.ondot.MenualPagerAdapter.MainMenualAdapter;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.Translate.TranslateMain;
@@ -37,11 +36,6 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
     private VoicePlayerModuleManager voicePlayerModuleManager;
     private Vibrator vibrator;
     private VibratorPattern pattern;
-
-    private ViewPager mViewpager;
-    private MainMenualAdapter mAdapter;
-    private CircleIndicator circleIndicator;
-    private int maxPage, currentView=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,31 +61,6 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
         initVoicePlayer();
 
         voicePlayerModuleManager.start(menuType);
-
-        mViewpager = findViewById(R.id.translateMenual_viewpager);
-        circleIndicator = findViewById(R.id.translateMenual_circleIndicator);
-        mAdapter = new MainMenualAdapter(getSupportFragmentManager());
-        mViewpager.setAdapter(mAdapter);
-        mViewpager.setClipToPadding(false);
-        maxPage = mAdapter.getCount() - 1;
-        circleIndicator.setItemMargin(5);
-        circleIndicator.createDotPanel(mAdapter.getCount(), R.drawable.indicator_dot_off, R.drawable.indicator_dot_on);
-
-        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {     }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentView = position;
-                circleIndicator.selectDot(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     private void initTouchEvent() {
@@ -124,24 +93,6 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
                     startActivity(new Intent(getApplicationContext(), TranslateMain.class));
                     vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     finish();
-                }
-                else if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
-
-                    if (currentView < maxPage) {
-                        mViewpager.setCurrentItem(currentView + 1);
-                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
-                    } else {
-                        mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
-                    }
-                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
-                    if (currentView > 0) {
-                        mViewpager.setCurrentItem(currentView - 1);
-                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
-                    } else {
-                        mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
-                    }
                 }
             }
         });

@@ -135,6 +135,8 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
                 onBackPressed();
                 break;
             case SPECIAL:
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(sData);
                 Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:

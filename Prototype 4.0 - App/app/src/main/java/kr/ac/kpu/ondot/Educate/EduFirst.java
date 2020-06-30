@@ -52,6 +52,8 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     private ArrayList<String> word, dot, raw_id;
     private int currentLocation = 0;
 
+    private String rawId = "";
+
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
     private Vibrator vibrator;
@@ -130,9 +132,12 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(rawId);
                 Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
@@ -303,9 +308,9 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             }
         }
         sendData(dotData);
-        String raw_id = list.get(currentLocation).getRaw_id();
+        rawId = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.allStop();
-        voicePlayerModuleManager.start(raw_id);
+        voicePlayerModuleManager.start(rawId);
 
     }
 
@@ -317,7 +322,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sendData("222222111111222222222222222222222222222222222222");
+        sendData("222222222222222222222222222222222222222222222222");
         //finalize();
     }
 

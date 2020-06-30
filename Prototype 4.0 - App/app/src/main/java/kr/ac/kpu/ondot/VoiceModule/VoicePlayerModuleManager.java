@@ -35,9 +35,9 @@ public class VoicePlayerModuleManager {
     }
 
     /*
-    * int형 음성 file id들을 출력하는 함수
-    * 전달받은 int형 soundid를 queue에 담아 VoicePlayerModuleSingleton에 전달함
-    * */
+     * int형 음성 file id들을 출력하는 함수
+     * 전달받은 int형 soundid를 queue에 담아 VoicePlayerModuleSingleton에 전달함
+     * */
     public void start(int soundId){
         Queue<Integer> soundIdQueue = new LinkedList<>();
         soundIdQueue.add(soundId);
@@ -45,19 +45,21 @@ public class VoicePlayerModuleManager {
     }
 
     /*
-    * raw_id 를 받아 해당 음성파일 출력
-    * */
+     * raw_id 를 받아 해당 음성파일 출력
+     * */
     public void start(String soundId){
         int id = checkRawId(soundId);
         if(id != 0){
             start(id);
+        }else{
+            voicePlayerModuleSingleton.start(soundId);
         }
     }
 
     /*
-    * String 음성 파일 이름이 raw에 존재하는지 Check 하는 함수
-    * 있으면 해당 id값 , 없으면 0
-    * */
+     * String 음성 파일 이름이 raw에 존재하는지 Check 하는 함수
+     * 있으면 해당 id값 , 없으면 0
+     * */
     private int checkRawId(String soundId){
         String packName = context.getPackageName();
         Resources resources = context.getResources();
@@ -66,15 +68,15 @@ public class VoicePlayerModuleManager {
 
 
     /*
-    * 포커스 사운드를 출력하기 위한 함수
-    * */
+     * 포커스 사운드를 출력하기 위한 함수
+     * */
     public void focusSoundStart(){
         voicePlayerModuleSingleton.focusSoundStart();
     }
 
     /*
-    * 터치 Type에 따른 음성
-    * */
+     * 터치 Type에 따른 음성
+     * */
     public void start(FingerFunctionType fingerFunctionType){
         Queue<Integer> soundIdQueue = getFingerFunctionQueue(fingerFunctionType);
         stop();
@@ -82,8 +84,8 @@ public class VoicePlayerModuleManager {
     }
 
     /*
-    * 제스처 해당하는 음성 파일들을 반환
-    * */
+     * 제스처 해당하는 음성 파일들을 반환
+     * */
     private Queue<Integer> getFingerFunctionQueue(FingerFunctionType fingerFunctionType){
         Queue<Integer> soundIdQueue = new LinkedList<>();
         switch (fingerFunctionType){
@@ -117,8 +119,8 @@ public class VoicePlayerModuleManager {
 
 
     /*
-    * 메뉴에 맞는 가이드 음성 정보를 출력하기 위한 함수
-    * */
+     * 메뉴에 맞는 가이드 음성 정보를 출력하기 위한 함수
+     * */
     public void start(MenuType menuType){
         switch (menuType){
             case MAIN:
@@ -145,9 +147,9 @@ public class VoicePlayerModuleManager {
         }
     }
     /*
-    * 음성정보가 String인 file들을 출력하는 함수
-    * 점자 학습 data들의 경우, 글자 정보는 raw에서 가져오며, 점자 번호 정보들은 점자 행렬을 가공하여 음성 file을 구성함
-    * */
+     * 음성정보가 String인 file들을 출력하는 함수
+     * 점자 학습 data들의 경우, 글자 정보는 raw에서 가져오며, 점자 번호 정보들은 점자 행렬을 가공하여 음성 file을 구성함
+     * */
 
 
     /*

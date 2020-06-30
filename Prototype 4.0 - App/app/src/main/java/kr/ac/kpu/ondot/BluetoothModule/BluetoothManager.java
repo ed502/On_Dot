@@ -329,7 +329,7 @@ public class BluetoothManager {
                 e.printStackTrace();
             }
             mConnectTimer = null;
-            mReconnectDelay = 15*1000;
+            mReconnectDelay = 20*1000;
         }
     }
 

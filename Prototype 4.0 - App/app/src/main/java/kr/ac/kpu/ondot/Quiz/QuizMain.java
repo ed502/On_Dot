@@ -100,7 +100,7 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
     }
 
     private void menuVoice(int currentView) {
-        voicePlayerModuleManager.stop();
+        //voicePlayerModuleManager.stop();
         // 메뉴 이름 음성 출력
         switch (currentView) {
             case 0:
@@ -161,22 +161,28 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
                     if (currentView < maxPage) {
                         mViewpager.setCurrentItem(currentView + 1);
                         vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
+                        voicePlayerModuleManager.start(fingerFunctionType);
+                        voicePlayerModuleManager.stop();
+                        menuVoice(currentView);
                     } else {
                         mViewpager.setCurrentItem(currentView);
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
+                        voicePlayerModuleManager.start(R.raw.last_menu);
+                        menuVoice(currentView);
                     }
-                    voicePlayerModuleManager.start(fingerFunctionType);
-                    menuVoice(currentView);
                 } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
                     if (currentView > 0) {
                         mViewpager.setCurrentItem(currentView - 1);
                         vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
+                        voicePlayerModuleManager.start(fingerFunctionType);
+                        voicePlayerModuleManager.stop();
+                        menuVoice(currentView);
                     } else {
                         mViewpager.setCurrentItem(currentView);
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
+                        voicePlayerModuleManager.start(R.raw.first_menu);
+                        menuVoice(currentView);
                     }
-                    voicePlayerModuleManager.start(fingerFunctionType);
-                    menuVoice(currentView);
                 }else if (fingerFunctionType == FingerFunctionType.ENTER) {
                     vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
                     voicePlayerModuleManager.start(fingerFunctionType);

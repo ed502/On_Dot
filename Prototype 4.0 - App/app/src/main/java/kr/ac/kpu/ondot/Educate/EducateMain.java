@@ -209,10 +209,10 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                         voicePlayerModuleManager.start(fingerFunctionType);
                         voicePlayerModuleManager.stop();
                         menuVoice(currentView);
-                    }
-                    else {
+                    }else {
                         mViewpager.setCurrentItem(currentView);
                         vibrator.vibrate(pattern.getVibrateErrorPattern(),-1);
+
                         voicePlayerModuleManager.start(R.raw.first_menu);
                         menuVoice(currentView);
                     }
@@ -240,10 +240,8 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }

@@ -27,7 +27,6 @@ import kr.ac.kpu.ondot.Data.TransDataVO;
 import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.Educate.EducateMain;
 import kr.ac.kpu.ondot.EnumData.MenuType;
-import kr.ac.kpu.ondot.MenualPagerAdapter.MainMenualAdapter;
 import kr.ac.kpu.ondot.Quiz.QuizFirst;
 import kr.ac.kpu.ondot.Quiz.QuizMain;
 import kr.ac.kpu.ondot.Quiz.QuizPagerAdapter;
@@ -45,12 +44,6 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
 
     private MenuType menuType = MenuType.MAIN;
     private VoicePlayerModuleManager voicePlayerModuleManager;
-
-    private ViewPager mViewpager;
-    private MainMenualAdapter mAdapter;
-    private CircleIndicator circleIndicator;
-    private int maxPage, currentView=0;
-
     private Vibrator vibrator;
     private VibratorPattern pattern;
 
@@ -74,35 +67,10 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
             }
         });
 
-        mViewpager = findViewById(R.id.mainMenual_viewpager);
-        circleIndicator = findViewById(R.id.mainMenual_circleIndicator);
-        mAdapter = new MainMenualAdapter(getSupportFragmentManager());
-        mViewpager.setAdapter(mAdapter);
-        mViewpager.setClipToPadding(false);
-        maxPage = mAdapter.getCount() - 1;
-        circleIndicator.setItemMargin(5);
-        circleIndicator.createDotPanel(mAdapter.getCount(), R.drawable.indicator_dot_off, R.drawable.indicator_dot_on);
-
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();
         voicePlayerModuleManager.start(menuType);
-
-        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {     }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentView = position;
-                circleIndicator.selectDot(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     private void initVoicePlayer() {
@@ -135,24 +103,6 @@ public class Menual extends AppCompatActivity implements CustomTouchEventListene
                     //voicePlayerModuleManager.start(fingerFunctionType);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
-                }
-                else if (fingerFunctionType == FingerFunctionType.RIGHT) { //오른쪽에서 왼쪽으로 스크롤
-
-                    if (currentView < maxPage) {
-                        mViewpager.setCurrentItem(currentView + 1);
-                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
-                    } else {
-                        mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
-                    }
-                } else if (fingerFunctionType == FingerFunctionType.LEFT) { //왼쪽에서 오른쪽으로 스크롤
-                    if (currentView > 0) {
-                        mViewpager.setCurrentItem(currentView - 1);
-                        vibrator.vibrate(pattern.getVibrateNormalPattern(),-1);
-                    } else {
-                        mViewpager.setCurrentItem(currentView);
-                        vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
-                    }
                 }
             }
         });

@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     @Override
     protected void onResume() {
         super.onResume();
+        voicePlayerModuleManager.stop();
         menuVoice(currentView);
     }
 

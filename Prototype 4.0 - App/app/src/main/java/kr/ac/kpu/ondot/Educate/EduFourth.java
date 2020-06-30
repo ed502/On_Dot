@@ -50,6 +50,8 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
     private ArrayList<String> word, dot, raw_id;
     private int currentLocation = 0;
 
+    private String rawId = "";
+
     private VoicePlayerModuleManager voicePlayerModuleManager;
 
     private Vibrator vibrator;
@@ -125,10 +127,12 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                voicePlayerModuleManager.allStop();
+                voicePlayerModuleManager.start(rawId);
                 break;
             case NONE:
                 Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
@@ -298,9 +302,9 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
             }
         }
         sendData(dotData);
-        String raw_id = list.get(currentLocation).getRaw_id();
+        rawId = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.allStop();
-        voicePlayerModuleManager.start(raw_id);
+        voicePlayerModuleManager.start(rawId);
 
     }
 

@@ -63,9 +63,9 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
         this.voicePlayerStopListener = null;
     }
     /*
-    * 유지하려던 음성이 재생중이 아니라면 음성 파일을 중지시키고 큐를 초기화
-    * 재생 중이면 큐만 초기화
-    * */
+     * 유지하려던 음성이 재생중이 아니라면 음성 파일을 중지시키고 큐를 초기화
+     * 재생 중이면 큐만 초기화
+     * */
     public void initAll(){
         if(checkMediaMaintain() == false){
             initializeMediaPlayer();
@@ -141,10 +141,10 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
 
 
     /*
-    * 특정 음성이 중간에 멈추지 않게 하기 위한 함수
-    * 다음 음성이 없고, 해당 제스처 음성출력 파일이 방어하기로 설정된 음성일경우  해당파일은 메모리를 당장 해제하지 않음
-    * ???????????????
-    * */
+     * 특정 음성이 중간에 멈추지 않게 하기 위한 함수
+     * 다음 음성이 없고, 해당 제스처 음성출력 파일이 방어하기로 설정된 음성일경우  해당파일은 메모리를 당장 해제하지 않음
+     * ???????????????
+     * */
     private boolean checkMediaMaintain(){
         if(queue.peek() == null){
             int gestureId[] = {
@@ -183,12 +183,11 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
 
 
     /*
-    * tts 출력 함수
-    * ttsText  출력후 큐에 저장되어 있는 음성 파일을 출력
-    * */
-    public void start(Queue<Integer> soundIdQueue, String ttsText){
+     * tts 출력 함수
+     * ttsText  출력후 큐에 저장되어 있는 음성 파일을 출력
+     * */
+    public void start(String ttsText){
         tmpQueue.clear();
-        tmpQueue.addAll(soundIdQueue);
 
         if(ttsClient != null && ttsClient.isPlaying()){
             ttsClient.stop();
@@ -196,17 +195,16 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
 
         String speechMode = TextToSpeechClient.NEWTONE_TALK_2;
         String voiceType = TextToSpeechClient.VOICE_MAN_READ_CALM;
-        double speechSpeed = 1.0D;
-        int sampleRate = 16000;
+        double speechSpeed = 1.0;
 
         ttsClient = new TextToSpeechClient.Builder()
                 .setSpeechMode(speechMode)
                 .setSpeechSpeed(speechSpeed)
                 .setSpeechVoice(voiceType)
                 .setListener(this)
-                .setSampleRate(sampleRate)
                 .build();
 
+        Log.d(DEBUG_TYPE,"VoicePlayerModuleSingleton  - ttsText : " + ttsText);
         ttsClient.play(ttsText);
         Log.d(DEBUG_TYPE,"VoicePlayerModuleSingleton  수행 됨");
 
@@ -246,8 +244,8 @@ public class VoicePlayerModuleSingleton implements TextToSpeechListener {
 
 
     /*
-    * 큐에 저장되어 있는 음성들을 순서대로 출력
-    * */
+     * 큐에 저장되어 있는 음성들을 순서대로 출력
+     * */
     private void startMediaPlayer(){
         if(queue.peek() != null){
             mediaPlaying = true;

@@ -277,10 +277,11 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
         switch (fingerFunctionType) {
             case BACK:
                 vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
+                voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
-                if (scrollCount % 6 == 0 && dataCount<8) {
+                /*if (scrollCount % 6 == 0 && dataCount<8) {
                         answer = answer + "111111";
                     scrollCount = scrollCount + 6;
                     vibrator.vibrate(pattern.getVibrateSpecialPattern(), -1);
@@ -288,7 +289,9 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                 } else {
                     vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+                vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
+                voicePlayerModuleManager.start(voiceRaw_id);
                 break;
             case NONE:
                 Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();

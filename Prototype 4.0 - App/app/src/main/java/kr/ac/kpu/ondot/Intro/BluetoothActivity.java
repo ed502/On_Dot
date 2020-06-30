@@ -207,7 +207,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
         Log.d(TAG, "finalize() ");
         // Stop the bluetooth session
         if (mBtManager != null) {
-            mBtManager.stop();
+            //mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

@@ -608,7 +608,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         //sendData("222222222222222222222222222222222222");
 
         if (mBtManager != null) {
-            mBtManager.stop();
+            //mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

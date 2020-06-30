@@ -232,7 +232,7 @@ public class BluetoothManager {
     /**
      * Stop all threads
      */
-    public synchronized void stop() {
+    /*public synchronized void stop() {
         Log.d(TAG, "stop");
         Log.d(TAG, "stop() - mAdapter : " + mAdapter);
         if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
@@ -242,7 +242,7 @@ public class BluetoothManager {
 
         mIsServiceStopped = true;
         cancelRetryConnect();
-    }
+    }*/
 
     /**
      * Write to the ConnectedThread in an unsynchronized manner

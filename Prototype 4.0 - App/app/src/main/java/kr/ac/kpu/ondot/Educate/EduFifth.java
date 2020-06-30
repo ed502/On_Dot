@@ -344,7 +344,7 @@ public class EduFifth extends AppCompatActivity implements CustomTouchEventListe
     public void finalize() {
         // Stop the bluetooth session
         if (mBtManager != null) {
-            mBtManager.stop();
+            //mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

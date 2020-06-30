@@ -361,7 +361,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         //sendData("222222222222222222222222222222222222");
 
         if (mBtManager != null) {
-            mBtManager.stop();
+            //mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

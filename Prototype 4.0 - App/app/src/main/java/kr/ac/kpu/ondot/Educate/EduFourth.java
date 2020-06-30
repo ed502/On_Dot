@@ -346,7 +346,7 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
     public void finalize() {
         // Stop the bluetooth session
         if (mBtManager != null) {
-            mBtManager.stop();
+            //mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

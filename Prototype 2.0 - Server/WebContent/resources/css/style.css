@@ -18,7 +18,7 @@ h3 {
     font-family: 'GyeonggiBatang';
 }
 p {
-    font-family: 'Nanum Gothic',留묒� 怨좊뵓, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
+    font-family: 'Nanum Gothic',留묒  怨좊뵓, Dotum, AppleGothic, Sans-serif, Segoe UI, Arial, Tahoma;
     font-size: .8rem;
     color: #555;
     position: relative;
@@ -59,8 +59,8 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
-	padding: 15px 0;
-	text-align: center;
+   padding: 15px 0;
+   text-align: center;
 }
 .heading-depth03 .title:before {
     content: '';
@@ -72,7 +72,7 @@ body {
     background-color: #aaa;
 }
 .ranking_bok {
-    font-family: '�굹�닎怨좊뵓',NanumGothic,'�룍��',Dotum,Helvetica,sans-serif;
+    font-family: ' 굹 닎怨좊뵓',NanumGothic,' 룍  ',Dotum,Helvetica,sans-serif;
     font-size: 14px;
     color: #333;
     letter-spacing: -1px;
@@ -245,7 +245,8 @@ section.widget {
 .ranking_item .item_box {
     position: relative;
     display: block;
-    padding-left: 33px;
+    padding-left: 43px;
+    padding-top: 10px;
 }
 .ranking_item .item_num {
     position: absolute;
@@ -263,7 +264,7 @@ section.widget {
     line-height: 23px;
 }
 .ranking_item .item_title {
-    font-size: 15px;
+    font-size: 25px;
     color: #000;
     letter-spacing: -0.5px;
     vertical-align: top;
@@ -305,5 +306,5 @@ section.widget {
 
 .psize
 {
-	font-size: 22px;
+   font-size: 18px;
 }

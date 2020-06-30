@@ -94,7 +94,7 @@ int i=0;
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4"><a href="braile.jsp"style="color: black"><h1>온점</h1></a></div>
+            <div class="col-md-4"><a href="index.jsp"style="color: black"><h1>온점</h1></a></div>
             <div class="col-md-4"><h2>시각장애인을 위한 점자 교육 시스템</h2></div>
         </div>
         <br>
@@ -103,7 +103,7 @@ int i=0;
                 <div class="settings-navbar">
                     <ul>
                         <li>
-                            <a routerlinkactive="active" href="braile.jsp">
+                            <a routerlinkactive="active" href="index.jsp">
                                 점자란?
                             </a>
                         </li>
@@ -145,7 +145,7 @@ int i=0;
                 </div>
                 <div class="settings-container">
                     <settings-section>
-                        <div> <h3 style="text-align: center;">많이틀린 점자랭킹</h3> </div>
+                        <div> <h3 style="text-align: center;font-size:40px;">많이틀린 점자랭킹</h3> </div>
                         <div class="ranking_box">
                             <div class="list_group">
                                 <ul class="ranking_list">

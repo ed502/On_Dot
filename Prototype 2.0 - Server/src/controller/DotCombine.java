@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,10 @@ public class DotCombine extends HttpServlet {
 	private Sql sql = null;
 	private Connection conn = null;
 	private Statement stmt = null;
+	// private Statement stmt2 = null;
 	private ResultSet rs = null;
+	// private ResultSet rs2 = null;
+	private PreparedStatement ps = null;
 
 	public DotCombine() {
 		super();
@@ -44,50 +48,104 @@ public class DotCombine extends HttpServlet {
 
 		combineData = new CombineData();
 		sql = new Sql();
-		// ¾îÇÃ¿¡¼­ ¹ÞÀº °ª ¹× ºÐ¸®
+		// ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ð¸ï¿½
 		String dot = request.getParameter("dot");
 
-		String[] arr = new String[10];
-		int num = dot.length() / 12;
+		String[] arr = new String[20];
+		int num = dot.length() / 6;
 		String[] data = new String[num];
 		int[] type = new int[num];
+
+		String[] arr2 = new String[10];
+		//int num2 = dot.length() / 12;
+		String[] data2 = new String[num-1];
+		int[] type2 = new int[num-1];
+
 		for (int i = 0; i < num + 1; i++) {
 			if (i != num) {
-				arr[i] = dot.substring(0 + (12 * i), 12 * (i + 1));
+				arr[i] = dot.substring(0 + (6 * i), 6 * (i + 1));
 			} else {
-				arr[i] = dot.substring(0 + (12 * i), dot.length());
+				arr[i] = dot.substring(0 + (6 * i), dot.length());
 			}
 		}
 
+		for (int i = 0; i < num; i++) {
+			if (i != num-1) {
+				arr2[i] = dot.substring(0 + (6 * i), 12 + (6 * i));
+			} else {
+				arr2[i] = dot.substring(0 + (6 * i), dot.length());
+			}
+		}
+
+		// rlagkrwls.translate(dot);
 		String result = "";
+		String result2 = "";
+		String query = "";
+		
 		try {
 			conn = DBConnection.getConnection();
 			stmt = conn.createStatement();
+
 			for (int i = 0; i < num; i++) {
-				String query = "select * from translate_data where dot = '" + arr[i] + "'";
+				query = "select * from initial_dots where dot = '" + arr[i] + "'" + "and id !=14 order by type desc, id desc  ";
 				rs = stmt.executeQuery(query);
 				while (rs.next()) {
 					data[i] = rs.getString("word");
 					type[i] = rs.getInt("type");
-				}
 
+				}
+			}
+			for (int i = 0; i < num-1; i++) {
+				query = "select * from initial_dots where dot = '" + arr2[i] + "'" + "and id !=14 order by type desc, id desc  ";
+
+				ps = conn.prepareStatement(query);
+
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					data2[i] = rs.getString("word");
+					type2[i] = rs.getInt("type");
+					System.out.println("ì•½ì–´ ë°œê²¬  " + data2[i] + i);
+					
+				}
+			}
+			for(int i=0;i<num-1;i++) {
+				if(data2[i]!=null) {
+					data[i]=data2[i];
+					type[i]=type2[i];
+					data[i+1]=null;
+					type[i+1]=0;
+				}
+				if(type[i]==1&&type[i+1]==7) {
+					System.out.println("ì •ë³´ "+data[i+1]+"  "+data[i]+"  "+type[i+1]+"  "+type[i]);
+					combineData.kim(data[i+1],data[i]);
+					data[i]=combineData.getData();
+					System.out.println("ì¡°í•©í•˜ë‹ˆ ì´ê²Œë‚˜ì˜´!! :  " + combineData.getData());
+					type[i]=1;
+					data[i+1]=null;
+					type[i+1]=0;
+				}
 			}
 
 			combineData.hak(data, type);
-
 			result = combineData.getData();
+			combineData = new CombineData();
+			combineData.hak(data2, type2);
+			result2 = combineData.getData();
 
 			if (num == 1) {
 				result = data[0];
 			}
-			System.out.println("result ³Ñ°Ü");
+			if (num-1 == 1) {
+				result2 = data2[0];
+			}
+			System.out.println("result ï¿½Ñ°ï¿½");
+
 			sql.translate(result);
-			
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			// 6. »ç¿ëÇÑ Statement Á¾·á
+			// 6. ï¿½ï¿½ï¿½ï¿½ï¿½ Statement ï¿½ï¿½ï¿½ï¿½
 			if (rs != null)
 				try {
 					rs.close();
@@ -99,7 +157,7 @@ public class DotCombine extends HttpServlet {
 				} catch (SQLException ex) {
 				}
 
-			// 7. Ä¿³Ø¼Ç Á¾·á
+			// 7. Ä¿ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if (conn != null)
 				try {
 					conn.close();
@@ -114,13 +172,19 @@ public class DotCombine extends HttpServlet {
 			dotCombineXML.append("<entry>");
 			dotCombineXML.append("<dot>");
 			dotCombineXML.append(result);
+
+			;
 			dotCombineXML.append("</dot>");
+			dotCombineXML.append(result2);
+			for (int i = 0; i < data2.length; i++)
+				dotCombineXML.append(data2[i]+"ì´ê±´ë­ë”ë¼ : "+i);
+
 			dotCombineXML.append("</entry>");
 
 			dotCombineXML.append("</Dots>");
 			System.out.println(dotCombineXML.toString());
 
-			// ÀÀ´ä
+			// ï¿½ï¿½ï¿½ï¿½
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/xml; charset=utf-8");
 			response.getWriter().println(dotCombineXML.toString());

@@ -16,22 +16,22 @@ public class Sql {
 
 	public void translate(String dot) {
 		int bool = -1;
-		System.out.println("translateÇÔ¼ö µé¾î¿È");
+		
 		try {
 
 			conn = DBConnection.getConnection();
 			if (conn != null) {
-				System.out.println("01 DB¿¬°á ¼º°ø_controller");
+				System.out.println("01 Dì—°ê²° controller");
 			} else {
-				System.out.println("02 DB¿¬°á ½ÇÆĞ_controller");
+				System.out.println("02 DBì—°ê±¸ ì•ˆëë‚˜controller");
 			}
 			PreparedStatement ps = null;
 
-			// type =1 ÀÌ ÃÊ¼º 2°¡ ¸ğÀ½ 3ÀÌ Á¾¼º
+			// type =1 ï¿½ï¿½ ï¿½Ê¼ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			String sql = "select id from translatelog where word = "+"'"+dot+"'";
 			ps = conn.prepareStatement(sql);
-			System.out.println("Ã£À½");
+			System.out.println("ì°¾ì•„ë´„");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bool = rs.getInt("id");
@@ -40,9 +40,9 @@ public class Sql {
 				String sql2 = "update translatelog set count = count + 1 where word =" + "'" + dot + "'";
 				ps = conn.prepareStatement(sql2);
 				ps.executeUpdate();
-				System.out.println("¾÷µ«");
+				System.out.println("ì—…ë°ì´íŠ¸í•¨");
 			} else {
-				String sql3 = "insert into translatelog (word, count) values(?,?)"; // insert Äõ¸®¹®
+				String sql3 = "insert into translatelog (word, count) values(?,?)"; // insert ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				PreparedStatement pstmt = conn.prepareStatement(sql3);
 
 				pstmt.setString(1, dot);
@@ -50,7 +50,7 @@ public class Sql {
 				pstmt.setInt(2, 1);
 
 				pstmt.execute();
-				System.out.println("Ãß°¡");
+				System.out.println("ì‚½ì…");
 			}
 			// Model
 			rs.close();
@@ -58,7 +58,7 @@ public class Sql {
 			conn.close();
 
 		} catch (Exception e) {
-			System.out.println("Ä¿³Ø¼Ç °´Ã¼ È¹µæ ¿À·ù " + e.getMessage());
+			System.out.println("ì—ëŸ¬ì²˜ë¦¬ " + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			if (conn != null)

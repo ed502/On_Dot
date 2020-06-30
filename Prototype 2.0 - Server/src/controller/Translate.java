@@ -16,7 +16,7 @@ import model.DotVO;
 
 /**
  * Servlet implementation class DotXml
- * 430¼öÁ¤ // »ç¿ëÁß
+ * 430ï¿½ï¿½ï¿½ï¿½ // ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 @WebServlet("/Translate")
 public class Translate extends HttpServlet {
@@ -31,17 +31,17 @@ public class Translate extends HttpServlet {
 	   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	      try {
 	         conn = DBConnection.getConnection();
-	         //02´Ü°è :DB¿¬°á(Connection)³¡
+	         //02ï¿½Ü°ï¿½ :DBï¿½ï¿½ï¿½ï¿½(Connection)ï¿½ï¿½
 	         System.out.println(conn + "<-- conn m_list.jsp");
-	         // DB ¿¬°áÀÌ ¼º°ø µÇ¾ú´ÂÁö ¾ÈµÇ¾ú´ÂÁö ÆÇ´ÜÇÏ¶ó
+	         // DB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ï¶ï¿½
 	         if (conn != null) {
-	            System.out.println("01 DB¿¬°á ¼º°ø_controller");
+	            System.out.println("01 DB controller");
 	         } else {
-	            System.out.println("02 DB¿¬°á ½ÇÆÐ_controller");
+	            System.out.println("02 DB controller");
 	         }
 	         PreparedStatement ps = null;
 	         
-	         // type =1 ÀÌ ÃÊ¼º 2°¡ ¸ðÀ½ 3ÀÌ Á¾¼º
+	         // type =1 ï¿½ï¿½ ï¿½Ê¼ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	         String sql = "select * from initial_dots";
 	         ps = conn.prepareStatement(sql);
 	         
@@ -95,13 +95,13 @@ public class Translate extends HttpServlet {
 	         
 
 	         
-	         // ÀÀ´ä
+	         // ï¿½ï¿½ï¿½ï¿½
 	         response.setCharacterEncoding("utf-8");
 	         response.setContentType("text/xml; charset=utf-8");
 	         response.getWriter().println(dotXML.toString());
 	         
 	      } catch (Exception e) {
-	         System.out.println("Ä¿³Ø¼Ç °´Ã¼ È¹µæ ¿À·ù " + e.getMessage());
+	         System.out.println(" " + e.getMessage());
 	         e.printStackTrace();
 	      } finally {
 	         if (conn != null)

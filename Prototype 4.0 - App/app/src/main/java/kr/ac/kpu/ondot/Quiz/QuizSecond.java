@@ -134,8 +134,8 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                voicePlayerModuleManager.start(R.raw.not_insert_dot);
                 if (dataCount == 8) {
+                    voicePlayerModuleManager.start(R.raw.not_insert_dot);
                     Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
@@ -251,7 +251,7 @@ public class QuizSecond extends AppCompatActivity implements CustomTouchEventLis
                             Toast.makeText(getApplicationContext(), answer, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
+                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT && fingerFunctionType != FingerFunctionType.ENTER) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.reinput);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();

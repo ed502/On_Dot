@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/stroke_layout"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nanumgothic"
+        android:lineSpacingExtra="5dp"
+        android:text=" 손가락 두 개는 뒤로 가거나 또는 각 메뉴마다 존재하는 특수 기능을 사용할 때 사용합니다. 상단에서 하단으로 쓸어내리면 상위메뉴로 갈 수 있습니다. 특수 기능은 메뉴마다 다양한 기능으로 존재하므로 메뉴 접속 시 알려드립니다.\n 점자 교육을 위해 메뉴를 접속하면 메뉴마다 안내 음성이 존재하니 걱정하지 마시고, 점자 교육을 진행하시기 바랍니다."
+        android:textColor="@color/colorWhite"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nanumgothic"
+        android:text="여러분의 점자 학습을 응원합니다!!!"
+        android:textColor="@color/colorWhite"
+        android:textSize="30dp" />
+
+</LinearLayout>

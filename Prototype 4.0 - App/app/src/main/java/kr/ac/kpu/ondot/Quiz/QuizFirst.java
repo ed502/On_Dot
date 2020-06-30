@@ -134,7 +134,6 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
 
     @Override
     public void onOneFingerFunction(final FingerFunctionType fingerFunctionType) {
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -225,9 +224,9 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                                     answer = answer.substring(0, scrollCount);
                                     Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
                                     for (int j = 0; j < 5; j++) {
-                                        if (answer.substring((scrollCount/6)*6 + j, (scrollCount/6)*6 + j + 1).equals("1")) {
+                                        if (answer.substring((scrollCount / 6) * 6 + j, (scrollCount / 6) * 6 + j + 1).equals("1")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                                        } else if (answer.substring((scrollCount/6)*6 + j, (scrollCount/6)*6 + j + 1).equals("2")) {
+                                        } else if (answer.substring((scrollCount / 6) * 6 + j, (scrollCount / 6) * 6 + j + 1).equals("2")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
                                         }
                                     }
@@ -255,19 +254,13 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                             Toast.makeText(getApplicationContext(), answer, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
+                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT && fingerFunctionType != FingerFunctionType.ENTER) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.reinput);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
 
                 }
-                /*
-                *  여기서 문제 있는듯..
-                *  제출하면 음성이 겹치는 원인이 여기 잇오오
-                *  제출하기 하면 다시입력해줘 -> 제출 음성으로 됨
-                * */
-
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
                     if (scrollCount % 6 == 0 && scrollCount > 1) {
                         voicePlayerModuleManager.start(R.raw.submit);
@@ -287,19 +280,19 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     public void onTwoFingerFunction(FingerFunctionType fingerFunctionType) {
         switch (fingerFunctionType) {
             case BACK:
-                vibrator.vibrate(pattern.getVibrateEnterPattern(),-1);
+                vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
 
                 voicePlayerModuleManager.start(fingerFunctionType);
                 onBackPressed();
                 break;
             case SPECIAL:
-                if (scrollCount % 6 == 0 && dataCount<8) {
+                if (scrollCount % 6 == 0 && dataCount < 8) {
                     answer = answer + "111111";
                     scrollCount = scrollCount + 6;
                     vibrator.vibrate(pattern.getVibrateSpecialPattern(), -1);
                     Toast.makeText(this, "6개 빈칸", Toast.LENGTH_SHORT).show();
                 } else {
-                    vibrator.vibrate(pattern.getVibrateErrorPattern(),-1);
+                    vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                     Toast.makeText(this, "입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -448,7 +441,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
             //서버에도 데이터를 보내야함
             answer = "오답입니다";
             voicePlayerModuleManager.start(R.raw.wrong);
-            Log.d(DEBUG_TYPE, "answer : "+ list.get(random[randomIndex]).getDot());
+            Log.d(DEBUG_TYPE, "answer : " + list.get(random[randomIndex]).getDot());
             sendData(list.get(random[randomIndex]).getDot());
 
             String url = "http://15.165.135.160/test.jsp";
@@ -466,14 +459,6 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         scrollCount = 0;
         dataCount = 0;
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        voicePlayerModuleManager.allStop();
-        voicePlayerModuleManager.start(voiceRaw_id);
-    }
-
 
     class NetworkTask extends AsyncTask<Void, Void, String> {
 
@@ -580,6 +565,13 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        voicePlayerModuleManager.allStop();
+        voicePlayerModuleManager.start(voiceRaw_id);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         sendData("2222222222222222222222222222222222222222222222222");
@@ -606,6 +598,6 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
             return;
         }
 
-        Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 }

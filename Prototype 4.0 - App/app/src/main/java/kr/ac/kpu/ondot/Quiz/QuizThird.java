@@ -247,7 +247,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                             Toast.makeText(getApplicationContext(), answer, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT) {
+                    } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT && fingerFunctionType != FingerFunctionType.ENTER) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.reinput);
                         Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();

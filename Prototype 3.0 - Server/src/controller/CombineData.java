@@ -106,6 +106,7 @@ public class CombineData {
 			} else if (type[i] == 1) { // 초성일 때
 				int choInt = text[i].charAt(0) - 0xAC00 / (21 * 28);
 				//System.out.println("choInt : " + Character.toString(choInt));
+				
 				for (int j = 0; j < CHO.length; j++) {
 					if (text[i].charAt(0) == CHOARRAY[j]) {
 						//System.out.println((int) (CHO[j]));

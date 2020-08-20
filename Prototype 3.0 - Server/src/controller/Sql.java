@@ -14,25 +14,6 @@ import model.DotVO;
 public class Sql {
 	Connection conn = null;
 
-	public void delete_trans(int id) {
-		String SQL =  "update translatelog set count = 0 where id =" + "'" + id + "'";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public void delete_wrong(int id) {
-		String SQL =  "update initial_dots set count = 0 where id =" + "'" + id + "'";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void translate(String dot) {
 		int bool = -1;
 		

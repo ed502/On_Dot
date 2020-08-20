@@ -51,7 +51,7 @@ public class BrailleToHangul {
 	}
 
 	public String getResult() {
-		return strDot;
+		return data;
 	}
 
 	public void setResult(String strDot) {
@@ -60,6 +60,10 @@ public class BrailleToHangul {
 
 	// 문자열를 6개 단위로 잘라서 타입들을 구하기
 	public void cutString() {
+		if(strDot.length() % 6 != 0) {
+			data = "번역할 수 없는 점자입니다.";
+			return;
+		}
 		int len = strDot.length() / 6;
 		int lastIndex = 0;
 		for (int i = 0; i < len; i++) {
@@ -86,6 +90,7 @@ public class BrailleToHangul {
 					continue;
 				} else {
 					System.out.println("번역 불가능");
+					data = "번역이 불가능한 점자입니다.";
 					break;
 				}
 
@@ -124,6 +129,7 @@ public class BrailleToHangul {
 				/* 번역 불가능 한 부분 */
 				if (i == 0 && type == 3) { // 처음에 종성이 먼저 오는 경우 번역 불가
 					System.out.println("번역 불가능");
+					data = "번역이 불가능한 점자입니다.";
 					break;
 				}
 				if (type == 9) { // 숫자일 때 다음 점자가 문자이면 번역 불가능
@@ -131,6 +137,7 @@ public class BrailleToHangul {
 						int tempType = getType(sixDot.get(i + 1));
 						if (tempType != 9) { // 타입이 9가 아닌 것들이 오면 번역 불가능
 							System.out.println("번역 불가능");
+							data = "번역이 불가능한 점자입니다.";
 							break;
 						}
 					}
@@ -179,6 +186,7 @@ public class BrailleToHangul {
 						System.out.println("112211 -> type : " + type);
 						if (type == 0) {
 							System.out.println("번역 불가능");
+							data = "번역이 불가능한 점자입니다.";
 							break;
 						}
 						str = getWord(tempDot, type);
@@ -266,11 +274,6 @@ public class BrailleToHangul {
 			}
 		}
 
-		// 출력해보자
-//      for(int i=0; i<resultWord.size(); i++) {
-//         System.out.println("resultWord[" + i + "] : " + resultWord.get(i) + " resultType[" + i +"] : " + resultType.get(i));
-//      }
-
 		// 이중모음 처리 구간
 		for (int i = 0; i < resultType.size(); i++) {
 			if (resultType.get(0) == 8) {
@@ -346,11 +349,6 @@ public class BrailleToHangul {
 
 		johab(resultWord, resultType);
 
-		// 번역 가능한지 체크 -> true 이면 이제 조합 하면 돼!!!
-		/*
-		 * Boolean possible = checkTranslate(); if(possible) {
-		 * System.out.println("번역 가능"); }else { System.out.println("번역 불가능"); }
-		 */
 
 	}
 
@@ -634,8 +632,8 @@ public class BrailleToHangul {
 						System.out.println(" 조 합 : h" + data);
 
 					} else if ((type.get(i + 1) == 2 || type.get(i + 1) == 5) && type.get(i) != 1) { // 모음이오거나 약자가 오는데
-																										// 지금 내가 초성이아니면
-																										// 조합
+						// 지금 내가 초성이아니면
+						// 조합
 						data = data + ((char) (0XAC00 + (28 * 21 * chosung) + (28 * jungsung) + jongsung));
 						chosung = 0;
 						jungsung = 0;

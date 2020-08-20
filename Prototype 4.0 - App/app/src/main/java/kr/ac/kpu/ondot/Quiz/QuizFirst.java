@@ -5,6 +5,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -51,8 +55,10 @@ import kr.ac.kpu.ondot.Translate.TranslateResult;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 
-public class QuizFirst extends AppCompatActivity implements CustomTouchEventListener {
+public class QuizFirst extends AppCompatActivity implements CustomTouchEventListener, SensorEventListener {
     private final String DEBUG_TYPE = "type111";
+    private static final int SHAKE_SKIP_TIME = 500;
+    private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
     private ArrayList<DotVO> list;
     private DotVO data;
     private ArrayList<Integer> id, type;
@@ -69,6 +75,10 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     private TextView textData;
     private LinearLayout[] circle;
     private int currentLocation = 0, quizLocation = 0;
+
+    private SensorManager mSensorManager = null;
+    private Sensor mAccelerometer = null;
+    private long mShakeTime;
 
     private Vibrator vibrator;
     private VibratorPattern pattern;
@@ -92,6 +102,9 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();
+
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mContext = getApplicationContext();
         initBlue();
@@ -572,6 +585,13 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         voicePlayerModuleManager.allStop();
         voicePlayerModuleManager.start(voiceRaw_id);
         mContext = getApplicationContext();
+        mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener((SensorEventListener) this);
     }
 
     @Override
@@ -614,5 +634,42 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         mBtManager = null;
         mContext = null;
         mConnectionInfo = null;
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float axisX = event.values[0];
+            float axisY = event.values[1];
+            float axisZ = event.values[2];
+
+            float gravityX = axisX / SensorManager.GRAVITY_EARTH;
+            float gravityY = axisY / SensorManager.GRAVITY_EARTH;
+            float gravityZ = axisZ / SensorManager.GRAVITY_EARTH;
+
+            Float f = gravityX * gravityX + gravityY * gravityY + gravityZ * gravityZ;
+            double squaredD = Math.sqrt(f.doubleValue());
+            float gForce = (float) squaredD;
+            if (gForce > SHAKE_THRESHOLD_GRAVITY) {
+                long currentTime = System.currentTimeMillis();
+                if (mShakeTime + SHAKE_SKIP_TIME > currentTime) {
+                    return;
+                }
+                mShakeTime = currentTime;
+                scrollCount = 0;
+                dataCount = 0;
+                //data = "";
+                for (int j = 0; j < 6; j++) {
+                    circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                }
+                vibrator.vibrate(pattern.getVibrateShakePattern(), -1);
+                //Toast.makeText(getApplicationContext(), "초기화", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

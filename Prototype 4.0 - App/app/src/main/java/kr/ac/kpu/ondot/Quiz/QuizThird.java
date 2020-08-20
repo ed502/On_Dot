@@ -5,6 +5,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -47,8 +51,10 @@ import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.Translate.TranslateResult;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
-public class QuizThird extends AppCompatActivity implements CustomTouchEventListener {
+public class QuizThird extends AppCompatActivity implements CustomTouchEventListener, SensorEventListener {
     private final String DEBUG_TYPE = "type";
+    private static final int SHAKE_SKIP_TIME = 500;
+    private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
     private ArrayList<DotVO> list;
     private DotVO data;
     private ArrayList<Integer> id, type;
@@ -59,6 +65,10 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     private String answer = "";
     private String voiceRaw_id = "";
     private CustomTouchConnectListener customTouchConnectListener;
+
+    private SensorManager mSensorManager = null;
+    private Sensor mAccelerometer = null;
+    private long mShakeTime;
 
     private VoicePlayerModuleManager voicePlayerModuleManager;
     private Vibrator vibrator;
@@ -86,6 +96,9 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         initDisplaySize();
         initTouchEvent();
         initVoicePlayer();
+
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mContext = getApplicationContext();
         initBlue();
@@ -466,6 +479,13 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         super.onResume();
         voicePlayerModuleManager.allStop();
         voicePlayerModuleManager.start(voiceRaw_id);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener((SensorEventListener) this);
     }
 
     class NetworkTask extends AsyncTask<Void, Void, String> {
@@ -600,5 +620,42 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
         }
 
         //Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float axisX = event.values[0];
+            float axisY = event.values[1];
+            float axisZ = event.values[2];
+
+            float gravityX = axisX / SensorManager.GRAVITY_EARTH;
+            float gravityY = axisY / SensorManager.GRAVITY_EARTH;
+            float gravityZ = axisZ / SensorManager.GRAVITY_EARTH;
+
+            Float f = gravityX * gravityX + gravityY * gravityY + gravityZ * gravityZ;
+            double squaredD = Math.sqrt(f.doubleValue());
+            float gForce = (float) squaredD;
+            if (gForce > SHAKE_THRESHOLD_GRAVITY) {
+                long currentTime = System.currentTimeMillis();
+                if (mShakeTime + SHAKE_SKIP_TIME > currentTime) {
+                    return;
+                }
+                mShakeTime = currentTime;
+                scrollCount = 0;
+                dataCount = 0;
+                //data = "";
+                for (int j = 0; j < 6; j++) {
+                    circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
+                }
+                vibrator.vibrate(pattern.getVibrateShakePattern(), -1);
+                //Toast.makeText(getApplicationContext(), "초기화", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 }

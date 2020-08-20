@@ -326,7 +326,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 scrollCount = 0;
                 dataCount = 0;
                 data = "";
-                for (int j = 0; j < 12; j++) {
+                for (int j = 0; j < 6; j++) {
                     circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                 }
                 vibrator.vibrate(pattern.getVibrateShakePattern(), -1);

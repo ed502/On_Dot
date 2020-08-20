@@ -108,7 +108,7 @@ int i=0;
                             </a>
                         </li>
                         <li>
-                            <a routerlinkactive="active" href="wrongRanking.jsp" class="active">
+                            <a routerlinkactive="active" href="wrongRaking.jsp" class="active">
                                 점자퀴즈결과
                             </a>
                         </li>

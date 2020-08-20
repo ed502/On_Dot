@@ -139,7 +139,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
             public void run() {
                 if (dataCount == 8) {
                     voicePlayerModuleManager.start(R.raw.not_insert_dot);
-                    //Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
                         int i = scrollCount % 6;
@@ -176,7 +176,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                                     answer = answer + "2";
                                     break;
                             }
-                            //Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
                             vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.DOWN) {
@@ -212,7 +212,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                                     answer = answer + "1";
                                     break;
                             }
-                            //Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
                             vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                             scrollCount++;
                         } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
@@ -222,7 +222,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                                     dataCount--;
                                     voicePlayerModuleManager.start(R.raw.delete);
                                     answer = answer.substring(0, scrollCount);
-                                    //Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
                                     for (int j = 0; j < 5; j++) {
                                         if (answer.substring((scrollCount / 6) * 6 + j, (scrollCount / 6) * 6 + j + 1).equals("1")) {
                                             circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
@@ -235,7 +235,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                                 } else {
                                     scrollCount--;
                                     voicePlayerModuleManager.start(R.raw.delete);
-                                    //Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 취소되었습니다(왼쪽)", Toast.LENGTH_SHORT).show();
                                     i = scrollCount % 6;
                                     circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                                     vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
@@ -251,13 +251,13 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                                 circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                             }
                             dataCount++;
-                            //Toast.makeText(getApplicationContext(), answer, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), answer, Toast.LENGTH_SHORT).show();
                         }
 
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT && fingerFunctionType != FingerFunctionType.ENTER) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.reinput);
-                        //Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -269,7 +269,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                     } else {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.not_dot_input);
-                        //Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -299,7 +299,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
                 voicePlayerModuleManager.start(voiceRaw_id);
                 break;
             case NONE:
-                //Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -435,18 +435,18 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
     public void answerCheckFunc() {
         answerCheck = 1;
         if (list.get(random[randomIndex]).getDot().equals(answer)) {
-            answer = "정답";
+            answer = "정답입니다";
             voicePlayerModuleManager.start(R.raw.correct);
             answerCount++;
         } else {
             //하드웨어에 틀린 데이터 보내는 코드 추가 퀴즈 1,2,3 모두 추가
             //서버에도 데이터를 보내야함
-            answer = "오답";
+            answer = "오답입니다";
             voicePlayerModuleManager.start(R.raw.wrong);
             Log.d(DEBUG_TYPE, "answer : " + list.get(random[randomIndex]).getDot());
             sendData(list.get(random[randomIndex]).getDot());
 
-            String url = "http://15.165.135.160/QuizUpload.jsp";
+            String url = "http://15.165.135.160/test.jsp";
             NetworkTask networkTask = new NetworkTask(url, null);
             networkTask.execute();
             wronganswerCount++;
@@ -571,7 +571,6 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
         super.onResume();
         voicePlayerModuleManager.allStop();
         voicePlayerModuleManager.start(voiceRaw_id);
-        mContext = getApplicationContext();
     }
 
     @Override
@@ -597,18 +596,18 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
-            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 
-        //Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
     public void finalize() {
         // Stop the bluetooth session
         //sendData("222222222222222222222222222222222222");
 
         if (mBtManager != null) {
-            //mBtManager.stop();
+            mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

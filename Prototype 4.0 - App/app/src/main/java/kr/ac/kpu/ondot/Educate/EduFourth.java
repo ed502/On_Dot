@@ -135,7 +135,7 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
                 voicePlayerModuleManager.start(rawId);
                 break;
             case NONE:
-                //Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -336,17 +336,17 @@ public class EduFourth extends AppCompatActivity implements CustomTouchEventList
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
-            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 
-       // Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext,"Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 
     public void finalize() {
         // Stop the bluetooth session
         if (mBtManager != null) {
-            //mBtManager.stop();
+            mBtManager.stop();
             mBtManager.setHandler(null);
         }
         mBtManager = null;

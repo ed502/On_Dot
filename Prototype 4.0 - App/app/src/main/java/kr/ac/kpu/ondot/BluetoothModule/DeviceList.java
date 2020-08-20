@@ -27,11 +27,14 @@ import java.util.Set;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
 import kr.ac.kpu.ondot.CustomTouch.FingerFunctionType;
 import kr.ac.kpu.ondot.R;
+import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
 
 public class DeviceList extends AppCompatActivity implements CustomTouchEventListener {
     // Debugging
     private static final String TAG = "DeviceListActivity";
     private static final boolean D = true;
+
+    private VoicePlayerModuleManager voicePlayerModuleManager;
 
     // Return Intent extra
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -49,6 +52,11 @@ public class DeviceList extends AppCompatActivity implements CustomTouchEventLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initVoicePlayer();
+
+        voicePlayerModuleManager.allStop();
+        voicePlayerModuleManager.start(R.raw.blue_list);
 
         // Setup the window
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -109,6 +117,10 @@ public class DeviceList extends AppCompatActivity implements CustomTouchEventLis
             String noDevices = getResources().getText(R.string.none_paired).toString();
             mPairedDevicesArrayAdapter.add(noDevices);
         }
+    }
+
+    private void initVoicePlayer() {
+        voicePlayerModuleManager = new VoicePlayerModuleManager(getApplicationContext());
     }
 
     @Override

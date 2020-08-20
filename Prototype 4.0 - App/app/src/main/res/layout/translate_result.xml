@@ -14,9 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/nanumgothic"
-        android:text="입력 데이터"
+        android:paddingLeft="15dp"
+        android:text="정답"
         android:textColor="@color/colorWhite"
-        android:textSize="70dp" />
+        android:textSize="170dp" />
 
     <LinearLayout
         android:id="@+id/trans_result_layout"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,7 +83,13 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
 
         Intent intent = getIntent();
         sData = intent.getExtras().getString("data");
-        transData.setText(sData);
+        if(sData.equals("번역이 불가능한 점자입니다.")){
+            transData.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            transData.setText(sData);
+        }else{
+            transData.setText(sData);
+        }
+
 
         Log.d(DEBUG_TYPE, "텍스트 : " + sData);
 

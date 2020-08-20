@@ -297,11 +297,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                     voicePlayerModuleManager.start(fingerFunctionType);
                     //menuVoice(currentView);
                     Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-                } else if(fingerFunctionType == FingerFunctionType.LONG) {
-                    vibrator.vibrate(pattern.getVibrateSpecialPattern(),-1);
-                    Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
-                    startActivity(intent);
-                }else if (fingerFunctionType == FingerFunctionType.NONE) {
+                } else if (fingerFunctionType == FingerFunctionType.NONE) {
                     //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
 
                     voicePlayerModuleManager.start(fingerFunctionType);

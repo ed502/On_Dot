@@ -14,6 +14,7 @@
 
 <%
 String word[] = new String[21];
+int type[] = new int[21];
 int i=0;
 		Connection conn = null;
 		Statement stmt = null;
@@ -34,7 +35,7 @@ int i=0;
 			//04단계 :Query실행 끝
 			while (rs.next()) {
 				word[i] = rs.getString("word");
-
+				//type[i] = rs.getInt("type");
 				i++;
 				if(i>20)
 					break;

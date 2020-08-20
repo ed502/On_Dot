@@ -304,10 +304,10 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
     @Override
     public void onBackPressed() {
         second_time = System.currentTimeMillis();
-        Toast.makeText(MainActivity.this, "종료하시겠습니까?", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "종료하시겠습니까?", Toast.LENGTH_SHORT).show();
         if (second_time - first_time < 2000) {
             super.onBackPressed();
             finishAffinity();
@@ -388,10 +388,10 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 }

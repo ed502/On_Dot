@@ -106,10 +106,10 @@ public class TranslateIntro extends AppCompatActivity implements CustomTouchEven
                 onBackPressed();
                 break;
             case SPECIAL:
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

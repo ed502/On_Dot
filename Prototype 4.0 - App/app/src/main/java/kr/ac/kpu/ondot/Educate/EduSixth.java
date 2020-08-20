@@ -1,11 +1,12 @@
 package kr.ac.kpu.ondot.Educate;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
@@ -14,20 +15,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import kr.ac.kpu.ondot.BluetoothModule.BluetoothManager;
 import kr.ac.kpu.ondot.BluetoothModule.ConnectionInfo;
-import kr.ac.kpu.ondot.BluetoothModule.Constants;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchConnectListener;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEvent;
 import kr.ac.kpu.ondot.CustomTouch.CustomTouchEventListener;
@@ -37,15 +34,12 @@ import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.R;
 import kr.ac.kpu.ondot.Screen;
 import kr.ac.kpu.ondot.VoiceModule.VoicePlayerModuleManager;
-//초성
-public class EduFirst extends AppCompatActivity implements CustomTouchEventListener {
-    private static final String TAG = "EduFirst";
 
+public class EduSixth extends AppCompatActivity implements CustomTouchEventListener {
     private final String DEBUG_TYPE = "type";
     private LinearLayout linearLayout;
     private CustomTouchConnectListener customTouchConnectListener;
     private TextView textData;
-    private LinearLayout[] circle;
     private ArrayList<DotVO> list;
     private DotVO data;
     private ArrayList<Integer> id, type;
@@ -66,12 +60,11 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
     private BluetoothManager mBtManager = null;
     private BluetoothAdapter mBtAdapter = null;
     private ConnectionInfo mConnectionInfo = null;        // Remembers connection info when BT connection is made
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edu_first);
-        vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        setContentView(R.layout.edu_sixth);
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
         pattern = new VibratorPattern();
 
         mContext = getApplicationContext();
@@ -171,7 +164,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
 
     //id초기화 TouchListener설정 사실상 onCreate의 역할
     private void setDot() {
-        linearLayout = findViewById(R.id.edu_first_layout);
+        linearLayout = findViewById(R.id.edu_sixth_layout);
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -183,22 +176,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         });
         initDisplaySize();
         initTouchEvent();
-        textData = findViewById(R.id.edu1_text);
-
-        circle = new LinearLayout[12];
-
-        circle[0] = findViewById(R.id.edu1_circle1);
-        circle[1] = findViewById(R.id.edu1_circle2);
-        circle[2] = findViewById(R.id.edu1_circle3);
-        circle[3] = findViewById(R.id.edu1_circle4);
-        circle[4] = findViewById(R.id.edu1_circle5);
-        circle[5] = findViewById(R.id.edu1_circle6);
-        circle[6] = findViewById(R.id.edu1_circle7);
-        circle[7] = findViewById(R.id.edu1_circle8);
-        circle[8] = findViewById(R.id.edu1_circle9);
-        circle[9] = findViewById(R.id.edu1_circle10);
-        circle[10] = findViewById(R.id.edu1_circle11);
-        circle[11] = findViewById(R.id.edu1_circle12);
+        textData = findViewById(R.id.edu6_text);
     }
 
     // 서버에서 데이터 파싱해서 ArrayList에 저장
@@ -213,7 +191,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
         list = new ArrayList<DotVO>();
         boolean bId = false, bWord = false, bDot = false, bRaw_id = false, bType = false;
         try {
-            URL url = new URL("http://15.165.135.160/DotInitial");
+            URL url = new URL("http://15.165.135.160/Quiz3");
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();
@@ -278,6 +256,7 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
             data.setType(type.get(i));
             list.add(data);
         }
+        Collections.shuffle(list);
     }
 
     /*
@@ -291,39 +270,16 @@ public class EduFirst extends AppCompatActivity implements CustomTouchEventListe
      */
     public void checkData() {
         String dotData = list.get(currentLocation).getDot();
-        if (list.get(currentLocation).getDot().length() > 6) {
-            setContentView(R.layout.edu_first1);
-            setDot();
-            textData.setText(list.get(currentLocation).getWord());
-            for (int i = 0; i < dotData.length(); i++) {
-                if ((int) dotData.charAt(i) == (int) '1') {
-                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                } else if ((int) dotData.charAt(i) == (int) '2') {
-                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                }
-            }
-        } else {
-            setContentView(R.layout.edu_first);
-            setDot();
-            textData.setText(list.get(currentLocation).getWord());
-            for (int i = 0; i < dotData.length(); i++) {
-                if ((int) dotData.charAt(i) == (int) '1') {
-                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
-                } else if ((int) dotData.charAt(i) == (int) '2') {
-                    circle[i].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle2));
-                }
-            }
-        }
+        String word = list.get(currentLocation).getWord();
+        textData.setText(word);
 
-        sendData(dotData);
-        rawId = list.get(currentLocation).getRaw_id();
         voicePlayerModuleManager.allStop();
-        voicePlayerModuleManager.start(rawId);
+        voicePlayerModuleManager.start(word);
+        sendData(dotData);
 
     }
 
     public void sendData(String str) {
-        Log.d(TAG, "strrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : " + str);
         mBtManager.write(str.getBytes());
     }
 

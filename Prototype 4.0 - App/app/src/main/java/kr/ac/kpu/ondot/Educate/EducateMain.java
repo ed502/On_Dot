@@ -153,6 +153,10 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 // 줄임말
                 voicePlayerModuleManager.start(R.raw.abbreviation);
                 break;
+            case 5:
+                // 단어
+                voicePlayerModuleManager.start(R.raw.word);
+                break;
 
         }
     }
@@ -179,6 +183,10 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
                 break;
             case 4:
                 intent = new Intent(EducateMain.this, EduFifth.class);
+                startActivity(intent);
+                break;
+            case 5:
+                intent = new Intent(EducateMain.this, EduSixth.class);
                 startActivity(intent);
                 break;
         }

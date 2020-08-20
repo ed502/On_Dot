@@ -187,7 +187,8 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                             //Toast.makeText(getApplicationContext(), scrollCount + 1 + "번째 입력되었습니다(업)", Toast.LENGTH_SHORT).show();
                             vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                             scrollCount++;
-                        } else if (fingerFunctionType == FingerFunctionType.DOWN) {
+                        }
+                        else if (fingerFunctionType == FingerFunctionType.DOWN) {
                             switch (i) {
                                 case 0:
                                     voicePlayerModuleManager.start(R.raw.dot_1);
@@ -223,7 +224,8 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                             //Toast.makeText(getApplicationContext(), scrollCount + "번째 입력되었습니다(다운)", Toast.LENGTH_SHORT).show();
                             vibrator.vibrate(pattern.getVibrateNormalPattern(), -1);
                             scrollCount++;
-                        } else if (fingerFunctionType == FingerFunctionType.RIGHT) {
+                        }
+                        else if (fingerFunctionType == FingerFunctionType.RIGHT) {
                             if (scrollCount > 0) {
                                 if (scrollCount % 6 == 0) {
                                     scrollCount--;

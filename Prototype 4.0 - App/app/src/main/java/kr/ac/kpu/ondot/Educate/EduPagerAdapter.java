@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class EduPagerAdapter extends FragmentPagerAdapter {
-    private static int MAX_PAGE = 5;
+    private static int MAX_PAGE = 6;
 
     public EduPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -27,6 +27,8 @@ public class EduPagerAdapter extends FragmentPagerAdapter {
                 return EduFourthFrag.newInstance();
             case 4:
                 return EduFifthFrag.newInstance();
+            case 5:
+                return EduSixthFrag.newInstance();
             default:
                 return null;
         }

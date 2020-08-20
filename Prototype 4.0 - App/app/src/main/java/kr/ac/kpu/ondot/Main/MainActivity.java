@@ -238,10 +238,10 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                 break;
             case 2:
                 if(mBtManager.getState() == BluetoothManager.STATE_CONNECTED){
-                    intent = new Intent(MainActivity.this, EduIntro.class);
+                    intent = new Intent(MainActivity.this, QuizIntro.class);
                     startActivity(intent);
                 }else{
-                    intent = new Intent(MainActivity.this, QuizIntro.class);
+                    intent = new Intent(MainActivity.this, BluetoothActivity.class);
                     startActivity(intent);
                 }
 

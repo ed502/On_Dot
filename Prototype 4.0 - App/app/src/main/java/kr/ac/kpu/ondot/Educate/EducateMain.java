@@ -293,7 +293,7 @@ public class EducateMain extends AppCompatActivity implements CustomTouchEventLi
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 

@@ -255,10 +255,10 @@ public class QuizMain extends AppCompatActivity implements CustomTouchEventListe
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 }

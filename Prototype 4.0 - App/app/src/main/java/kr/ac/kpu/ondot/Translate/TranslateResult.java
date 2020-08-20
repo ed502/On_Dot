@@ -137,10 +137,10 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
             case SPECIAL:
                 voicePlayerModuleManager.allStop();
                 voicePlayerModuleManager.start(sData);
-                Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "SPECIAL", Toast.LENGTH_SHORT).show();
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -198,10 +198,10 @@ public class TranslateResult extends AppCompatActivity implements CustomTouchEve
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null || !mBtAdapter.isEnabled()) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
+       //Toast.makeText(mContext, "Connected to " + mConnectionInfo.getDeviceName(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -174,7 +174,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -318,7 +318,7 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
                 } else {
                     // User did not enable Bluetooth or an error occured
                     Log.e(TAG, "BT is not enabled");
-                    Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
                 }
                 break;
             case Constants.REQUEST_CONNECT_DEVICE:
@@ -393,17 +393,14 @@ public class BluetoothActivity extends AppCompatActivity implements CustomTouchE
                         mConnectionInfo.setDeviceAddress(deviceAddress);
                         mConnectionInfo.setDeviceName(deviceName);
 
-                        Toast.makeText(mContext,
-                                "Connected to " + deviceName, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext,"Connected to " + deviceName, Toast.LENGTH_SHORT).show();
                     }
                     break;
 
                 case BluetoothManager.MESSAGE_TOAST:
                     Log.d(TAG, "BT - MESSAGE_TOAST: ");
 
-                    Toast.makeText(mContext,
-                            msg.getData().getString(Constants.SERVICE_HANDLER_MSG_KEY_TOAST),
-                            Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext,msg.getData().getString(Constants.SERVICE_HANDLER_MSG_KEY_TOAST),Toast.LENGTH_SHORT).show();
                     break;
 
             }    // End of switch(msg.what)

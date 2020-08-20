@@ -27,12 +27,12 @@
                         </li>
                         <li>
                             <a routerlinkactive="active" href="wrongRanking.jsp" >
-                                점자랭킹
+                                점자퀴즈결과
                             </a>
                         </li>
                         <li>
                                <a routerlinkactive="active" href="translateRanking.jsp">
-                                점자퀴즈결과
+                                점자번역결과
                             </a>
                         </li>
                         <li>

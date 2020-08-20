@@ -134,7 +134,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
             public void run() {
                 if (dataCount == 100) {
                     voicePlayerModuleManager.start(R.raw.not_insert_dot);
-                    Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "더 이상 입력할 수 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if (fingerFunctionType == FingerFunctionType.UP || fingerFunctionType == FingerFunctionType.DOWN || fingerFunctionType == FingerFunctionType.RIGHT) {
                         int i = scrollCount % 6;
@@ -246,7 +246,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                     } else if (fingerFunctionType != FingerFunctionType.UP && fingerFunctionType != FingerFunctionType.DOWN && fingerFunctionType != FingerFunctionType.RIGHT && fingerFunctionType != FingerFunctionType.ENTER ) {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.reinput);
-                        Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
@@ -263,7 +263,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                     } else {
                         vibrator.vibrate(pattern.getVibrateErrorPattern(), -1);
                         voicePlayerModuleManager.start(R.raw.not_dot_input);
-                        Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "점자를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -291,7 +291,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
 
                 break;
             case NONE:
-                Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "NONE", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -329,7 +329,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                     circle[j].setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stroke_circle));
                 }
                 vibrator.vibrate(pattern.getVibrateShakePattern(), -1);
-                Toast.makeText(getApplicationContext(), "초기화", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "초기화", Toast.LENGTH_SHORT).show();
             }
         }
     }

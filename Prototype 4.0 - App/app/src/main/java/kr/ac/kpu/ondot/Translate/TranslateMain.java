@@ -252,6 +252,7 @@ public class TranslateMain extends AppCompatActivity implements CustomTouchEvent
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
                     if (scrollCount % 6 == 0 && scrollCount > 1) {
                         getData();
+                        Log.d("test","data : "+ data + " result : " + result);
                         if (result.equals("")) {
                             result = "번역할 수 없습니다";
                         }

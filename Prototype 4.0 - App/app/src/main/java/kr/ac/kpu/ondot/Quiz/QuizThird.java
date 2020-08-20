@@ -255,7 +255,7 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
                     }
                 }
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
-                    if (scrollCount % 6 == 0 && scrollCount > 1) {
+                    if (scrollCount % 6 == 0 || scrollCount ==0) {
                         voicePlayerModuleManager.start(R.raw.submit);
                         answerCheckFunc();
                         vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
@@ -429,8 +429,8 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
             //voicePlayerModuleManager.allStop();
             voicePlayerModuleManager.start(voiceRaw_id);
         }*/
-        voicePlayerModuleManager.allStop();
-        voicePlayerModuleManager.start(voiceRaw_id);
+        //voicePlayerModuleManager.allStop();
+        //voicePlayerModuleManager.start(voiceRaw_id);
     }
 
     public void answerCheckFunc() {
@@ -464,6 +464,8 @@ public class QuizThird extends AppCompatActivity implements CustomTouchEventList
     @Override
     protected void onResume() {
         super.onResume();
+        voicePlayerModuleManager.allStop();
+        voicePlayerModuleManager.start(voiceRaw_id);
     }
 
     class NetworkTask extends AsyncTask<Void, Void, String> {

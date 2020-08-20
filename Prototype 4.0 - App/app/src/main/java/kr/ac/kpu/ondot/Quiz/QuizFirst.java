@@ -262,7 +262,7 @@ public class QuizFirst extends AppCompatActivity implements CustomTouchEventList
 
                 }
                 if (fingerFunctionType == FingerFunctionType.ENTER) {
-                    if (scrollCount % 6 == 0 && scrollCount > 1) {
+                    if (scrollCount % 6 == 0 || scrollCount ==0) {
                         voicePlayerModuleManager.start(R.raw.submit);
                         vibrator.vibrate(pattern.getVibrateEnterPattern(), -1);
                         answerCheckFunc();

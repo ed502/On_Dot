@@ -37,6 +37,7 @@ import kr.ac.kpu.ondot.Data.DotVO;
 import kr.ac.kpu.ondot.Data.JsonModule;
 import kr.ac.kpu.ondot.Data.VibratorPattern;
 import kr.ac.kpu.ondot.Educate.EducateMain;
+import kr.ac.kpu.ondot.Intro.BluetoothActivity;
 import kr.ac.kpu.ondot.Intro.EduIntro;
 import kr.ac.kpu.ondot.Intro.QuizIntro;
 import kr.ac.kpu.ondot.Intro.TranslateIntro;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         });
 
         mContext = getApplicationContext();
-        //initBlue();
+        initBlue();
 
         initDisplaySize();
         initTouchEvent();
@@ -221,16 +222,29 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
         Intent intent;
         switch (currentView) {
             case 0:
+
                 intent = new Intent(MainActivity.this, Menual.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(MainActivity.this, EduIntro.class);
-                startActivity(intent);
+                if(mBtManager.getState() == BluetoothManager.STATE_CONNECTED){
+                    intent = new Intent(MainActivity.this, EduIntro.class);
+                    startActivity(intent);
+                }else{
+                    intent = new Intent(MainActivity.this, BluetoothActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             case 2:
-                intent = new Intent(MainActivity.this, QuizIntro.class);
-                startActivity(intent);
+                if(mBtManager.getState() == BluetoothManager.STATE_CONNECTED){
+                    intent = new Intent(MainActivity.this, EduIntro.class);
+                    startActivity(intent);
+                }else{
+                    intent = new Intent(MainActivity.this, QuizIntro.class);
+                    startActivity(intent);
+                }
+
                 break;
             case 3:
                 intent = new Intent(MainActivity.this, TranslateIntro.class);
@@ -283,7 +297,11 @@ public class MainActivity extends AppCompatActivity implements CustomTouchEventL
                     voicePlayerModuleManager.start(fingerFunctionType);
                     //menuVoice(currentView);
                     Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
-                } else if (fingerFunctionType == FingerFunctionType.NONE) {
+                } else if(fingerFunctionType == FingerFunctionType.LONG) {
+                    vibrator.vibrate(pattern.getVibrateSpecialPattern(),-1);
+                    Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+                    startActivity(intent);
+                }else if (fingerFunctionType == FingerFunctionType.NONE) {
                     //Log.d(DEBUG_TYPE, "MainActivity - fingerFunctionType : " + fingerFunctionType);
 
                     voicePlayerModuleManager.start(fingerFunctionType);

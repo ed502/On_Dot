@@ -38,12 +38,21 @@
 #### :heavy_check_mark: 음성게시판
 &nbsp;&nbsp;&nbsp; 음성인식을 통해 음성게시판 내용을 작성하는 기능
 
+### :large_orange_diamond: 기능 시나리오
+----------------------------------------------------------
+<img src="/images/K-286.png" width="100%">
+<img src="/images/K-287.png" width="100%">
+<img src="/images/K-288.png" width="100%">
+
+
+
 ### :large_orange_diamond: 작품시연
 ----------------------------------------------------------
 #### :heavy_check_mark: 하드웨어 모델링
 
 <img src="/images/modeling1.png" width="50%"><img src="/images/modeling2.png" width="50%">
 <img src="/images/modeling3.png" width="100%">
+<img src="/images/realmodeling1.png" width="100%">
 
 ### :large_orange_diamond: 개발환경
 ----------------------------------------------------------

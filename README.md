@@ -52,8 +52,8 @@
 
 <img src="/images/modeling1.png" width="50%"><img src="/images/modeling2.png" width="50%">
 <img src="/images/modeling3.png" width="100%">
-<img src="/images/realmodeling1.jpg" width="50%"><img src="/images/realmodeling2.jpg" width="50%">
-
+<img src="/images/realmodeling1.jpg" width="100%">
+<img src="/images/realmodeling2.jpg" width="50%">
 
 ### :large_orange_diamond: 개발환경
 ----------------------------------------------------------
